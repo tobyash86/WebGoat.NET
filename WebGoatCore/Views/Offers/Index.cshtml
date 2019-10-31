@@ -1,0 +1,51 @@
+﻿@model OfferListViewModel
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<form method="post">
+    <h1>WebGoat.Net - Search for products</h1>
+    Enter all or part of the description:
+    <input asp-for="NameFilter" type="text" class="textEntry" value=@Model.NameFilter/>
+    <input type="submit" value="Search">
+    <br>
+    Category:
+    <select asp-for="SelectedCategoryId" onchange="this.form.submit()">
+        <option selected=@(Model.SelectedCategoryId == null ? "selected" : null) value="0">All categories</option>
+        @foreach (var category in Model.ProductCategories)
+        {
+            <option value="@category.CategoryId" 
+                    title="@category.Description"
+                    selected=@(Model.SelectedCategoryId == category.CategoryId ? "selected" : null)>
+                @category.CategoryName
+            </option>
+        }
+    </select>
+</form>
+<br>
+<div>
+    <table class="productTable" cellspacing="0" rules="all" border="1" style="border-collapse:collapse;">
+        <tbody>
+            <tr>
+                <th scope="col">Photo</th>
+                <th scope="col">Name</th>
+                <th scope="col">Quantity Per Unit</th>
+                <th scope="col">Price</th>
+            </tr>
+            @foreach (var offer in Model.Offers)
+            {
+                <tr>
+                    <td>
+                        <img src="Images/ProductImages/@(offer.ProductId).jpg" style="height:40px;width:40px;">
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@offer.ProductId">@offer.ProductName</a>
+                    </td>
+                    <td>@offer.QuantityPerUnit</td>
+                    <td>$@offer.UnitPrice</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
