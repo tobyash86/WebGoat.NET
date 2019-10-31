@@ -23,14 +23,18 @@ namespace WebGoatCore.Controllers
         [HttpGet]
         public async Task<IActionResult> Login()
         {
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             return View(new LoginViewModel());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel data)
+        public async Task<IActionResult> Login([Bind("Username,Password,RememberMe")] LoginViewModel model)
         {
-            var result = await _signInManager.PasswordSignInAsync(data.Username, data.Password, data.RememberMe, lockoutOnFailure: true);
+            if(!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: true);
             
             if (result.Succeeded)
             {
@@ -43,8 +47,42 @@ namespace WebGoatCore.Controllers
             }
             else
             {
-                return View(new LoginViewModel());
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View(model);
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Register()
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            return View(new RegisterViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser { 
+                    UserName = model.Username, 
+                    Email = model.Email 
+                };
+
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(model);
         }
     }
 }

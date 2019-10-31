@@ -8,7 +8,7 @@ namespace WebGoatCore.ViewModels
 {
     public class LoginViewModel
     {
-        [Display(Name = "Username")]
+        [Display(Name = "User Name")]
         [Required(ErrorMessage = "Please enter your username")]
         public string Username { get; set; }
 

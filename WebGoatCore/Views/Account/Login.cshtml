@@ -10,54 +10,22 @@
 </h2>
 <p>
     Please enter your username and password.
-    <a>Register</a>
+    <a asp-action="Register">Register</a>
     if you don't have an account.
 </p>
-@*@if (Model.LoginFailed)
-    {
-        <span class="failureNotification">
-            Your login attempt was not successful. Please try again.
-        </span>
-    }
-    <div class="accountInfo">
-
-        <form method="post">
-            <fieldset class="login">
-                <legend>Account Information</legend>
-                <p>
-                    <label for="username">Username:</label>
-                    <input asp-for="Username" name="username" type="text" class="textEntry">
-                    <span title="User Name is required." class="failureNotification" style="visibility:hidden;">*</span>
-                </p>
-                <p>
-                    <label for="password">Password:</label>
-                    <input name="password" type="password" class="passwordEntry">
-                    <span title="Password is required." class="failureNotification" style="visibility:hidden;">*</span>
-                </p>
-                <p>
-                    <input name="rememberMe" type="checkbox">
-                    <label value="true" for="rememberMe" class="inline">Keep me logged in</label>
-                </p>
-            </fieldset>
-            <p class="submitButton">
-                <input type="submit" value="Log In">
-            </p>
-        </form>
-    </div>*@
-
 @using (Html.BeginForm(FormMethod.Post))
 {
     <fieldset class="login">
         @Html.ValidationSummary(true)
         <p>
-            @Html.ValidationMessageFor(m => m.Username)
             @Html.LabelFor(m => m.Username)
             @Html.TextBoxFor(m => m.Username)
+            @Html.ValidationMessageFor(m => m.Username)
         </p>
         <p>
-            @Html.ValidationMessageFor(m => m.Password)
             @Html.LabelFor(m => m.Password)
-            @Html.TextBoxFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
         </p>
         <p>
             @Html.CheckBoxFor(m => m.RememberMe)

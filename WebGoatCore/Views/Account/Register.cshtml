@@ -1,0 +1,80 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>Create a New Account</h2>
+
+<p>
+    Use the form below to create a new account.
+    <br />
+    Passwords are required to be a minimum of 6 characters in length.
+</p>
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <fieldset class="login">
+        <legend>Account Information</legend>
+        @Html.ValidationSummary(true)
+        <p>
+            @Html.LabelFor(m => m.Username)
+            @Html.TextBoxFor(m => m.Username)
+            @Html.ValidationMessageFor(m => m.Username)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Email)
+            @Html.TextBoxFor(m => m.Email)
+            @Html.ValidationMessageFor(m => m.Email)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.CompanyName)
+            @Html.TextBoxFor(m => m.CompanyName)
+            @Html.ValidationMessageFor(m => m.CompanyName)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.ConfirmedPassword)
+            @Html.PasswordFor(m => m.ConfirmedPassword)
+            @Html.ValidationMessageFor(m => m.ConfirmedPassword)
+        </p>
+    </fieldset>
+    <fieldset class="login">
+        <legend>My address information (Optional)</legend>
+        <p>
+            @Html.LabelFor(m => m.Address)
+            @Html.TextBoxFor(m => m.Address)
+            @Html.ValidationMessageFor(m => m.Address)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.City)
+            @Html.TextBoxFor(m => m.City)
+            @Html.ValidationMessageFor(m => m.City)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Region)
+            @Html.TextBoxFor(m => m.Region)
+            @Html.ValidationMessageFor(m => m.Region)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.PostalCode)
+            @Html.TextBoxFor(m => m.PostalCode)
+            @Html.ValidationMessageFor(m => m.PostalCode)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Username)
+            @Html.TextBoxFor(m => m.Username)
+            @Html.ValidationMessageFor(m => m.Username)
+        </p>
+        <p>
+            @Html.LabelFor(m => m.Country)
+            @Html.TextBoxFor(m => m.Country)
+            @Html.ValidationMessageFor(m => m.Country)
+        </p>
+    </fieldset>
+    <p class="submitButton">
+        <input type="submit" value="Register" />
+    </p>
+}
