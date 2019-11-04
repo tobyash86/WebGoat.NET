@@ -38,8 +38,9 @@ namespace Infrastructure
             old.Region = Customer.Region;
             _context.SaveChanges();
         }
+
         //TODO: Add try/catch logic
-        public string CreateCustomer(string CompanyName, string ContactName, string Address, string City, string Region, string PostalCode, string Country)
+        public string CreateCustomer(string CompanyName, string ContactName, string? Address, string? City, string? Region, string? PostalCode, string? Country)
         {
             var customerId = GenerateCustomerId(CompanyName);
             var customer = new Customer()
