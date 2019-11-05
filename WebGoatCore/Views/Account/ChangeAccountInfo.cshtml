@@ -1,0 +1,46 @@
+﻿@model ChangeAccountInfoViewModel
+
+@{
+    ViewData["Title"] = "ChangeAccountInfo";
+}
+
+<h1>
+    Change my account info
+</h1>
+@if (Model.UpdatedSucessfully)
+{
+    <span>Your information has been updated.</span>
+}
+@Html.ValidationSummary(true)
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <fieldset class="login">
+        <legend>My personal information</legend>
+        <span>@Html.DisplayNameFor(m => m.CompanyName)</span>
+        <br>
+        <input asp-for="CompanyName" type="text" value="@Model.CompanyName" class="textEntry"><br>
+        <span>@Html.DisplayNameFor(m => m.ContactTitle)</span>
+        <br>
+        <input asp-for="ContactTitle" type="text" value="@Model.ContactTitle" class="textEntry"><br>
+    </fieldset>
+    <fieldset class="login">
+        <legend>My address information</legend>
+        <span>@Html.DisplayNameFor(m => m.Address)</span>
+        <br>
+        <input asp-for="Address" type="text" value="@Model.Address" class="textEntry"><br>
+        <span>@Html.DisplayNameFor(m => m.City)</span>
+        <br>
+        <input asp-for="City" type="text" value="@Model.City" class="textEntry"><br>
+        <span>@Html.DisplayNameFor(m => m.Region)</span>
+        <br>
+        <input asp-for="Region" type="text" value="@Model.Region" class="textEntry"><br>
+        <span>@Html.DisplayNameFor(m => m.PostalCode)</span>
+        <br>
+        <input asp-for="PostalCode" type="text" value="@Model.PostalCode" class="textEntry"><br>
+        <span>@Html.DisplayNameFor(m => m.Country)</span>
+        <br>
+        <input asp-for="Country" type="text" value="@Model.Country" class="textEntry">
+        <br>
+    </fieldset>
+    <input type="submit" name="ctl00$MainContent$btnUpdate" value="Update">
+}

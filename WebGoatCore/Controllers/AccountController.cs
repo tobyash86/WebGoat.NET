@@ -30,7 +30,7 @@ namespace WebGoatCore.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([Bind("Username,Password,RememberMe")] LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
             if(!ModelState.IsValid)
             {
@@ -114,6 +114,74 @@ namespace WebGoatCore.Controllers
             return View(new ViewAccountInfoViewModel() {
                 Customer = customer
             });
+        }
+
+        [HttpGet]
+        public IActionResult ChangeAccountInfo()
+        {
+            var customer = _customerRepository.GetCustomerByUsername(_userManager.GetUserName(User));
+            if (customer == null)
+            {
+                ModelState.AddModelError(string.Empty, "We don't recognize your customer Id. Please log in and try again.");
+                return View(new ChangeAccountInfoViewModel());
+            }
+
+            return View(new ChangeAccountInfoViewModel() {
+                CompanyName = customer.CompanyName,
+                ContactTitle = customer.ContactTitle,
+                Address = customer.Address,
+                City = customer.City,
+                Region = customer.Region,
+                PostalCode = customer.PostalCode,
+                Country = customer.Country,
+            });
+        }
+
+        [HttpPost]
+        public IActionResult ChangeAccountInfo(ChangeAccountInfoViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var customer = _customerRepository.GetCustomerByUsername(_userManager.GetUserName(User));
+                customer.CompanyName = model.CompanyName ?? customer.CompanyName;
+                customer.ContactTitle = model.ContactTitle ?? customer.ContactTitle;
+                customer.Address = model.Address ?? customer.Address;
+                customer.City = model.City ?? customer.City;
+                customer.Region = model.Region ?? customer.Region;
+                customer.PostalCode = model.PostalCode ?? customer.PostalCode;
+                customer.Country = model.Country ?? customer.Country;
+                _customerRepository.SaveCustomer(customer);
+
+                model.UpdatedSucessfully = true;
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View(new ChangePasswordViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await _userManager.ChangePasswordAsync(await _userManager.GetUserAsync(User), model.OldPassword, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    return View("ChangePasswordSuccess");
+                }
+
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(model);
         }
     }
 }

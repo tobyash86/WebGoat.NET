@@ -29,7 +29,7 @@ namespace WebGoatCore.ViewModels
         [Display(Name = "Confirm Password")]
         [Required(ErrorMessage = "Please confirm your password")]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match")]
+        [Compare(nameof(Password), ErrorMessage = "The password and confirmation password do not match")]
         public string ConfirmedPassword { get; set; }
 
         [Display(Name = "Address")]
