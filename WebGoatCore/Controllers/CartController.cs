@@ -37,8 +37,7 @@ namespace WebGoatCore.Controllers
             }
 
             var offer = _productRepository.GetProductById(offerId);
-            var orderDetail = new OrderDetail()
-            {
+            var orderDetail = new OrderDetail() {
                 Discount = 0.0F,
                 ProductId = offerId,
                 Quantity = quantity,

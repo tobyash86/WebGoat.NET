@@ -38,8 +38,7 @@ namespace WebGoatCore.Controllers
                     ImageUrl = GetImageUrlForOffer(p),
                 });
 
-            return View(new OfferListViewModel()
-            {
+            return View(new OfferListViewModel() {
                 Offers = offer,
                 ProductCategories = _context.Categories,
                 SelectedCategoryId = selectedCategoryId,
