@@ -72,6 +72,14 @@ namespace WebGoatCore
                 options.SlidingExpiration = true;
             });
 
+            services.AddDistributedMemoryCache();
+            
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+            });
+
+
             services.AddScoped<CustomerRepository>();
             services.AddScoped<ProductRepository>();
         }
@@ -92,6 +100,8 @@ namespace WebGoatCore
 
             app.UseAuthorization();
             app.UseAuthentication();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

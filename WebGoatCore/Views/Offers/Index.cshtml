@@ -37,13 +37,13 @@
             {
                 <tr>
                     <td>
-                        <img src="Images/ProductImages/@(offer.ProductId).jpg" style="height:40px;width:40px;">
+                        <img src="@offer.ImageUrl" style="height:40px;width:40px;">
                     </td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@offer.ProductId">@offer.ProductName</a>
+                        <a asp-action="Details" asp-route-productId=@offer.Offers.ProductId>@offer.Offers.ProductName</a>
                     </td>
-                    <td>@offer.QuantityPerUnit</td>
-                    <td>$@offer.UnitPrice</td>
+                    <td>@offer.Offers.QuantityPerUnit</td>
+                    <td>$@offer.Offers.UnitPrice</td>
                 </tr>
             }
         </tbody>

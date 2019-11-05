@@ -7,48 +7,77 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure;
 using Core;
 using WebGoatCore.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 
 namespace WebGoatCore.Controllers
 {
+    [Route("[controller]/[action]")]
     public class OffersController : Controller
     {
         private readonly NorthwindContext _context;
+        private readonly ProductRepository _productRepository;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public OffersController(NorthwindContext context)
+        public OffersController(NorthwindContext context, ProductRepository productRepository, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _productRepository = productRepository;
+            _webHostEnvironment = webHostEnvironment;
         }
 
-        //[AcceptVerbs("get", "post")]
-        //[HttpGet]
-        //[HttpPost]
-        public IActionResult Index(int? selectedCategoryId, string? nameFilter)
+        public IActionResult Index(string? nameFilter, int? selectedCategoryId)
         {
             if(selectedCategoryId != null && _context.Categories.Find(selectedCategoryId) == null)
             {
                 selectedCategoryId = null;
             }
 
-            IEnumerable<Product> products = _context.Products;
-
-            if (selectedCategoryId != null)
-            {
-                products = products.Where(p => p.CategoryId == selectedCategoryId.Value);
-            }
-
-            if (!string.IsNullOrWhiteSpace(nameFilter))
-            {
-                products = products.Where(p => p.ProductName.Contains(nameFilter, StringComparison.OrdinalIgnoreCase));
-            }
+            var offer = _productRepository.FindNonDiscontinuedProducts(nameFilter, selectedCategoryId)
+                .Select(p => new OfferListViewModel.OffersViewModel() {
+                    Offers = p,
+                    ImageUrl = GetImageUrlForOffer(p),
+                });
 
             return View(new OfferListViewModel()
             {
-                Offers = products,
+                Offers = offer,
                 ProductCategories = _context.Categories,
                 SelectedCategoryId = selectedCategoryId,
                 NameFilter = nameFilter
             });
         }
 
+        [HttpGet("{productId}")]
+        public IActionResult Details(int productId)
+        {
+            var model = new OfferDetailsViewModel();
+            try
+            {
+                var offer = _productRepository.GetProductById(productId);
+                model.Offer = offer;
+                model.CanAddToCart = true;
+                model.ProductImageUrl = GetImageUrlForOffer(offer);
+            }
+            catch (InvalidOperationException)
+            {
+                model.ErrorMessage = "Product not found.";
+            }
+            catch (Exception ex)
+            {
+                model.ErrorMessage = string.Format("An error has occurred: {0}", ex.Message);
+            }
+
+            return View(model);
+        }
+
+        private string GetImageUrlForOffer(Product offer)
+        {
+            var imageUrl = $"/images/productImages/{offer.ProductId}.jpg";
+            if (!_webHostEnvironment.WebRootFileProvider.GetFileInfo(imageUrl).Exists)
+            {
+                imageUrl = "/images/productImages/NoImage.jpg";
+            }
+            return imageUrl;
+        }
     }
 }

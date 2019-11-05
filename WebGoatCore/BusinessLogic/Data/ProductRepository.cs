@@ -45,18 +45,19 @@ namespace Infrastructure
         {
             return _context.Products.Where(p => p.ProductName.Contains(ProductName)).ToList();
         }
-        public List<Product> FindNonDiscontinuedProducts(string ProductName, int CategoryId)
+        public List<Product> FindNonDiscontinuedProducts(string? ProductName, int? CategoryId)
         {
+            if (ProductName == null)
+            {
+                ProductName = "";
+            }
+
             List<Product> products;
-            if (CategoryId == 0)
+            if (CategoryId == null)
                 products = _context.Products.Where(p => (!p.Discontinued) && p.ProductName.Contains(ProductName)).ToList();
             else
                 products = _context.Products.Where(p => (!p.Discontinued) && p.ProductName.Contains(ProductName) && p.CategoryId == CategoryId).ToList();
             return products;
-        }
-        public List<Product> FindNonDiscontinuedProducts(string ProductName)
-        {
-            return FindNonDiscontinuedProducts(ProductName, 0);
         }
         public void Update(Product Product)
         {
