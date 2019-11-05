@@ -95,5 +95,25 @@ namespace WebGoatCore.Controllers
 
             return View(model);
         }
+
+        public IActionResult MyAccount()
+        {
+            return View();
+        }
+
+        public IActionResult ViewAccountInfo()
+        {
+            var customer = _customerRepository.GetCustomerByUsername(_userManager.GetUserName(User));
+            if (customer == null)
+            {
+                return View(new ViewAccountInfoViewModel() {
+                    ErrorMessage = "We don't recognize your customer Id. Please log in and try again."
+                });
+            }
+
+            return View(new ViewAccountInfoViewModel() {
+                Customer = customer
+            });
+        }
     }
 }

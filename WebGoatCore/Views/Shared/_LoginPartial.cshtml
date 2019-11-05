@@ -9,7 +9,7 @@
         Hello <strong>@UserManager.GetUserName(User)</strong>!
     </span>
     <a class="nav-link btn btn-link text-dark" asp-controller="Account" asp-action="Logout">[ Logout ]</a>
-    <a class="nav-link btn btn-link text-dark">[ My Account ]</a>
+    <a class="nav-link btn btn-link text-dark" asp-controller="Account" asp-action="MyAccount">[ My Account ]</a>
 }
 else
 {

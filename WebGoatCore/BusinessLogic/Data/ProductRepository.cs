@@ -23,7 +23,7 @@ namespace Infrastructure
             var topProducts = _context.Orders
                    .Where(o => o.OrderDate > orderDate)
                    .Join(_context.OrderDetails, o => o.OrderId, od => od.OrderId, (o, od) => od)
-                   .ToList()
+                   .AsEnumerable()
                    .GroupBy(od => od.Product)
                    .OrderByDescending(g => g.Sum(t => t.UnitPrice * t.Quantity))
                    .Select(g => g.Key)
