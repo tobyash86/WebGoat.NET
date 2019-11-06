@@ -82,6 +82,8 @@ namespace WebGoatCore
 
             services.AddScoped<CustomerRepository>();
             services.AddScoped<ProductRepository>();
+            services.AddScoped<BlogEntryRepository>();
+            services.AddScoped<BlogResponseRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

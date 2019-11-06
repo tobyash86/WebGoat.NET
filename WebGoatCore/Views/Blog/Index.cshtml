@@ -1,0 +1,30 @@
+﻿@using Core
+@model IEnumerable<BlogEntry>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>
+    WebGoat.Net Blog
+</h1>
+<div>
+    @foreach (var blogEntry in Model)
+    {
+        <div class="blogEntry">
+            <partial name="_BlogEntryPartial" model="blogEntry" />
+            @if (blogEntry.Responses.Count > 0)
+            {
+                <div class="blogResponseTitle">Responses</div>
+            }
+            @foreach (var response in blogEntry.Responses)
+            {
+                <div class="blogResponse">
+                    <div class="blogResponseContents">@response.Contents</div>
+                    <div class="blogResponseSignature">@response.Author - @response.ResponseDate</div>
+                </div>
+            }
+            <a class="button blogRespondButton" asp-action="Reply" asp-route-entryId=@blogEntry.Id>Respond</a>
+        </div>
+    }
+</div>

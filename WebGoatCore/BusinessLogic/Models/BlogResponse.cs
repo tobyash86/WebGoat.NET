@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core
 {
     public class BlogResponse
     {
-        public virtual int Id { get; set; }
-        public virtual int BlogEntryId { get; set; }
-        public virtual DateTime ResponseDate { get; set; }
-        public virtual string Author { get; set; }
-        public virtual string Contents { get; set; }
-
+        public int Id { get; set; }
+        public int BlogEntryId { get; set; }
+        public BlogEntry BlogEntry { get; set; }
+        public DateTime ResponseDate { get; set; }
+        public string Author { get; set; }
+        public string Contents { get; set; }
     }
 }

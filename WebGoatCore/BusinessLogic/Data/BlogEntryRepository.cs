@@ -12,7 +12,6 @@ namespace Infrastructure
         public BlogEntryRepository(NorthwindContext context)
         {
             _context = context;
-            _context = context;
         }
         public void CreateBlogEntry(BlogEntry Entry)
         {
@@ -34,7 +33,7 @@ namespace Infrastructure
         }
         public List<BlogEntry> GetTopBlogEntries(int NumberOfEntries, int StartPosition)
         {
-
+            var dummy = _context.BlogResponses.ToList(); //EF Core?!
             var blogEntries = _context.BlogEntries.OrderByDescending(b => b.PostedDate).Skip(StartPosition).Take(NumberOfEntries);
             return blogEntries.ToList();
         }
