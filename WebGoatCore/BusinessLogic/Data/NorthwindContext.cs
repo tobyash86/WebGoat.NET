@@ -4,17 +4,22 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
+using Microsoft.Extensions.Logging;
 
 namespace Infrastructure
 {
     public class NorthwindContext : IdentityDbContext<IdentityUser>
     {
-        public static string ConnString =$"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={Environment.CurrentDirectory}\\NORTHWND.MDF;Integrated Security=True;";
-        
+        public static string ConnString =$"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={Environment.CurrentDirectory}\\NORTHWND.MDF;Integrated Security=True;MultipleActiveResultSets=True;";
+
+        public static readonly LoggerFactory _myLoggerFactory =
+            new LoggerFactory(new[] {
+                new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider()
+        });
+
         public NorthwindContext(DbContextOptions<NorthwindContext> options)
             : base(options)
         {
-
         }
 
         public DbSet<BlogEntry> BlogEntries { get; set; }
@@ -33,6 +38,12 @@ namespace Infrastructure
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<OrderDetail>().HasKey(a => new { a.ProductId, a.OrderId });
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseLoggerFactory(_myLoggerFactory);
+            optionsBuilder.EnableSensitiveDataLogging();
         }
     }
 }

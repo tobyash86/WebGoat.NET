@@ -1,0 +1,94 @@
+﻿@model CheckoutViewModel
+
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h1>
+    Check Out
+</h1>
+<div>
+    @*<span class="failureNotification">You have no items in your cart.</span>*@
+</div>
+<partial name="_CartPartial" model=@Model.Cart/>
+@using (Html.BeginForm(FormMethod.Post))
+{
+    <fieldset title="Where shall we ship this?">
+        <legend>Where shall we ship this?</legend>
+        @Html.LabelFor(m => m.ShipTarget)
+        @Html.TextBoxFor(m => m.ShipTarget, new { @maxlength = 40 })
+        @Html.ValidationMessageFor(m => m.ShipTarget)
+        <br>
+        @Html.LabelFor(m => m.Address)
+        @Html.TextBoxFor(m => m.Address, new { @maxlength = 60 })
+        @Html.ValidationMessageFor(m => m.Address)
+        <br>
+        @Html.LabelFor(m => m.City)
+        @Html.TextBoxFor(m => m.City, new { @maxlength = 15 })
+        @Html.ValidationMessageFor(m => m.City)
+        <br>
+        @Html.LabelFor(m => m.Region)
+        @Html.TextBoxFor(m => m.Region, new { @maxlength = 15 })
+        @Html.ValidationMessageFor(m => m.Region)
+        <br>
+        @Html.LabelFor(m => m.PostalCode)
+        @Html.TextBoxFor(m => m.PostalCode, new { @maxlength = 10 })
+        @Html.ValidationMessageFor(m => m.PostalCode)
+        <br>
+        @Html.LabelFor(m => m.Country)
+        @Html.TextBoxFor(m => m.Country, new { @maxlength = 15 })
+        @Html.ValidationMessageFor(m => m.Country)
+    </fieldset>
+    <fieldset>
+        <legend>How shall we ship it?</legend>
+        @Html.LabelFor(m => m.ShippingMethod)
+        <br>
+        <select asp-for="ShippingMethod" class="textEntry">
+            @foreach(var (shipperId, shippement) in Model.ShippingOptions)
+            {
+                <option value=@shipperId>@shippement</option>
+            }
+        </select>
+        @Html.ValidationMessageFor(m => m.ShippingMethod)
+    </fieldset>
+    <fieldset>
+        <legend>How would you like to pay for it?</legend>
+        @Html.LabelFor(m => m.CreditCard)
+        <br>
+        @Html.TextBoxFor(m => m.CreditCard, new { @maxlength = 20 })
+        @Html.ValidationMessageFor(m => m.CreditCard)
+        <br>
+        @Html.LabelFor(m => m.ExpirationMonth)
+        <select asp-for="ExpirationMonth">
+            <option selected="selected" value="--">--</option>
+            <option value="01">January</option>
+            <option value="02">February</option>
+            <option value="03">March</option>
+            <option value="04">April</option>
+            <option value="05">May</option>
+            <option value="06">June</option>
+            <option value="07">July</option>
+            <option value="08">August</option>
+            <option value="09">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+        @Html.ValidationMessageFor(m => m.ExpirationMonth)
+    <select asp-for="ExpirationYear">
+        <option selected="selected" value="--">--</option>
+        @foreach (var year in Model.AvailableExpirationYears)
+        {
+            <option value=@year>@year</option>
+        }
+    </select>
+        @Html.ValidationMessageFor(m => m.ExpirationYear)
+        <br>
+        <span title="Store credit card number?">
+            @Html.CheckBoxFor(m => m.RememberCreditCard)
+            @Html.LabelFor(m => m.RememberCreditCard)
+        </span>
+    </fieldset>
+
+    <input type="submit" value="Place Order">
+}

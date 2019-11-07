@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
@@ -7,6 +8,7 @@ namespace Core
 {
     public class Order
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual int OrderId { get; set; }
         public virtual string CustomerId { get; set; }
         public virtual int EmployeeId { get; set; }
@@ -41,45 +43,6 @@ namespace Core
             {
                 return this.SubTotal + this.Freight;
             }
-        }
-        /// <summary>Returns an HTML table with the contents of this cart.</summary>
-        /// <returns>The HTML table</returns>
-        /// <remarks>
-        /// ItemId
-        /// Description
-        /// Price (including discount)
-        /// Quantity
-        /// Extended Price
-        /// SubTotal
-        /// </remarks>
-        public string ToHtml(string CssClass)
-        {
-            var sb = new StringBuilder();
-            if (CssClass.Length == 0)
-                sb.Append("<table>");
-            else
-            {
-                sb.AppendFormat("<table class='{0}'>", CssClass);
-                sb.Append("<tr><th>Product Id</th><th>Product Name</th><th>Unit Price</th><th>Quantity</th><th>Extended Price</th></tr>");
-            }
-            foreach (var od in OrderDetails)
-            {
-                sb.AppendFormat("<tr><td><a href='/Product/{0}' runat='server'>{0}</a></td><td>{1}</td><td style='text-align: right;'>{2:C}</td><td style='text-align: right;'>{3}</td><td style='text-align: right;'>{4:C}</td></tr>",
-                    od.ProductId, od.Product.ProductName, od.UnitPrice * Convert.ToDecimal(1.0 - od.Discount), od.Quantity, od.ExtendedPrice);
-            }
-            sb.AppendFormat("<tr><td></td><td style='text-align: right'>Subtotal:</td><td></td><td></td><td class='SubTotal' style='text-align: right;'>{0:C}</td></tr>",
-                this.SubTotal);
-            sb.AppendFormat("<tr><td></td><td style='text-align: right'>Freight:</td><td></td><td></td><td style='text-align: right;'>{0:C}</td></tr>",
-                this.Freight);
-            sb.AppendFormat("<tr><td></td><td style='text-align: right'>Total:</td><td></td><td></td><td class='SubTotal' style='text-align: right;'>{0:C}</td></tr>",
-                this.Total);
-            sb.Append("</table>");
-            //sb.AppendFormat("<div>Tracking Number: {0}</div>", );
-            return sb.ToString();
-        }
-        public string ToHtml()
-        {
-            return ToHtml("");
         }
         public static string GetPackageTrackingUrl(string Carrier, string TrackingNumber)
         {

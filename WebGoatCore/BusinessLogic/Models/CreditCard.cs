@@ -87,11 +87,11 @@ namespace Core
             {
                 if (i % 2 == number.Length % 2)
                 {
-                    int n = number[i] * 2;
+                    int n = (number[i] - '0') * 2;
                     sum += (n / 10) + (n % 10);
                 }
                 else
-                    sum += number[i];
+                    sum += (number[i] - '0');
             }
             return (sum % 10 == 0);
         }

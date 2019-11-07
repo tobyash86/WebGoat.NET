@@ -1,0 +1,35 @@
+﻿@model Core.Cart
+
+<table class="cartTable">
+    <tbody>
+        <tr>
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Extended Price</th>
+        </tr>
+        @foreach (var order in Model.OrderDetails)
+        {
+            <tr class="itemRow">
+                <td class="productId">@order.ProductId</td>
+                <td>@order.Product.ProductName</td>
+                <td>@order.UnitPrice</td>
+                <td>
+                    <input type="text" value=@order.Quantity class="quantityInput">
+                </td>
+                <td class="extendedPrice">@order.ExtendedPrice</td>
+                <td>
+                    <a asp-controller="Cart" asp-action="RemoveOrder" asp-route-offerId=@order.ProductId>remove</a>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td></td>
+            <td style="text-align: right">Subtotal:</td>
+            <td></td>
+            <td></td>
+            <td style="border-top: 5px">@Model.SubTotal</td>
+        </tr>
+    </tbody>
+</table>

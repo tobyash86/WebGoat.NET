@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 namespace WebGoatCore
 {
@@ -27,7 +28,8 @@ namespace WebGoatCore
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
             services.AddDbContext<NorthwindContext>(options =>
-                options.UseSqlServer(NorthwindContext.ConnString),
+                options.UseSqlServer(NorthwindContext.ConnString)
+                    .UseLazyLoadingProxies(),
                 ServiceLifetime.Scoped);
             
             services.AddDefaultIdentity<IdentityUser>()
@@ -79,11 +81,17 @@ namespace WebGoatCore
                 options.Cookie.HttpOnly = true;
             });
 
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+            };
 
             services.AddScoped<CustomerRepository>();
             services.AddScoped<ProductRepository>();
             services.AddScoped<BlogEntryRepository>();
             services.AddScoped<BlogResponseRepository>();
+            services.AddScoped<ShipperRepository>();
+            services.AddScoped<OrderRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

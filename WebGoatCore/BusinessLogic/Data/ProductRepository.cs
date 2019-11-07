@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Core;
-using Core.Interfaces;
 
 namespace Infrastructure
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository
     {
         private NorthwindContext _context;
         public ProductRepository(NorthwindContext context)

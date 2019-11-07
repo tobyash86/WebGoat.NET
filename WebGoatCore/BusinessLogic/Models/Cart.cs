@@ -7,6 +7,7 @@ namespace Core
 {
     public class Cart
     {
+        
         public List<OrderDetail> OrderDetails { get; set; }
 
         public decimal SubTotal => 

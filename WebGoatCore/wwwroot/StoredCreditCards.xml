@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CreditCards>
+  <CreditCard>
+    <Username>MyUser</Username>
+    <Number>5541466776341107</Number>
+    <Expiry>9/1/2020 0:00:00</Expiry>
+  </CreditCard>
+</CreditCards>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure
 {
@@ -33,8 +34,10 @@ namespace Infrastructure
         }
         public List<BlogEntry> GetTopBlogEntries(int NumberOfEntries, int StartPosition)
         {
-            var dummy = _context.BlogResponses.ToList(); //EF Core?!
-            var blogEntries = _context.BlogEntries.OrderByDescending(b => b.PostedDate).Skip(StartPosition).Take(NumberOfEntries);
+            var blogEntries = _context.BlogEntries
+                .OrderByDescending(b => b.PostedDate)
+                .Skip(StartPosition)
+                .Take(NumberOfEntries);
             return blogEntries.ToList();
         }
     }

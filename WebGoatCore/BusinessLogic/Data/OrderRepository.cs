@@ -25,6 +25,13 @@ namespace Infrastructure
         public int CreateOrder(Order Order)
         {
             Order = _context.Orders.Add(Order).Entity;
+
+            // XXX: Hack to get EF Core workin
+            foreach (var od in Order.OrderDetails)
+            {
+                _context.Entry(_context.Products.Find(od.ProductId)).State = EntityState.Unchanged;
+            }
+
             _context.SaveChanges();
             return Order.OrderId;
         }
