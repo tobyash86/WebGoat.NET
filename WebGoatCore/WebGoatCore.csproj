@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Controllers\CheckoutController.cs~RF9894f09.TMP" />
     <None Remove="NORTHWND.MDF" />
   </ItemGroup>
 

@@ -1,0 +1,28 @@
+﻿@using Core
+@model IEnumerable<Order>
+
+@{
+    ViewData["Title"] = "Receipts";
+}
+
+<div>
+    <table class="something">
+        <tbody>
+            <tr>
+                <th>Details</th>
+                <th>Order date</th>
+                <th>Total</th>
+            </tr>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Receipt" asp-route-id=@order.OrderId>@order.OrderId</a>
+                    </td>
+                    <td>@order.OrderDate</td>
+                    <td>@order.Total</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

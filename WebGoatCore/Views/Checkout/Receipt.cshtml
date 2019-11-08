@@ -1,0 +1,59 @@
+﻿@using Core
+@model Order
+
+@{
+    ViewData["Title"] = "Receipt";
+}
+
+<span id="MainContent_lblError" class="failureNotification"></span>
+<div id="MainContent_lblOutput">
+    <div class="receiptDiv">
+        <p>Order: @Model.OrderId</p>
+        <table class="Receipt">
+            <tbody>
+                <tr>
+                    <th>Product Id</th>
+                    <th>Product Name</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th>Extended Price</th>
+                </tr>
+                @foreach (var orderDetails in Model.OrderDetails)
+                {
+                    <tr>
+                        <td>
+                            <a asp-controller="Offers" asp-action="Details" asp-route-offerId=@orderDetails.ProductId>@orderDetails.ProductId</a>
+                        </td>
+                        <td>@orderDetails.Product.ProductName</td>
+                        <td style="text-align: right;">@orderDetails.UnitPrice</td>
+                        <td style="text-align: right;">@orderDetails.Quantity</td>
+                        <td style="text-align: right;">@orderDetails.ExtendedPrice</td>
+                    </tr>
+                }
+                <tr>
+                    <td></td>
+                    <td style="text-align: right">Subtotal:</td>
+                    <td></td>
+                    <td></td>
+                    <td class="SubTotal" style="text-align: right;">@Model.SubTotal</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style="text-align: right">Freight:</td>
+                    <td></td>
+                    <td></td>
+                    <td style="text-align: right;">@Model.Freight</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td style="text-align: right">Total:</td>
+                    <td></td>
+                    <td></td>
+                    <td class="SubTotal" style="text-align: right;">@Model.Total</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<br>
+<a asp-controller="Home" asp-action="Index">Keep shopping</a>

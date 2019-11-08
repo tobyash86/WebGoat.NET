@@ -174,5 +174,48 @@ namespace WebGoatCore.Controllers
 
             return RedirectToAction("Receipt");
         }
+
+        public IActionResult Receipt(int? id)
+        {
+            var orderId = HttpContext.Session.GetInt32("OrderId");
+            if(id != null)
+            {
+                orderId = id;
+            }
+
+            if(orderId == null)
+            {
+                ModelState.AddModelError(string.Empty, "No order specified.  Please try again.");
+                return View();
+            }
+
+            Order order;
+            try
+            {
+                order = _orderRepository.GetOrderById(orderId.Value);
+            }
+            catch (InvalidOperationException)
+            {
+                ModelState.AddModelError(string.Empty, string.Format("Order {0} was not found.", orderId));
+                return View();
+            }
+
+            return View(order);
+        }
+
+        public IActionResult Receipts()
+        {
+            var username = User.Identity.Name;
+            var customer = _customerRepository.GetCustomerByUsername(username);
+
+            if (customer == null)
+            {
+                ModelState.AddModelError(string.Empty, "I can't identify you. Please log in and try again.");
+                return View();
+            }
+
+            var orders = _orderRepository.GetAllOrdersByCustomerId(customer.CustomerId);
+            return View(orders);
+        }
     }
 }
