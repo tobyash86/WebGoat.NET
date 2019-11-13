@@ -5,6 +5,6 @@ namespace WebGoatCore.ViewModels
 {
     public class HomeViewModel
     {
-        public IEnumerable<Product> TopOffers { get; set; }
+        public IEnumerable<Product> TopProducts { get; set; }
     }
 }

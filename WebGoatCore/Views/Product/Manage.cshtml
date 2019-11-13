@@ -1,0 +1,25 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Manage";
+}
+
+<h1>Manage Products</h1>
+<div>
+    <p>
+        <a asp-action="Add">Add</a> a product.
+    </p>
+    <p>... or select a project from the list below to edit it.</p>
+</div>
+<div>
+    <div>
+        <ul>
+            @foreach (var product in Model)
+            {
+                <li>
+                    <a asp-action="Edit" asp-route-id=@product.ProductId>@product.ProductName</a>  Price: @product.UnitPrice In stock: @product.UnitsInStock On order: @product.UnitsOnOrder
+                </li>
+            }
+        </ul>
+    </div>
+</div>

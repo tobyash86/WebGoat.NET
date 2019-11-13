@@ -15,10 +15,10 @@
     Today's featured items
 </h3>
 <div class="productListItem">
-    @foreach (var offer in Model.TopOffers)
+    @foreach (var product in Model.TopProducts)
     {
-        <a asp-controller="Offers" asp-action="Details" asp-route-productId=@offer.ProductId>
-            <img src="Images/ProductImages/@(offer.ProductId).jpg" alt="&nbsp;&nbsp;&nbsp;@offer.ProductName">
+        <a asp-controller="Product" asp-action="Details" asp-route-productId=@product.ProductId>
+            <img src="Images/ProductImages/@(product.ProductId).jpg" alt="&nbsp;&nbsp;&nbsp;@product.ProductName">
         </a>
     }
 </div>

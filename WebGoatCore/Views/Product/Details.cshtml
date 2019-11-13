@@ -1,0 +1,33 @@
+﻿@model ProductDetailsViewModel
+
+@{
+    ViewData["Title"] = "Product details";
+}
+
+<div>
+    @if (@Model.ErrorMessage != null)
+    {
+        <div class="error">
+            @Model.ErrorMessage
+        </div>
+    }
+    else
+    {
+        <div class="productDetail">
+            <img src=@Model.ProductImageUrl alt=@Model.Product.ProductName>
+            <br>
+            @Model.Product.ProductName
+            <br>
+            Category: @(Model.Product.Category?.CategoryName ?? "No category")
+            <br>
+            Unit: @Model.Product.QuantityPerUnit
+            <br>
+            Price: @Model.Product.UnitPrice
+        </div>
+        <form asp-controller="Cart" asp-action="AddOrder" asp-route-productId=@Model.Product.ProductId>
+            <label for="quantity">Quantity:</label>
+            <input name="quantity" type="text" value="1">
+            <input type="submit" value="Add to cart">
+        </form>
+    }
+</div>

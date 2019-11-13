@@ -20,7 +20,7 @@
                 </td>
                 <td class="extendedPrice">@order.ExtendedPrice</td>
                 <td>
-                    <a asp-controller="Cart" asp-action="RemoveOrder" asp-route-offerId=@order.ProductId>remove</a>
+                    <a asp-controller="Cart" asp-action="RemoveOrder" asp-route-productId=@order.ProductId>remove</a>
                 </td>
             </tr>
         }

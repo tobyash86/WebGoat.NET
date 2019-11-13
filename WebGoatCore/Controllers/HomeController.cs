@@ -20,7 +20,7 @@ namespace WebGoatCore.Controllers
         {
             return View(new HomeViewModel()
             {
-                TopOffers = _productRepository.GetTopProducts(4)
+                TopProducts = _productRepository.GetTopProducts(4)
             });
         }
 

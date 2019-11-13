@@ -26,22 +26,22 @@ namespace WebGoatCore.Controllers
             return View(cart);
         }
 
-        [HttpPost("{offerId}")]
-        public IActionResult AddOrder(int offerId, short quantity)
+        [HttpPost("{productId}")]
+        public IActionResult AddOrder(int productId, short quantity)
         {
             if (!HttpContext.Session.TryGetInMemory<Cart>("Cart", out var cart))
             {
                 cart = new Cart();
             }
 
-            var offer = _productRepository.GetProductById(offerId);
+            var product = _productRepository.GetProductById(productId);
             var orderDetail = new OrderDetail()
             {
                 Discount = 0.0F,
-                ProductId = offerId,
+                ProductId = productId,
                 Quantity = quantity,
-                Product = offer,
-                UnitPrice = offer.UnitPrice
+                Product = product,
+                UnitPrice = product.UnitPrice
             };
             cart.OrderDetails.Add(orderDetail);
 
@@ -50,17 +50,17 @@ namespace WebGoatCore.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet("{offerId}")]
-        public IActionResult RemoveOrder(int offerId)
+        [HttpGet("{productId}")]
+        public IActionResult RemoveOrder(int productId)
         {
             try
             {
                 if (HttpContext.Session.TryGetInMemory<Cart>("Cart", out var cart))
                 {
-                    var orderDetail = cart.OrderDetails.First(od => od.ProductId == offerId);
+                    var orderDetail = cart.OrderDetails.First(od => od.ProductId == productId);
                     if (orderDetail == null)
                     {
-                        return View("RemoveOrderError", string.Format("Offer {0} was not found in your cart.", offerId));
+                        return View("RemoveOrderError", string.Format("Product {0} was not found in your cart.", productId));
                     }
 
                     cart.OrderDetails.Remove(orderDetail);
