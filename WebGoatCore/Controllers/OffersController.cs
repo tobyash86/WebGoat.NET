@@ -18,13 +18,15 @@ namespace WebGoatCore.Controllers
         private readonly NorthwindContext _context;
         private readonly ProductRepository _productRepository;
         private readonly CategoryRepository _categoryRepository;
+        private readonly SupplierRepository _supplierRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public OffersController(NorthwindContext context, ProductRepository productRepository, IWebHostEnvironment webHostEnvironment, CategoryRepository categoryRepository)
+        public OffersController(NorthwindContext context, ProductRepository productRepository, IWebHostEnvironment webHostEnvironment, CategoryRepository categoryRepository, SupplierRepository supplierRepository)
         {
             _context = context;
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
+            _supplierRepository = supplierRepository;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -79,16 +81,40 @@ namespace WebGoatCore.Controllers
         [HttpGet]
         public IActionResult Add()
         {
-            return View("Edit", new OfferEditViewModel() {
+            return View("AddOrEdit", new OfferAddOrEditViewModel() {
+                AddsNew = true,
                 ProductCategories = _categoryRepository.GetAllCategories(),
+                Suppliers = _supplierRepository.GetAllSuppliers(),
             });
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Add(Product offer)
+        {
+            try
+            {
+                _productRepository.Add(offer);
+                return RedirectToAction("Edit", new { id = offer.ProductId });
+            }
+            catch
+            {
+                return View("AddOrEdit", new OfferAddOrEditViewModel()
+                {
+                    AddsNew = true,
+                    ProductCategories = _categoryRepository.GetAllCategories(),
+                    Suppliers = _supplierRepository.GetAllSuppliers(),
+                    Offer = offer,
+                });
+            }
         }
 
         [Authorize]
         [HttpGet("{id}")]
         public IActionResult Edit(int id)
         {
-            return View(new OfferEditViewModel() {
+            return View("AddOrEdit", new OfferAddOrEditViewModel() {
+                AddsNew = false,
                 ProductCategories = _categoryRepository.GetAllCategories(),
                 Offer = _productRepository.GetProductById(id),
             });
@@ -99,8 +125,9 @@ namespace WebGoatCore.Controllers
         public IActionResult Edit(Product offer)
         {
             offer = _productRepository.Update(offer);
-            return View(new OfferEditViewModel()
+            return View("AddOrEdit", new OfferAddOrEditViewModel()
             {
+                AddsNew = false,
                 ProductCategories = _categoryRepository.GetAllCategories(),
                 Offer = offer,
             });

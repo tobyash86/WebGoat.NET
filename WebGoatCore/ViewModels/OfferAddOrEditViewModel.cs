@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace WebGoatCore.ViewModels
 {
-    public class OfferEditViewModel
+    public class OfferAddOrEditViewModel
     {
+        public bool AddsNew { get; set; }
         public Product? Offer { get; set; }
         public IList<Category> ProductCategories { get; set; }
+        public IList<Supplier>? Suppliers { get; set; }
     }
 }

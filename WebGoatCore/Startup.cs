@@ -96,6 +96,7 @@ namespace WebGoatCore
             services.AddScoped<BlogEntryRepository>();
             services.AddScoped<BlogResponseRepository>();
             services.AddScoped<ShipperRepository>();
+            services.AddScoped<SupplierRepository>();
             services.AddScoped<OrderRepository>();
             services.AddScoped<CategoryRepository>();
         }
