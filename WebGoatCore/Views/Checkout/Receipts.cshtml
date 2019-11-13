@@ -11,6 +11,7 @@
                 <th>Details</th>
                 <th>Order date</th>
                 <th>Total</th>
+                <th>Trace package</th>
             </tr>
             @foreach (var order in Model)
             {
@@ -20,6 +21,14 @@
                     </td>
                     <td>@order.OrderDate</td>
                     <td>@order.Total</td>
+                    @if (order.Shipment != null)
+                    {
+                        <td>
+                            <a asp-action="PackageTracking" 
+                               asp-route-carrier="@order.Shipment.Shipper.CompanyName"
+                               asp-route-trackingNumber="@order.Shipment.TrackingNumber">Trace</a>
+                        </td>
+                    }
                 </tr>
             }
         </tbody>

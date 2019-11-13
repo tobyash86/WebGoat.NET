@@ -11,5 +11,6 @@ namespace WebGoatCore.Models
         public string TrackingNumber { get; set; }
 
         public virtual Order Order { get; set; }
+        public virtual Shipper Shipper { get; set; }
     }
 }

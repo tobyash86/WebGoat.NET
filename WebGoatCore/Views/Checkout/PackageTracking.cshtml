@@ -1,0 +1,73 @@
+﻿@model PackageTrackingViewModel
+
+@{
+    ViewData["Title"] = "PackageTracking";
+}
+
+<h1>
+    Package Tracking
+</h1>
+<div>
+    <div>
+        <p>
+            Here are all of your current orders.
+        </p>
+        <h3>
+            Your orders
+        </h3>
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Order</th>
+                        <th>Order date</th>
+                        <th>Shipping Cost</th>
+                        <th>Shipping Method</th>
+                        <th>Order Total</th>
+                        <th>Tracking number</th>
+                    </tr>
+                    @foreach (var order in Model.Orders)
+                    {
+                        <tr>
+                            <td>@order.OrderId</td>
+                            <td>@order.OrderDate</td>
+                            <td>@(order.Total-order.SubTotal)</td>
+                            <td>@order.ShipVia</td>
+                            <td>@order.Total</td>
+                            <td>
+                                @if(order.Shipment == null)
+                                {
+                                    <span>No tracking number recorded.</span>
+                                }
+                                else
+                                {
+                                    <a asp-action="PackageTracking" 
+                                       asp-route-carrier="@order.Shipment.Shipper.CompanyName"
+                                       asp-route-trackingNumber="@order.Shipment.TrackingNumber">
+                                       @order.Shipment.TrackingNumber</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div>
+    @using (Html.BeginForm("GoToExternalTracker", "Checkout"))
+    {
+        <p>
+            Please enter your carrier and tracking number below.
+        </p>
+        <span>Carrier</span>
+        <br>
+        <input name="carrier" type="text" value="@Model.SelectedCarrier">
+        <br>
+        <span>Tracking Number</span>
+        <br>
+        <input name="trackingNumber" type="text" value="@Model.SelectedTrackingNumber">
+        <br>
+        <input type="submit" value="Track Package">
+    }
+</div>

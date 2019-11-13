@@ -159,14 +159,12 @@ namespace WebGoatCore.Controllers
                 creditCard.SaveCardForUser();
             }
 
-            var shipment = new Shipment()
+            order.Shipment = new Shipment()
             {
                 ShipmentDate = DateTime.Today.AddDays(1),
                 ShipperId = order.ShipVia,
                 TrackingNumber = _shipperRepository.GetNextTrackingNumber(_shipperRepository.GetShipperByShipperId(order.ShipVia)),
             };
-            //TODO: Uncommenting this line causes EF to throw exception when creating the order.
-            //order.Shipment = shipment;
 
             //Create the order itself.
             int orderId = _orderRepository.CreateOrder(order);
@@ -209,17 +207,50 @@ namespace WebGoatCore.Controllers
 
         public IActionResult Receipts()
         {
+            var orders = GetOrdersOrAddError();
+            if(orders == null)
+            {
+                return View();
+            }
+
+            return View(orders);
+        }
+
+        public IActionResult PackageTracking(string? carrier, string? trackingNumber)
+        {
+            var orders = GetOrdersOrAddError();
+            if (orders == null)
+            {
+                return View();
+            }
+
+            var model = new PackageTrackingViewModel()
+            { 
+                SelectedCarrier = carrier,
+                SelectedTrackingNumber = trackingNumber,
+                Orders = orders
+            };
+
+            return View(model);
+        }
+
+        private ICollection<Order>? GetOrdersOrAddError()
+        {
             var username = User.Identity.Name;
             var customer = _customerRepository.GetCustomerByUsername(username);
 
             if (customer == null)
             {
                 ModelState.AddModelError(string.Empty, "I can't identify you. Please log in and try again.");
-                return View();
+                return null;
             }
 
-            var orders = _orderRepository.GetAllOrdersByCustomerId(customer.CustomerId);
-            return View(orders);
+            return _orderRepository.GetAllOrdersByCustomerId(customer.CustomerId);
+        }
+
+        public IActionResult GoToExternalTracker(string carrier, string trackingNumber)
+        {
+            return Redirect(Order.GetPackageTrackingUrl(carrier, trackingNumber));
         }
     }
 }
