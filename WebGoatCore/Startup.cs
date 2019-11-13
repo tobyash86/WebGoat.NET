@@ -11,6 +11,9 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace WebGoatCore
 {
@@ -27,12 +30,14 @@ namespace WebGoatCore
         {
             services.AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
+
             services.AddDbContext<NorthwindContext>(options =>
                 options.UseSqlServer(NorthwindContext.ConnString)
                     .UseLazyLoadingProxies(),
                 ServiceLifetime.Scoped);
-            
+
             services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<NorthwindContext>();
 
             services.Configure<IdentityOptions>(options =>
@@ -92,6 +97,7 @@ namespace WebGoatCore
             services.AddScoped<BlogResponseRepository>();
             services.AddScoped<ShipperRepository>();
             services.AddScoped<OrderRepository>();
+            services.AddScoped<CategoryRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -108,8 +114,8 @@ namespace WebGoatCore
 
             app.UseRouting();
 
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseSession();
 

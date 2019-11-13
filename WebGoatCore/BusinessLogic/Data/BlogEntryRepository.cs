@@ -14,11 +14,27 @@ namespace Infrastructure
         {
             _context = context;
         }
-        public void CreateBlogEntry(BlogEntry Entry)
+        public BlogEntry CreateBlogEntry(string title, string contents, string username)
         {
-            //TODO: should put this in a try/catch
-            _context.BlogEntries.Add(Entry);
-            _context.SaveChanges();
+            var sql = string.Format("insert into BlogEntries (Title, Contents, Author, PostedDate) " +
+                "values ('{0}','{1}','{2}','{3:yyyy-MM-dd}'); " +
+                "select top 1 * from blogentries order by Id desc;",
+                title, contents, username, DateTime.Now);
+
+            using var command = _context.Database.GetDbConnection().CreateCommand();
+            command.CommandText = sql;
+            _context.Database.OpenConnection();
+            var dataReader = command.ExecuteReader();
+            var entry = new BlogEntry();
+            while (dataReader.Read())
+            {
+                entry.Id = (int)dataReader[0];
+                entry.Title = (string)dataReader[1];
+                entry.Contents = (string)dataReader[2];
+                entry.Author = (string)dataReader[3];
+                entry.PostedDate = (DateTime)dataReader[4];
+            }
+            return entry;
         }
         public BlogEntry GetBlogEntry(int BlogEntryId)
         {

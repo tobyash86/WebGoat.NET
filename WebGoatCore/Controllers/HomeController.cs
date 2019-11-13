@@ -4,22 +4,20 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using WebGoatCore.ViewModels;
 
 namespace WebGoatCore.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly NorthwindContext _context;
         private readonly ProductRepository _productRepository;
 
-        public HomeController(ILogger<HomeController> logger, NorthwindContext context, ProductRepository productRepository)
+        public HomeController(ProductRepository productRepository)
         {
-            _logger = logger;
-            _context = context;
             _productRepository = productRepository;
         }
 
@@ -30,11 +28,17 @@ namespace WebGoatCore.Controllers
             });
         }
 
+        public IActionResult About() => View();
+
+        [Authorize(Roles = "Admin")]
+        public IActionResult Admin() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { 
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier 
+            });
         }
     }
 }

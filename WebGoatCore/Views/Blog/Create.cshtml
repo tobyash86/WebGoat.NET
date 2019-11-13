@@ -1,0 +1,35 @@
+﻿@using Core
+@model BlogEntry?
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>
+    Create a new blog entry
+</h1>
+<form method="post">
+    @if (Model != null)
+    {
+        <span>New blog entry was posted.</span>
+        <br>
+    }
+    <div>
+        Title:<br>
+        <input type="text" name="title" class="blogCreateTitleText">
+    </div>
+    <div>
+        Contents:<br>
+        <textarea name="contents" rows="2" cols="20" class="blogCreateContents"></textarea>
+    </div>
+    <br>
+    <a href="javascript:history.go(-1)" style="float: left;">Cancel</a>
+    <input type="submit" value="Submit" style="float: right;">
+    <br>
+    @if (Model != null)
+    {
+        <span>Here is what your blog entry will look like:</span>
+        <br><br>
+        <partial name="_BlogEntryPartial" model=@Model />
+    }
+</form>

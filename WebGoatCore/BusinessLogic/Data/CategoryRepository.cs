@@ -15,5 +15,9 @@ namespace Infrastructure
         {
             return _context.Categories.OrderBy(c => c.CategoryId).ToList();
         }
+        public Category GetById(int id)
+        {
+            return _context.Categories.Find(id);
+        }
     }
 }

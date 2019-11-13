@@ -8,6 +8,7 @@ using Infrastructure;
 using Core;
 using WebGoatCore.ViewModels;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebGoatCore.Controllers
 {
@@ -16,12 +17,14 @@ namespace WebGoatCore.Controllers
     {
         private readonly NorthwindContext _context;
         private readonly ProductRepository _productRepository;
+        private readonly CategoryRepository _categoryRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public OffersController(NorthwindContext context, ProductRepository productRepository, IWebHostEnvironment webHostEnvironment)
+        public OffersController(NorthwindContext context, ProductRepository productRepository, IWebHostEnvironment webHostEnvironment, CategoryRepository categoryRepository)
         {
             _context = context;
             _productRepository = productRepository;
+            _categoryRepository = categoryRepository;
             _webHostEnvironment = webHostEnvironment;
         }
 
@@ -40,7 +43,7 @@ namespace WebGoatCore.Controllers
 
             return View(new OfferListViewModel() {
                 Offers = offer,
-                ProductCategories = _context.Categories,
+                ProductCategories = _categoryRepository.GetAllCategories(),
                 SelectedCategoryId = selectedCategoryId,
                 NameFilter = nameFilter
             });
@@ -67,6 +70,40 @@ namespace WebGoatCore.Controllers
             }
 
             return View(model);
+        }
+
+        [Authorize]
+        public IActionResult Manage() => View(_productRepository.GetAllProducts());
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View("Edit", new OfferEditViewModel() {
+                ProductCategories = _categoryRepository.GetAllCategories(),
+            });
+        }
+
+        [Authorize]
+        [HttpGet("{id}")]
+        public IActionResult Edit(int id)
+        {
+            return View(new OfferEditViewModel() {
+                ProductCategories = _categoryRepository.GetAllCategories(),
+                Offer = _productRepository.GetProductById(id),
+            });
+        }
+
+        [Authorize]
+        [HttpPost("{id?}")]
+        public IActionResult Edit(Product offer)
+        {
+            offer = _productRepository.Update(offer);
+            return View(new OfferEditViewModel()
+            {
+                ProductCategories = _categoryRepository.GetAllCategories(),
+                Offer = offer,
+            });
         }
 
         private string GetImageUrlForOffer(Product offer)

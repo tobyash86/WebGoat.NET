@@ -58,9 +58,9 @@ namespace Infrastructure
                 products = _context.Products.Where(p => (!p.Discontinued) && p.ProductName.Contains(ProductName) && p.CategoryId == CategoryId).ToList();
             return products;
         }
-        public void Update(Product Product)
+        public Product Update(Product Product)
         {
-            var old = _context.Products.Single(p => p.ProductId == Product.ProductId);
+            var old = _context.Products.Find(Product.ProductId);
             old.CategoryId = Product.CategoryId;
             old.Discontinued = Product.Discontinued;
             old.ProductName = Product.ProductName;
@@ -71,6 +71,7 @@ namespace Infrastructure
             old.UnitsInStock = Product.UnitsInStock;
             old.UnitsOnOrder = Product.UnitsOnOrder;
             _context.SaveChanges();
+            return old;
         }
         public void Add(Product Product)
         {

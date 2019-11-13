@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core;
 using Infrastructure;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebGoatCore.Controllers
@@ -11,7 +12,6 @@ namespace WebGoatCore.Controllers
     [Route("[controller]/[action]")]
     public class BlogController : Controller
     {
-        private readonly NorthwindContext _context;
         private readonly BlogEntryRepository _blogEntryRepository;
         private readonly BlogResponseRepository _blogResponseRepository;
 
@@ -19,7 +19,6 @@ namespace WebGoatCore.Controllers
         {
             _blogEntryRepository = blogEntryRepository;
             _blogResponseRepository = blogResponseRepository;
-            _context = context;
         }
 
         public IActionResult Index()
@@ -46,6 +45,30 @@ namespace WebGoatCore.Controllers
             _blogResponseRepository.CreateBlogResponse(response);
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Create(string title, string contents)
+        {
+            try
+            {
+                var blogEntry = _blogEntryRepository.CreateBlogEntry(title, contents, User.Identity.Name!);
+                return View(blogEntry);
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "I can't identify you. Please log in and try again.");
+                string.Format("A problem has occured.  Please try again. Error={0}", ex.Message);
+                return View();
+            }
         }
     }
 }
