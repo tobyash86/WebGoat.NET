@@ -1,5 +1,5 @@
-﻿using Core;
-using Infrastructure;
+﻿using WebGoatCore.Models;
+using WebGoatCore.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -14,16 +14,14 @@ namespace WebGoatCore.Controllers
     public class CheckoutController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
         private readonly CustomerRepository _customerRepository;
         private readonly ShipperRepository _shipperRepository;
         private readonly OrderRepository _orderRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public CheckoutController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, CustomerRepository customerRepository, IWebHostEnvironment webHostEnvironment, ShipperRepository shipperRepository, OrderRepository orderRepository)
+        public CheckoutController(UserManager<IdentityUser> userManager, CustomerRepository customerRepository, IWebHostEnvironment webHostEnvironment, ShipperRepository shipperRepository, OrderRepository orderRepository)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
             _customerRepository = customerRepository;
             _shipperRepository = shipperRepository;
             _webHostEnvironment = webHostEnvironment;
@@ -75,7 +73,10 @@ namespace WebGoatCore.Controllers
             model.Country = customer.Country;
             model.AvailableExpirationYears = new List<int>();
             for (int i = 0; i <= 5; i++)
+            {
                 model.AvailableExpirationYears.Add(DateTime.Now.Year + i);
+            }
+
             model.ShippingOptions = _shipperRepository.GetShippingOptions(cart.SubTotal);
 
             return View(model);
@@ -154,9 +155,12 @@ namespace WebGoatCore.Controllers
             var approvalCode = creditCard.ChargeCard(order.Total);
 
             if (model.RememberCreditCard)
+            {
                 creditCard.SaveCardForUser();
+            }
 
-            var shipment = new Shipment() {
+            var shipment = new Shipment()
+            {
                 ShipmentDate = DateTime.Today.AddDays(1),
                 ShipperId = order.ShipVia,
                 TrackingNumber = _shipperRepository.GetNextTrackingNumber(_shipperRepository.GetShipperByShipperId(order.ShipVia)),
@@ -178,12 +182,12 @@ namespace WebGoatCore.Controllers
         public IActionResult Receipt(int? id)
         {
             var orderId = HttpContext.Session.GetInt32("OrderId");
-            if(id != null)
+            if (id != null)
             {
                 orderId = id;
             }
 
-            if(orderId == null)
+            if (orderId == null)
             {
                 ModelState.AddModelError(string.Empty, "No order specified.  Please try again.");
                 return View();

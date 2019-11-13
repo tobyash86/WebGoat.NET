@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Infrastructure;
-using Core;
-using WebGoatCore.ViewModels;
-using Microsoft.AspNetCore.Hosting;
+﻿using WebGoatCore.Models;
+using WebGoatCore.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
+using WebGoatCore.ViewModels;
 
 namespace WebGoatCore.Controllers
 {
     [Route("[controller]/[action]")]
     public class OffersController : Controller
     {
-        private readonly NorthwindContext _context;
         private readonly ProductRepository _productRepository;
         private readonly CategoryRepository _categoryRepository;
         private readonly SupplierRepository _supplierRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public OffersController(NorthwindContext context, ProductRepository productRepository, IWebHostEnvironment webHostEnvironment, CategoryRepository categoryRepository, SupplierRepository supplierRepository)
+        public OffersController(ProductRepository productRepository, IWebHostEnvironment webHostEnvironment, CategoryRepository categoryRepository, SupplierRepository supplierRepository)
         {
-            _context = context;
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
             _supplierRepository = supplierRepository;
@@ -32,18 +27,20 @@ namespace WebGoatCore.Controllers
 
         public IActionResult Index(string? nameFilter, int? selectedCategoryId)
         {
-            if(selectedCategoryId != null && _context.Categories.Find(selectedCategoryId) == null)
+            if (selectedCategoryId != null && _categoryRepository.GetById(selectedCategoryId.Value) == null)
             {
                 selectedCategoryId = null;
             }
 
             var offer = _productRepository.FindNonDiscontinuedProducts(nameFilter, selectedCategoryId)
-                .Select(p => new OfferListViewModel.OffersViewModel() {
-                    Offers = p,
+                .Select(p => new OfferListViewModel.OfferItem()
+                {
+                    Offer = p,
                     ImageUrl = GetImageUrlForOffer(p),
                 });
 
-            return View(new OfferListViewModel() {
+            return View(new OfferListViewModel()
+            {
                 Offers = offer,
                 ProductCategories = _categoryRepository.GetAllCategories(),
                 SelectedCategoryId = selectedCategoryId,
@@ -75,13 +72,17 @@ namespace WebGoatCore.Controllers
         }
 
         [Authorize]
-        public IActionResult Manage() => View(_productRepository.GetAllProducts());
+        public IActionResult Manage()
+        {
+            return View(_productRepository.GetAllProducts());
+        }
 
         [Authorize]
         [HttpGet]
         public IActionResult Add()
         {
-            return View("AddOrEdit", new OfferAddOrEditViewModel() {
+            return View("AddOrEdit", new OfferAddOrEditViewModel()
+            {
                 AddsNew = true,
                 ProductCategories = _categoryRepository.GetAllCategories(),
                 Suppliers = _supplierRepository.GetAllSuppliers(),
@@ -113,7 +114,8 @@ namespace WebGoatCore.Controllers
         [HttpGet("{id}")]
         public IActionResult Edit(int id)
         {
-            return View("AddOrEdit", new OfferAddOrEditViewModel() {
+            return View("AddOrEdit", new OfferAddOrEditViewModel()
+            {
                 AddsNew = false,
                 ProductCategories = _categoryRepository.GetAllCategories(),
                 Offer = _productRepository.GetProductById(id),

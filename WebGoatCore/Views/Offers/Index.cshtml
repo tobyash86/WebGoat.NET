@@ -40,10 +40,10 @@
                         <img src="@offer.ImageUrl" style="height:40px;width:40px;">
                     </td>
                     <td>
-                        <a asp-action="Details" asp-route-productId=@offer.Offers.ProductId>@offer.Offers.ProductName</a>
+                        <a asp-action="Details" asp-route-productId=@offer.Offer.ProductId>@offer.Offer.ProductName</a>
                     </td>
-                    <td>@offer.Offers.QuantityPerUnit</td>
-                    <td>$@offer.Offers.UnitPrice</td>
+                    <td>@offer.Offer.QuantityPerUnit</td>
+                    <td>$@offer.Offer.UnitPrice</td>
                 </tr>
             }
         </tbody>

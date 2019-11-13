@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Core;
-using Infrastructure;
+﻿using WebGoatCore.Models;
+using WebGoatCore.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace WebGoatCore.Controllers
 {
@@ -36,7 +33,8 @@ namespace WebGoatCore.Controllers
         public IActionResult Reply(int entryId, string contents)
         {
             var userName = User.Identity.Name ?? "Anonymous";
-            var response = new BlogResponse() {
+            var response = new BlogResponse()
+            {
                 Author = userName,
                 Contents = contents,
                 BlogEntryId = entryId,
@@ -49,10 +47,7 @@ namespace WebGoatCore.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
         [HttpPost]
         [Authorize]
@@ -63,7 +58,7 @@ namespace WebGoatCore.Controllers
                 var blogEntry = _blogEntryRepository.CreateBlogEntry(title, contents, User.Identity.Name!);
                 return View(blogEntry);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, "I can't identify you. Please log in and try again.");
                 string.Format("A problem has occured.  Please try again. Error={0}", ex.Message);

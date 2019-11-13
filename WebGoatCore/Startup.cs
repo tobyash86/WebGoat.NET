@@ -1,19 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using WebGoatCore.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Infrastructure;
-using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
+using System;
 
 namespace WebGoatCore
 {
@@ -80,7 +74,7 @@ namespace WebGoatCore
             });
 
             services.AddDistributedMemoryCache();
-            
+
             services.AddSession(options =>
             {
                 options.Cookie.HttpOnly = true;

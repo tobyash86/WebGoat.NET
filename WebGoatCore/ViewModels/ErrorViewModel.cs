@@ -1,5 +1,3 @@
-using System;
-
 namespace WebGoatCore.ViewModels
 {
     public class ErrorViewModel

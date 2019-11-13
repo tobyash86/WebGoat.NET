@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Infrastructure;
-using Microsoft.AspNetCore.Authentication;
+﻿using WebGoatCore.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 using WebGoatCore.ViewModels;
 
 namespace WebGoatCore.Controllers
@@ -14,38 +10,33 @@ namespace WebGoatCore.Controllers
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly RoleManager<IdentityRole> RoleManager;
         private readonly CustomerRepository _customerRepository;
 
-        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, CustomerRepository customerRepository, RoleManager<IdentityRole> roleManager)
+        public AccountController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, CustomerRepository customerRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _customerRepository = customerRepository;
-            RoleManager = roleManager;
         }
 
         [HttpGet]
-        public async Task<IActionResult> Login()
-        {
-            return View(new LoginViewModel());
-        }
+        public IActionResult Login() => View(new LoginViewModel());
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
             var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: true);
-            
+
             if (result.Succeeded)
             {
                 return RedirectToAction("Index", "Home");
             }
-            
+
             if (result.IsLockedOut)
             {
                 return RedirectToPage("./Lockout");
@@ -76,7 +67,8 @@ namespace WebGoatCore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser(model.Username) {
+                var user = new IdentityUser(model.Username)
+                {
                     Email = model.Email
                 };
 
@@ -98,22 +90,21 @@ namespace WebGoatCore.Controllers
             return View(model);
         }
 
-        public IActionResult MyAccount()
-        {
-            return View();
-        }
+        public IActionResult MyAccount() => View();
 
         public IActionResult ViewAccountInfo()
         {
             var customer = _customerRepository.GetCustomerByUsername(_userManager.GetUserName(User));
             if (customer == null)
             {
-                return View(new ViewAccountInfoViewModel() {
+                return View(new ViewAccountInfoViewModel()
+                {
                     ErrorMessage = "We don't recognize your customer Id. Please log in and try again."
                 });
             }
 
-            return View(new ViewAccountInfoViewModel() {
+            return View(new ViewAccountInfoViewModel()
+            {
                 Customer = customer
             });
         }
@@ -128,7 +119,8 @@ namespace WebGoatCore.Controllers
                 return View(new ChangeAccountInfoViewModel());
             }
 
-            return View(new ChangeAccountInfoViewModel() {
+            return View(new ChangeAccountInfoViewModel()
+            {
                 CompanyName = customer.CompanyName,
                 ContactTitle = customer.ContactTitle,
                 Address = customer.Address,
@@ -161,10 +153,7 @@ namespace WebGoatCore.Controllers
         }
 
         [HttpGet]
-        public IActionResult ChangePassword()
-        {
-            return View(new ChangePasswordViewModel());
-        }
+        public IActionResult ChangePassword() => View(new ChangePasswordViewModel());
 
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)

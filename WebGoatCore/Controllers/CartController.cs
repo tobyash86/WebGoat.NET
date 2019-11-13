@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Core;
-using Infrastructure;
+﻿using WebGoatCore.Models;
+using WebGoatCore.Data;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 
 namespace WebGoatCore.Controllers
 {
@@ -20,7 +18,7 @@ namespace WebGoatCore.Controllers
 
         public IActionResult Index()
         {
-            if(!HttpContext.Session.TryGetInMemory<Cart>("Cart", out var cart))
+            if (!HttpContext.Session.TryGetInMemory<Cart>("Cart", out var cart))
             {
                 cart = new Cart();
             }
@@ -37,7 +35,8 @@ namespace WebGoatCore.Controllers
             }
 
             var offer = _productRepository.GetProductById(offerId);
-            var orderDetail = new OrderDetail() {
+            var orderDetail = new OrderDetail()
+            {
                 Discount = 0.0F,
                 ProductId = offerId,
                 Quantity = quantity,

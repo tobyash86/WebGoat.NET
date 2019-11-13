@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Infrastructure;
+﻿using WebGoatCore.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
+using System.Diagnostics;
 using WebGoatCore.ViewModels;
 
 namespace WebGoatCore.Controllers
@@ -23,7 +18,8 @@ namespace WebGoatCore.Controllers
 
         public IActionResult Index()
         {
-            return View(new HomeViewModel() {
+            return View(new HomeViewModel()
+            {
                 TopOffers = _productRepository.GetTopProducts(4)
             });
         }
@@ -36,8 +32,9 @@ namespace WebGoatCore.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { 
-                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier 
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             });
         }
     }
