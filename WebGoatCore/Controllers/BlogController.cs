@@ -53,17 +53,9 @@ namespace WebGoatCore.Controllers
         [Authorize]
         public IActionResult Create(string title, string contents)
         {
-            try
-            {
-                var blogEntry = _blogEntryRepository.CreateBlogEntry(title, contents, User.Identity.Name!);
-                return View(blogEntry);
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError(string.Empty, "I can't identify you. Please log in and try again.");
-                string.Format("A problem has occured.  Please try again. Error={0}", ex.Message);
-                return View();
-            }
+            var blogEntry = _blogEntryRepository.CreateBlogEntry(title, contents, User.Identity.Name!);
+            return View(blogEntry);
         }
+
     }
 }

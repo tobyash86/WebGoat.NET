@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using WebGoatCore.ViewModels;
+using System.Linq;
 
 namespace WebGoatCore.Controllers
 {
@@ -32,13 +33,12 @@ namespace WebGoatCore.Controllers
         public IActionResult Checkout()
         {
             var model = new CheckoutViewModel();
-
+            
             var username = _userManager.GetUserName(User);
             var customer = _customerRepository.GetCustomerByUsername(username);
             if (customer == null)
             {
                 ModelState.AddModelError(string.Empty, "I can't identify you. Please log in and try again.");
-                return View(model);
             }
 
             var creditCard = new CreditCard()
@@ -58,26 +58,24 @@ namespace WebGoatCore.Controllers
             {
             }
 
-            if (!HttpContext.Session.TryGet<Cart>("Cart", out var cart) || cart.OrderDetails.Count == 0)
+            model.Cart = HttpContext.Session.Get<Cart>("Cart");
+            if (model.Cart == null || model.Cart.OrderDetails.Count == 0)
             {
                 ModelState.AddModelError(string.Empty, "You have no items in your cart.");
-                return View(model);
             }
-            model.Cart = cart;
 
-            model.ShipTarget = customer.CompanyName;
-            model.Address = customer.Address;
-            model.City = customer.City;
-            model.Region = customer.Region;
-            model.PostalCode = customer.PostalCode;
-            model.Country = customer.Country;
-            model.AvailableExpirationYears = new List<int>();
-            for (int i = 0; i <= 5; i++)
+            if (customer != null)
             {
-                model.AvailableExpirationYears.Add(DateTime.Now.Year + i);
+                model.ShipTarget = customer.CompanyName;
+                model.Address = customer.Address;
+                model.City = customer.City;
+                model.Region = customer.Region;
+                model.PostalCode = customer.PostalCode;
+                model.Country = customer.Country;
             }
 
-            model.ShippingOptions = _shipperRepository.GetShippingOptions(cart.SubTotal);
+            model.AvailableExpirationYears = Enumerable.Range(1, 5).Select(i => DateTime.Now.Year + i).ToList();
+            model.ShippingOptions = _shipperRepository.GetShippingOptions(model.Cart?.SubTotal ?? 0);
 
             return View(model);
         }
@@ -88,26 +86,7 @@ namespace WebGoatCore.Controllers
             var username = _userManager.GetUserName(User);
             var customer = _customerRepository.GetCustomerByUsername(username);
 
-            model.Cart = HttpContext.Session.Get<Cart>("Cart");
-
-            var order = new Order
-            {
-                ShipVia = model.ShippingMethod,
-                ShipName = model.ShipTarget,
-                ShipAddress = model.Address,
-                ShipCity = model.City,
-                ShipRegion = model.Region,
-                ShipPostalCode = model.PostalCode,
-                ShipCountry = model.Country,
-                OrderDetails = model.Cart.OrderDetails,
-                CustomerId = customer.CustomerId,
-                OrderDate = DateTime.Now,
-                RequiredDate = DateTime.Now.AddDays(7),
-                Freight = _shipperRepository.GetShipperByShipperId(model.ShippingMethod).GetShippingCost(model.Cart.SubTotal),
-                //TODO: Throws an error if we don't set the date. Try to set it to null or something.
-                ShippedDate = DateTime.Now.AddDays(3),
-                EmployeeId = 1
-            };
+            model.Cart = HttpContext.Session.Get<Cart>("Cart")!;
 
             var creditCard = new CreditCard()
             {
@@ -138,8 +117,7 @@ namespace WebGoatCore.Controllers
                     creditCard.Number = model.CreditCard;
                 }
 
-                if (model.ExpirationMonth != creditCard.ExpiryMonth ||
-                    model.ExpirationYear != creditCard.ExpiryYear)
+                if (model.ExpirationMonth != creditCard.ExpiryMonth || model.ExpirationYear != creditCard.ExpiryYear)
                 {
                     creditCard.Expiry = new DateTime(model.ExpirationYear, model.ExpirationMonth, 1);
                 }
@@ -148,16 +126,35 @@ namespace WebGoatCore.Controllers
             //Authorize payment through our bank or Authorize.net or someone.
             if (!creditCard.IsValid())
             {
-                ModelState.AddModelError(string.Empty, "That card is not valid.  Please enter a valid card.");
+                ModelState.AddModelError(string.Empty, "That card is not valid. Please enter a valid card.");
                 return View(model);
             }
-
-            var approvalCode = creditCard.ChargeCard(order.Total);
 
             if (model.RememberCreditCard)
             {
                 creditCard.SaveCardForUser();
             }
+
+            var order = new Order
+            {
+                ShipVia = model.ShippingMethod,
+                ShipName = model.ShipTarget,
+                ShipAddress = model.Address,
+                ShipCity = model.City,
+                ShipRegion = model.Region,
+                ShipPostalCode = model.PostalCode,
+                ShipCountry = model.Country,
+                OrderDetails = model.Cart.OrderDetails,
+                CustomerId = customer.CustomerId,
+                OrderDate = DateTime.Now,
+                RequiredDate = DateTime.Now.AddDays(7),
+                Freight = _shipperRepository.GetShipperByShipperId(model.ShippingMethod).GetShippingCost(model.Cart.SubTotal),
+                //TODO: Throws an error if we don't set the date. Try to set it to null or something.
+                ShippedDate = DateTime.Now.AddDays(3),
+                EmployeeId = 1
+            };
+
+            var approvalCode = creditCard.ChargeCard(order.Total);
 
             order.Shipment = new Shipment()
             {
@@ -168,12 +165,12 @@ namespace WebGoatCore.Controllers
 
             //Create the order itself.
             int orderId = _orderRepository.CreateOrder(order);
-            HttpContext.Session.SetInt32("OrderId", orderId);
-            HttpContext.Session.Remove("Cart");
 
             //Create the payment record.
             _orderRepository.CreateOrderPayment(orderId, order.Total, creditCard.Number, creditCard.Expiry, approvalCode);
 
+            HttpContext.Session.SetInt32("OrderId", orderId);
+            HttpContext.Session.Remove("Cart");
             return RedirectToAction("Receipt");
         }
 
@@ -187,7 +184,7 @@ namespace WebGoatCore.Controllers
 
             if (orderId == null)
             {
-                ModelState.AddModelError(string.Empty, "No order specified.  Please try again.");
+                ModelState.AddModelError(string.Empty, "No order specified. Please try again.");
                 return View();
             }
 
@@ -207,30 +204,18 @@ namespace WebGoatCore.Controllers
 
         public IActionResult Receipts()
         {
-            var orders = GetOrdersOrAddError();
-            if(orders == null)
-            {
-                return View();
-            }
-
-            return View(orders);
+            return View(GetOrdersOrAddError());
         }
 
         public IActionResult PackageTracking(string? carrier, string? trackingNumber)
         {
-            var orders = GetOrdersOrAddError();
-            if (orders == null)
-            {
-                return View();
-            }
-
             var model = new PackageTrackingViewModel()
-            { 
+            {
                 SelectedCarrier = carrier,
                 SelectedTrackingNumber = trackingNumber,
-                Orders = orders
+                Orders = GetOrdersOrAddError()
             };
-
+            
             return View(model);
         }
 

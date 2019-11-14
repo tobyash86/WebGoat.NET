@@ -7,10 +7,11 @@
 <h1>
     Check Out
 </h1>
-<div>
-    @*<span class="failureNotification">You have no items in your cart.</span>*@
-</div>
-<partial name="_CartPartial" model=@Model.Cart/>
+@Html.ValidationSummary()
+@if (Model.Cart != null)
+{
+    <partial name="_CartPartial" model=@Model.Cart/>
+}
 @using (Html.BeginForm(FormMethod.Post))
 {
     <fieldset title="Where shall we ship this?">
@@ -89,6 +90,5 @@
             @Html.LabelFor(m => m.RememberCreditCard)
         </span>
     </fieldset>
-
-    <input type="submit" value="Place Order">
+    <input type="submit" value="Place Order" disabled=@(!ViewData.ModelState.IsValid)>
 }

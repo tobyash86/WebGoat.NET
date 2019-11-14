@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace WebGoatCore
 {
@@ -12,6 +14,7 @@ namespace WebGoatCore
             session.SetString(key, s);
         }
 
+        [return:MaybeNull]
         public static T Get<T>(this ISession session, string key)
         {
             if (session.TryGet<T>(key, out var value))
@@ -19,7 +22,7 @@ namespace WebGoatCore
                 return value;
             }
 
-            throw new KeyNotFoundException(key);
+            return default;
         }
 
         public static bool TryGet<T>(this ISession session, string key, out T value)

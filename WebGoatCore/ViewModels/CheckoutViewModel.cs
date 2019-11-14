@@ -51,9 +51,9 @@ namespace WebGoatCore.ViewModels
         [Required(ErrorMessage = "adsasdasd")]
         public bool RememberCreditCard { get; set; }
 
-        public Dictionary<int, string> ShippingOptions { get; set; }
+        public IDictionary<int, string> ShippingOptions { get; set; }
 
-        public List<int> AvailableExpirationYears { get; set; }
+        public IList<int> AvailableExpirationYears { get; set; }
 
         public Cart? Cart { get; set; }
     }

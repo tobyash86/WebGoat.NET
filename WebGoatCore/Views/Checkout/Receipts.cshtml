@@ -1,36 +1,40 @@
-﻿@model IEnumerable<Order>
+﻿@model IEnumerable<Order>?
 
 @{
     ViewData["Title"] = "Receipts";
 }
 
+@Html.ValidationSummary()
 <div>
-    <table class="something">
-        <tbody>
-            <tr>
-                <th>Details</th>
-                <th>Order date</th>
-                <th>Total</th>
-                <th>Trace package</th>
-            </tr>
-            @foreach (var order in Model)
-            {
+    @if (Model != null)
+    {
+        <table class="something">
+            <tbody>
                 <tr>
-                    <td>
-                        <a asp-action="Receipt" asp-route-id=@order.OrderId>@order.OrderId</a>
-                    </td>
-                    <td>@order.OrderDate</td>
-                    <td>@order.Total</td>
-                    @if (order.Shipment != null)
-                    {
-                        <td>
-                            <a asp-action="PackageTracking" 
-                               asp-route-carrier="@order.Shipment.Shipper.CompanyName"
-                               asp-route-trackingNumber="@order.Shipment.TrackingNumber">Trace</a>
-                        </td>
-                    }
+                    <th>Details</th>
+                    <th>Order date</th>
+                    <th>Total</th>
+                    <th>Trace package</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>
+                            <a asp-action="Receipt" asp-route-id=@order.OrderId>@order.OrderId</a>
+                        </td>
+                        <td>@order.OrderDate</td>
+                        <td>@order.Total</td>
+                        @if (order.Shipment != null)
+                        {
+                            <td>
+                                <a asp-action="PackageTracking" 
+                                    asp-route-carrier="@order.Shipment.Shipper.CompanyName"
+                                    asp-route-trackingNumber="@order.Shipment.TrackingNumber">Trace</a>
+                            </td>
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </div>
