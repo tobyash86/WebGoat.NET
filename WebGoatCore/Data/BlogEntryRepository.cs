@@ -25,7 +25,7 @@ namespace WebGoatCore.Data
                 PostedDate = DateTime.Now,
             };
 
-            _context.BlogEntries.Add(entry);
+            entry = _context.BlogEntries.Add(entry).Entity;
             _context.SaveChanges();
             return entry;
         }
@@ -38,11 +38,6 @@ namespace WebGoatCore.Data
         public List<BlogEntry> GetTopBlogEntries()
         {
             return GetTopBlogEntries(4, 0);
-        }
-
-        public List<BlogEntry> GetTopBlogEntries(int numberOfEntries)
-        {
-            return GetTopBlogEntries(numberOfEntries, 0);
         }
 
         public List<BlogEntry> GetTopBlogEntries(int numberOfEntries, int startPosition)

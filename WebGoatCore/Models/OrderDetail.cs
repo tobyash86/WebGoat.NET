@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebGoatCore.Models
 {
@@ -13,12 +14,6 @@ namespace WebGoatCore.Models
         public virtual Order Order { get; set; }
         public virtual Product Product { get; set; }
 
-        public decimal ExtendedPrice
-        {
-            get
-            {
-                return UnitPrice * Convert.ToDecimal(1 - Discount) * Quantity;
-            }
-        }
+        public decimal ExtendedPrice => UnitPrice * Convert.ToDecimal(1 - Discount) * Quantity;
     }
 }

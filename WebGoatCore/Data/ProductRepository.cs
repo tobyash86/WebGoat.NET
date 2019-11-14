@@ -48,11 +48,6 @@ namespace WebGoatCore.Data
             return _context.Products.OrderBy(p => p.ProductId).ToList();
         }
 
-        public List<Product> FindProducts(string productName)
-        {
-            return _context.Products.Where(p => p.ProductName.Contains(productName)).ToList();
-        }
-
         public List<Product> FindNonDiscontinuedProducts(string? productName, int? categoryId)
         {
             if (productName == null)

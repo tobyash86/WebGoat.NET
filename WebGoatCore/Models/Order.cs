@@ -7,7 +7,6 @@ namespace WebGoatCore.Models
 {
     public class Order
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int OrderId { get; set; }
         public string CustomerId { get; set; }
         public int EmployeeId { get; set; }
@@ -25,25 +24,12 @@ namespace WebGoatCore.Models
 
         public virtual IList<OrderDetail> OrderDetails { get; set; }
         public virtual Customer Customer { get; set; }
-        //TODO: Shipments and Payments should be singular.  Like customer.
         public virtual IList<OrderPayment> OrderPayments { get; set; }
         public virtual Shipment? Shipment { get; set; }
 
-        public decimal SubTotal
-        {
-            get
-            {
-                return OrderDetails.Sum(od => od.ExtendedPrice);
-            }
-        }
+        public decimal SubTotal => OrderDetails.Sum(od => od.ExtendedPrice);
 
-        public decimal Total
-        {
-            get
-            {
-                return SubTotal + Freight;
-            }
-        }
+        public decimal Total => SubTotal + Freight;
 
         public static string GetPackageTrackingUrl(string Carrier, string TrackingNumber)
         {

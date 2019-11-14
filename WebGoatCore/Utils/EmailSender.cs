@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Mail;
 
-namespace WebGoatCore.Data
+namespace WebGoatCore
 {
     public class EmailSender
     {

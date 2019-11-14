@@ -14,11 +14,6 @@ namespace WebGoatCore.Data
             _context = context;
         }
 
-        public List<Shipper> GetAllShippers()
-        {
-            return _context.Shippers.OrderBy(s => s.CompanyName).ToList();
-        }
-
         public Dictionary<int, string> GetShippingOptions(decimal orderSubtotal)
         {
             var dict = new Dictionary<int, string>();

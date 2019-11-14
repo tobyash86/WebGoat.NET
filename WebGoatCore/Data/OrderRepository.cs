@@ -56,13 +56,14 @@ namespace WebGoatCore.Data
                 order.OrderId = (int)dataReader[0];
             }
 
-            foreach (var orderDetails in order.OrderDetails)
+            sql = ";\nINSERT INTO OrderDetails (" +
+                "OrderId, ProductId, UnitPrice, Quantity, Discount" +
+                ") VALUES ";
+            foreach (var (orderDetails, i) in order.OrderDetails.WithIndex())
             {
                 orderDetails.OrderId = order.OrderId;
-                sql = ";\nINSERT INTO OrderDetails (" +
-                    "OrderId, ProductId, UnitPrice, Quantity, Discount" +
-                    ") VALUES (" +
-                    $"'{orderDetails.OrderId}','{orderDetails.ProductId}','{orderDetails.UnitPrice}','{orderDetails.Quantity}'," +
+                sql += (i > 0 ? "," : "") +
+                    $"('{orderDetails.OrderId}','{orderDetails.ProductId}','{orderDetails.UnitPrice}','{orderDetails.Quantity}'," +
                     $"'{orderDetails.Discount}')";
             }
 
@@ -83,28 +84,6 @@ namespace WebGoatCore.Data
                 command.ExecuteNonQuery();
             }
 
-            return order.OrderId;
-        }
-
-        public int CreateOrder(List<OrderDetail> orderDetails, string customerId, decimal freight, int shipVia, string shipName, string shipAddress, string shipCity,
-            string shipRegion, string shipPostalCode, string shipCountry)
-        {
-            var order = new Order()
-            {
-                CustomerId = customerId,
-                Freight = freight,
-                OrderDate = DateTime.Today,
-                RequiredDate = DateTime.Today.AddDays(7.0),
-                ShipAddress = shipAddress,
-                ShipCity = shipCity,
-                ShipCountry = shipCountry,
-                ShipPostalCode = shipPostalCode,
-                ShipRegion = shipRegion,
-                ShipName = shipName,
-                ShipVia = shipVia,
-                OrderDetails = orderDetails
-            };
-            order = _context.Orders.Add(order).Entity;
             return order.OrderId;
         }
 
@@ -131,18 +110,5 @@ namespace WebGoatCore.Data
                 .ThenByDescending(o => o.OrderId)
                 .ToList();
         }
-
-        public Shipment GetShipmentByOrderId(int orderId)
-        {
-            return _context.Shipments.Single(s => s.OrderId == orderId);
-        }
-
-        public void UpdateOrder(Order order)
-        {
-            //TODO: _context.Update() ?
-            _context.Entry(order).State = EntityState.Modified;
-            _context.SaveChanges();
-        }
     }
-
 }
