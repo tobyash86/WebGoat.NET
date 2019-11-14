@@ -58,7 +58,7 @@ namespace WebGoatCore.Controllers
             {
             }
 
-            if (!HttpContext.Session.TryGetInMemory<Cart>("Cart", out var cart) || cart.OrderDetails.Count == 0)
+            if (!HttpContext.Session.TryGet<Cart>("Cart", out var cart) || cart.OrderDetails.Count == 0)
             {
                 ModelState.AddModelError(string.Empty, "You have no items in your cart.");
                 return View(model);
@@ -88,7 +88,7 @@ namespace WebGoatCore.Controllers
             var username = _userManager.GetUserName(User);
             var customer = _customerRepository.GetCustomerByUsername(username);
 
-            model.Cart = HttpContext.Session.GetInMemory<Cart>("Cart");
+            model.Cart = HttpContext.Session.Get<Cart>("Cart");
 
             var order = new Order
             {

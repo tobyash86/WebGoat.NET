@@ -18,7 +18,7 @@ namespace WebGoatCore.Controllers
 
         public IActionResult Index()
         {
-            if (!HttpContext.Session.TryGetInMemory<Cart>("Cart", out var cart))
+            if (!HttpContext.Session.TryGet<Cart>("Cart", out var cart))
             {
                 cart = new Cart();
             }
@@ -29,7 +29,7 @@ namespace WebGoatCore.Controllers
         [HttpPost("{productId}")]
         public IActionResult AddOrder(int productId, short quantity)
         {
-            if (!HttpContext.Session.TryGetInMemory<Cart>("Cart", out var cart))
+            if (!HttpContext.Session.TryGet<Cart>("Cart", out var cart))
             {
                 cart = new Cart();
             }
@@ -45,7 +45,7 @@ namespace WebGoatCore.Controllers
             };
             cart.OrderDetails.Add(orderDetail);
 
-            HttpContext.Session.SetInMemory("Cart", cart);
+            HttpContext.Session.Set("Cart", cart);
 
             return RedirectToAction("Index");
         }
@@ -55,7 +55,7 @@ namespace WebGoatCore.Controllers
         {
             try
             {
-                if (HttpContext.Session.TryGetInMemory<Cart>("Cart", out var cart))
+                if (HttpContext.Session.TryGet<Cart>("Cart", out var cart))
                 {
                     var orderDetail = cart.OrderDetails.First(od => od.ProductId == productId);
                     if (orderDetail == null)
@@ -64,7 +64,7 @@ namespace WebGoatCore.Controllers
                     }
 
                     cart.OrderDetails.Remove(orderDetail);
-                    HttpContext.Session.SetInMemory("Cart", cart);
+                    HttpContext.Session.Set("Cart", cart);
 
                     Response.Redirect("~/ViewCart.aspx");
                 }

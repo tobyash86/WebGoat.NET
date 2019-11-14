@@ -27,7 +27,6 @@ namespace WebGoatCore.Models
         public virtual Customer Customer { get; set; }
         //TODO: Shipments and Payments should be singular.  Like customer.
         public virtual IList<OrderPayment> OrderPayments { get; set; }
-        //[InverseProperty("ShipmentId")]
         public virtual Shipment? Shipment { get; set; }
 
         public decimal SubTotal
