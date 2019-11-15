@@ -68,18 +68,9 @@ namespace WebGoatCore.Data
 
         public Product Update(Product product)
         {
-            var old = _context.Products.Find(product.ProductId);
-            old.CategoryId = product.CategoryId;
-            old.Discontinued = product.Discontinued;
-            old.ProductName = product.ProductName;
-            old.QuantityPerUnit = product.QuantityPerUnit;
-            old.ReorderLevel = product.ReorderLevel;
-            old.SupplierId = product.SupplierId;
-            old.UnitPrice = product.UnitPrice;
-            old.UnitsInStock = product.UnitsInStock;
-            old.UnitsOnOrder = product.UnitsOnOrder;
+            product = _context.Products.Update(product).Entity;
             _context.SaveChanges();
-            return old;
+            return product;
         }
 
         public void Add(Product product)

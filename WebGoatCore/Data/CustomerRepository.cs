@@ -25,17 +25,7 @@ namespace WebGoatCore.Data
 
         public void SaveCustomer(Customer customer)
         {
-            var old = _context.Customers.Single(c => c.CustomerId == customer.CustomerId);
-            old.Address = customer.Address;
-            old.City = customer.City;
-            old.CompanyName = customer.CompanyName;
-            old.ContactName = customer.ContactName;
-            old.ContactTitle = customer.ContactTitle;
-            old.Country = customer.Country;
-            old.Fax = customer.Fax;
-            old.Phone = customer.Phone;
-            old.PostalCode = customer.PostalCode;
-            old.Region = customer.Region;
+            _context.Update(customer);
             _context.SaveChanges();
         }
 
