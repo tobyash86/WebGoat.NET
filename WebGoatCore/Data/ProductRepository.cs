@@ -51,22 +51,19 @@ namespace WebGoatCore.Data
 
         public List<Product> FindNonDiscontinuedProducts(string? productName, int? categoryId)
         {
-            if (productName == null)
+            var products = _context.Products.Where(p => !p.Discontinued);
+
+            if (productName != null)
             {
-                productName = "";
+                products = products.Where(p => p.ProductName.Contains(productName));
             }
 
-            List<Product> products;
-            if (categoryId == null)
+            if (categoryId != null)
             {
-                products = _context.Products.Where(p => (!p.Discontinued) && p.ProductName.Contains(productName)).ToList();
-            }
-            else
-            {
-                products = _context.Products.Where(p => (!p.Discontinued) && p.ProductName.Contains(productName) && p.CategoryId == categoryId).ToList();
+                products = products.Where(p => p.CategoryId == categoryId);
             }
 
-            return products;
+            return products.ToList();
         }
 
         public Product Update(Product product)

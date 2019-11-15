@@ -19,13 +19,7 @@ namespace WebGoatCore.Data
 
         public Order GetOrderById(int orderId)
         {
-            var order = _context.Orders.Single(o => o.OrderId == orderId);
-            if (order.CustomerId.Length > 0)
-            {
-                order.Customer = _customerRepository.GetCustomerByCustomerId(order.CustomerId);
-            }
-
-            return order;
+            return _context.Orders.Single(o => o.OrderId == orderId);
         }
 
         public int CreateOrder(Order order)

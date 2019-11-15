@@ -16,7 +16,9 @@ namespace WebGoatCore.Data
                 new Microsoft.Extensions.Logging.Debug.DebugLoggerProvider()
         });
 
+#pragma warning disable CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
         public NorthwindContext(DbContextOptions<NorthwindContext> options)
+#pragma warning restore CS8618 // Non-nullable field is uninitialized. Consider declaring as nullable.
             : base(options)
         {
         }

@@ -15,8 +15,6 @@ namespace WebGoatCore.Models
         public string Username { get; set; }
         public string Number { get; set; }
         public DateTime Expiry { get; set; }
-        public int CVV { get; set; }
-        public string Name { get; set; }
         public int ExpiryMonth => Expiry.Month;
         public int ExpiryYear => Expiry.Year;
         #endregion

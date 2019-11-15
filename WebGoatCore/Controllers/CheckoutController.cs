@@ -33,19 +33,8 @@ namespace WebGoatCore.Controllers
         public IActionResult Checkout()
         {
             var model = new CheckoutViewModel();
-            
-            var username = _userManager.GetUserName(User);
-            var customer = _customerRepository.GetCustomerByUsername(username);
-            if (customer == null)
-            {
-                ModelState.AddModelError(string.Empty, "I can't identify you. Please log in and try again.");
-            }
-
-            var creditCard = new CreditCard()
-            {
-                Filename = Path.Combine(_webHostEnvironment.WebRootPath, "StoredCreditCards.xml"),
-                Username = username
-            };
+            var customer = GetCustomerOrAddError();
+            var creditCard = GetCreditCardForUser();
 
             try
             {
@@ -83,17 +72,15 @@ namespace WebGoatCore.Controllers
         [HttpPost]
         public IActionResult Checkout(CheckoutViewModel model)
         {
-            var username = _userManager.GetUserName(User);
-            var customer = _customerRepository.GetCustomerByUsername(username);
-
             model.Cart = HttpContext.Session.Get<Cart>("Cart")!;
 
-            var creditCard = new CreditCard()
+            var customer = GetCustomerOrAddError();
+            if(customer == null)
             {
-                Filename = Path.Combine(_webHostEnvironment.WebRootPath, "StoredCreditCards.xml"),
-                Username = username
-            };
+                return View(model);
+            }
 
+            var creditCard = GetCreditCardForUser();
             try
             {
                 creditCard.GetCardForUser();
@@ -202,7 +189,13 @@ namespace WebGoatCore.Controllers
 
         public IActionResult Receipts()
         {
-            return View(GetOrdersOrAddError());
+            var customer = GetCustomerOrAddError();
+            if(customer == null)
+            {
+                return View();
+            }
+
+            return View(_orderRepository.GetAllOrdersByCustomerId(customer.CustomerId));
         }
 
         public IActionResult PackageTracking(string? carrier, string? trackingNumber)
@@ -211,29 +204,42 @@ namespace WebGoatCore.Controllers
             {
                 SelectedCarrier = carrier,
                 SelectedTrackingNumber = trackingNumber,
-                Orders = GetOrdersOrAddError()
             };
+
+            var customer = GetCustomerOrAddError();
+            if (customer != null)
+            {
+                model.Orders = _orderRepository.GetAllOrdersByCustomerId(customer.CustomerId);
+            }
             
             return View(model);
         }
 
-        private ICollection<Order>? GetOrdersOrAddError()
+        public IActionResult GoToExternalTracker(string carrier, string trackingNumber)
         {
-            var username = User.Identity.Name;
-            var customer = _customerRepository.GetCustomerByUsername(username);
+            return Redirect(Order.GetPackageTrackingUrl(carrier, trackingNumber));
+        }
 
+        private Customer? GetCustomerOrAddError()
+        {
+            var username = _userManager.GetUserName(User);
+            var customer = _customerRepository.GetCustomerByUsername(username);
             if (customer == null)
             {
                 ModelState.AddModelError(string.Empty, "I can't identify you. Please log in and try again.");
                 return null;
             }
 
-            return _orderRepository.GetAllOrdersByCustomerId(customer.CustomerId);
+            return customer;
         }
 
-        public IActionResult GoToExternalTracker(string carrier, string trackingNumber)
+        private CreditCard GetCreditCardForUser()
         {
-            return Redirect(Order.GetPackageTrackingUrl(carrier, trackingNumber));
+            return new CreditCard()
+            {
+                Filename = Path.Combine(_webHostEnvironment.WebRootPath, "StoredCreditCards.xml"),
+                Username = _userManager.GetUserName(User)
+            };
         }
     }
 }

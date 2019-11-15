@@ -13,14 +13,14 @@ namespace WebGoatCore.Data
             _context = context;
         }
 
-        public Customer GetCustomerByUsername(string username)
+        public Customer? GetCustomerByUsername(string username)
         {
             return _context.Customers.FirstOrDefault(c => c.ContactName == username);
         }
 
         public Customer GetCustomerByCustomerId(string customerId)
         {
-            return _context.Customers.FirstOrDefault(c => c.CustomerId == customerId);
+            return _context.Customers.Single(c => c.CustomerId == customerId);
         }
 
         public void SaveCustomer(Customer customer)

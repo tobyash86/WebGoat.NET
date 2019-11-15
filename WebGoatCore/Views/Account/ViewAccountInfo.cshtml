@@ -1,30 +1,27 @@
-﻿@model ViewAccountInfoViewModel
+﻿@model Customer?
 
 @{
     ViewData["Title"] = "ViewAccountInfo";
 }
 
-@if (Model.ErrorMessage != null)
-{
-    <div class="failureNotification">@Model.ErrorMessage</div>
-}
-else
+@Html.ValidationSummary()
+@if(Model != null)
 {
     <div class="viewAccountInfoDiv">
         <div class="custLeft">Company:</div>
-        <div class="custRight">@Model.Customer.CompanyName</div>
+        <div class="custRight">@Model.CompanyName</div>
         <div class="custLeft">Your Title:</div>
-        <div class="custRight">@Model.Customer.ContactTitle</div>
+        <div class="custRight">@Model.ContactTitle</div>
         <div class="custLeft">Address:</div>
-        <div class="custRight">@Model.Customer.Address</div>
+        <div class="custRight">@Model.Address</div>
         <div class="custLeft">City:</div>
-        <div class="custRight">@Model.Customer.City</div>
+        <div class="custRight">@Model.City</div>
         <div class="custLeft">State/region:</div>
-        <div class="custRight">@Model.Customer.Region</div>
+        <div class="custRight">@Model.Region</div>
         <div class="custLeft">Zipcode/postal code:</div>
-        <div class="custRight">@Model.Customer.PostalCode</div>
+        <div class="custRight">@Model.PostalCode</div>
         <div class="custLeft">Country:</div>
-        <div class="custRight">@Model.Customer.Country</div>
+        <div class="custRight">@Model.Country</div>
     </div>
     <div class="clear">
         <a asp-action="ChangeAccountInfo">Change your account info.</a>

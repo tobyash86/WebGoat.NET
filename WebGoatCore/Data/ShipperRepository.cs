@@ -16,9 +16,9 @@ namespace WebGoatCore.Data
 
         public Dictionary<int, string> GetShippingOptions(decimal orderSubtotal)
         {
-            var dict = new Dictionary<int, string>();
-            _context.Shippers.ToList().ForEach(s => dict.Add(s.ShipperId, string.Format("{0} {1} - {2:C}", s.CompanyName, s.ServiceName, s.GetShippingCost(orderSubtotal))));
-            return dict;
+            return _context.Shippers.ToDictionary(
+                s => s.ShipperId, 
+                s => $"{s.CompanyName} {s.ServiceName} - {s.GetShippingCost(orderSubtotal):C}");
         }
 
         public Shipper GetShipperByShipperId(int shipperId)

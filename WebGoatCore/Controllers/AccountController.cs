@@ -97,16 +97,10 @@ namespace WebGoatCore.Controllers
             var customer = _customerRepository.GetCustomerByUsername(_userManager.GetUserName(User));
             if (customer == null)
             {
-                return View(new ViewAccountInfoViewModel()
-                {
-                    ErrorMessage = "We don't recognize your customer Id. Please log in and try again."
-                });
+                ModelState.AddModelError(string.Empty, "We don't recognize your customer Id. Please log in and try again.");
             }
 
-            return View(new ViewAccountInfoViewModel()
-            {
-                Customer = customer
-            });
+            return View(customer);
         }
 
         [HttpGet]
@@ -134,9 +128,15 @@ namespace WebGoatCore.Controllers
         [HttpPost]
         public IActionResult ChangeAccountInfo(ChangeAccountInfoViewModel model)
         {
+            var customer = _customerRepository.GetCustomerByUsername(_userManager.GetUserName(User));
+            if (customer == null)
+            {
+                ModelState.AddModelError(string.Empty, "We don't recognize your customer Id. Please log in and try again.");
+                return View(model);
+            }
+
             if (ModelState.IsValid)
             {
-                var customer = _customerRepository.GetCustomerByUsername(_userManager.GetUserName(User));
                 customer.CompanyName = model.CompanyName ?? customer.CompanyName;
                 customer.ContactTitle = model.ContactTitle ?? customer.ContactTitle;
                 customer.Address = model.Address ?? customer.Address;
