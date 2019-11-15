@@ -231,9 +231,6 @@ fieldset {
 fieldset p {
     margin: 2px 8px 6px 10px;
 }
-fieldset.login label, fieldset.register label, fieldset.changePassword label {
-    display: block;
-}
 fieldset label.inline {
     display: inline;
 }

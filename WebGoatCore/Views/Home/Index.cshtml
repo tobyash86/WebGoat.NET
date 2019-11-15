@@ -18,7 +18,7 @@
     @foreach (var product in Model.TopProducts)
     {
         <a asp-controller="Product" asp-action="Details" asp-route-productId=@product.ProductId>
-            <img src="Images/ProductImages/@(product.ProductId).jpg" alt="&nbsp;&nbsp;&nbsp;@product.ProductName">
+            <img src="Images/ProductImages/@(product.ProductId).jpg" alt="@product.ProductName">
         </a>
     }
 </div>
