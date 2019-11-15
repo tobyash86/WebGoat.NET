@@ -242,3 +242,17 @@ legend {
     width: auto !important;
 }
 
+.productListItem figcaption {
+    text-align: center;
+}
+.productListItem figure {
+    display: inline-block;
+}
+.productListItem img {
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}

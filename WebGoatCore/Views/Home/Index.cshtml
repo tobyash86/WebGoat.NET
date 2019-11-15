@@ -5,7 +5,7 @@
 }
 
 <h2>
-    Welcome to the WebGoat.Net Store
+    Welcome to the WebGoat.NetCore Store
 </h2>
 <p>
     We focus on supplying high-end specialty restaurants with the best quality foods
@@ -14,12 +14,16 @@
 <h3>
     Today's featured items
 </h3>
+<br>
 <div class="productListItem">
     @foreach (var product in Model.TopProducts)
     {
-        <a asp-controller="Product" asp-action="Details" asp-route-productId=@product.ProductId>
-            <img src="Images/ProductImages/@(product.ProductId).jpg" alt="@product.ProductName">
-        </a>
+        <figure>
+            <a asp-controller="Product" asp-action="Details" asp-route-productId=@product.ProductId>
+                <img src="Images/ProductImages/@(product.ProductId).jpg" alt="@product.ProductName">
+            </a>
+            <figcaption>@product.ProductName</figcaption>
+        </figure>
     }
 </div>
 <h3>
