@@ -1,15 +1,29 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿html {
+    position: relative;
+    min-height: 100%;
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    font-family: "Helvetica Neue", "Lucida Grande", "Segoe UI", Arial, Helvetica, Verdana, sans-serif;
+    color: #696969;
+}
+
+/* Provide sufficient contrast against white background */
+a {
+    color: #0366d6;
+}
 
 a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
-}
-
-/* Provide sufficient contrast against white background */
-a {
-  color: #0366d6;
 }
 
 .btn-primary {
@@ -24,19 +38,12 @@ a {
   border-color: #1861ac;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  font-size: 14px;
-}
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+.navbar {
+    padding: 4px 16px 4px 16px;
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
@@ -51,21 +58,190 @@ button.accept-policy {
   line-height: inherit;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
-html {
-  position: relative;
-  min-height: 100%;
+a.nav-link.btn.btn-link.text-dark {
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+
+table th {
+    padding-left: 6px;
+    padding-right: 6px;
 }
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+
+table th, :not(.productTable tr) table tr {
+    text-align: center;
 }
+
+input[type=text] {
+    height: 25px;
+    padding: 0;
+}
+
+.validation-summary-errors {
+    font-size: 1.2em;
+    color: Red;
+}
+.validation-summary-errors ul {
+    list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 1.5em;
+    color: #666666;
+    font-variant: small-caps;
+    text-transform: none;
+    font-weight: 200;
+    margin-bottom: 0px;
+}
+h1 {
+    font-size: 1.6em;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+h2 {
+    font-size: 1.5em;
+    font-weight: 600;
+}
+h3 {
+    font-size: 1.2em;
+}
+h4 {
+    font-size: 1.1em;
+}
+h5, h6 {
+    font-size: 1em;
+}
+
+/* Blog */
+div.blogEntryTitle {
+    font-size: 1.8em;
+    font-weight: bold;
+    padding: 10px 0px 5px 0px;
+    margin-bottom: 0px;
+}
+
+div.blogEntryContents {
+    padding: 0px 0px 5px 0px;
+}
+
+div.blogEntryAuthor {
+    font-size: 1.2em;
+}
+
+input.blogCreateTitleText {
+    width: 100%;
+}
+
+textarea.blogCreateContents {
+    width: 100%;
+    height: 10em;
+}
+
+textarea.BlogEntryReplyText {
+    width: 100%;
+    height: 10em;
+}
+
+div.blogResponseTitle {
+    font-size: 1.4em;
+    font-weight: bold;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+div.blogResponse {
+    padding: 5px 0px 10px 5px;
+    border-bottom: 1px solid #777;
+    border-top: 1px solid #777;
+    border-collapse: collapse;
+    margin: -1px 0 0 -1px;
+}
+
+div.blogResponseContents {
+    padding: 5px 0px 0px 0px; /* trbl */
+}
+
+
+/* Cart */
+table.cartTable {
+    /*border: 1px solid;*/
+    width: 70%;
+    padding: 2px;
+    text-align: center;
+}
+
+table.cartTable .quantityInput {
+    width: 2.5em;
+    text-align: center;
+}
+
+
+/* Account info */
+div.viewAccountInfoDiv {
+    width: 100%;
+}
+
+div.viewAccountInfoDiv > div {
+    text-align: center;
+    padding: 5px 5px 5px 5px;
+}
+
+div.viewAccountInfoDiv > div {
+    width: 40%;
+    text-align: right;
+    margin: 5px 2px 5px 2px;
+    float: left;
+    font-weight: bold;
+}
+
+div.viewAccountInfoDiv > div:nth-child(even) {
+    width: 40%;
+    text-align: left;
+    margin: 5px 2px 5px 2px;
+    float: left;
+    font-weight: normal;
+}
+
+input.textEntry {
+    width: 320px;
+    border: 1px solid #ccc;
+}
+
+input.passwordEntry {
+    width: 320px;
+    border: 1px solid #ccc;
+}
+
+div.accountInfo {
+    width: 42%;
+}
+
+
+.clear {
+    clear: both;
+}
+
+
+fieldset {
+    margin: 1em 0px;
+    padding: 1em;
+    border: 1px solid #ccc;
+}
+fieldset p {
+    margin: 2px 8px 6px 10px;
+}
+fieldset.login label, fieldset.register label, fieldset.changePassword label {
+    display: block;
+}
+fieldset label.inline {
+    display: inline;
+}
+legend {
+    font-size: 1.1em;
+    font-weight: 600;
+    padding: 2px 4px 0px 4px;
+    margin-bottom: 0px;
+    width: auto !important;
+}
+

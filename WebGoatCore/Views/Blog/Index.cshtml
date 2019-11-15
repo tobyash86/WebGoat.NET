@@ -19,7 +19,7 @@
             @foreach (var response in blogEntry.Responses)
             {
                 <div class="blogResponse">
-                    <div class="blogResponseContents">@response.Contents</div>
+                    <div class="blogResponseContents">@Html.Raw(response.Contents)</div>
                     <div class="blogResponseSignature">@response.Author - @response.ResponseDate</div>
                 </div>
             }

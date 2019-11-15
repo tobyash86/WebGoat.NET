@@ -30,7 +30,6 @@
         </p>
         <p>
             @Html.LabelFor(m => m.Product.Category)
-            <br>
             <select asp-for="Product.CategoryId">
                 @foreach (var category in Model.ProductCategories)
                 {
@@ -71,7 +70,6 @@
         {
             <p>
                 @Html.LabelFor(m => m.Product.Supplier)
-                <br>
                 <select asp-for="Product.SupplierId">
                     @foreach (var supplier in Model.Suppliers)
                     {

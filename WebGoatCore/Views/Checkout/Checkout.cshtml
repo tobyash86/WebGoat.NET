@@ -8,7 +8,7 @@
     Check Out
 </h1>
 @Html.ValidationSummary()
-@if (Model.Cart != null)
+@if (ViewData.ModelState.IsValid)
 {
     <partial name="_CartPartial" model=@Model.Cart/>
 }

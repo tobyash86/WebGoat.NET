@@ -26,9 +26,9 @@
                                 <a asp-controller="Product" asp-action="Details" asp-route-productId=@orderDetails.ProductId>@orderDetails.ProductId</a>
                             </td>
                             <td>@orderDetails.Product.ProductName</td>
-                            <td style="text-align: right;">@orderDetails.UnitPrice</td>
-                            <td style="text-align: right;">@orderDetails.Quantity</td>
-                            <td style="text-align: right;">@orderDetails.ExtendedPrice</td>
+                            <td>@orderDetails.UnitPrice</td>
+                            <td>@orderDetails.Quantity</td>
+                            <td>@orderDetails.ExtendedPrice</td>
                         </tr>
                     }
                     <tr>
