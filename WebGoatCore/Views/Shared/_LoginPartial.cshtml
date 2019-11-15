@@ -13,5 +13,5 @@
 }
 else
 {
-    <a class="nav-link text-dark" id="login" asp-controller="Account" asp-action="Login">[ Log In ]</a>
+    <a class="nav-link text-dark" id="login" asp-controller="Account" asp-action="Login" asp-route-returnUrl="@Context.Request.Path">[ Log In ]</a>
 }

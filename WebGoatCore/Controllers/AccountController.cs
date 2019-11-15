@@ -20,7 +20,13 @@ namespace WebGoatCore.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login() => View(new LoginViewModel());
+        public IActionResult Login(string? returnUrl)
+        {
+            return View(new LoginViewModel
+            {
+                ReturnUrl = returnUrl
+            });
+        }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -34,7 +40,14 @@ namespace WebGoatCore.Controllers
 
             if (result.Succeeded)
             {
-                return RedirectToAction("Index", "Home");
+                if (model.ReturnUrl != null)
+                {
+                    return Redirect(model.ReturnUrl);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
 
             if (result.IsLockedOut)

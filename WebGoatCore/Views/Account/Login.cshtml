@@ -15,6 +15,7 @@
 </p>
 @using (Html.BeginForm(FormMethod.Post))
 {
+    @Html.HiddenFor(m => m.ReturnUrl)
     <fieldset class="login">
         @Html.ValidationSummary(true)
         <p>
