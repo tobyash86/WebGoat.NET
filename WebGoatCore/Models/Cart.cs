@@ -5,7 +5,6 @@ namespace WebGoatCore.Models
 {
     public class Cart
     {
-
         public List<OrderDetail> OrderDetails { get; set; }
 
         public decimal SubTotal =>

@@ -17,9 +17,10 @@ namespace WebGoatCore.Models
         public DateTime Expiry { get; set; }
         public int CVV { get; set; }
         public string Name { get; set; }
-        public int ExpiryMonth { get { return Expiry.Month; } }
-        public int ExpiryYear { get { return Expiry.Year; } }
+        public int ExpiryMonth => Expiry.Month;
+        public int ExpiryYear => Expiry.Year;
         #endregion
+
         #region Constructor
         public CreditCard()
         {
@@ -28,6 +29,7 @@ namespace WebGoatCore.Models
             Number = string.Empty;
         }
         #endregion
+
         #region Public methods
         public void GetCardForUser()
         {
@@ -61,6 +63,7 @@ namespace WebGoatCore.Models
                 throw;
             }
         }
+
         public void SaveCardForUser()
         {
             if (CardExistsForUser())
@@ -72,6 +75,7 @@ namespace WebGoatCore.Models
                 InsertCardForUser();
             }
         }
+
         /// <summary>Validates the card</summary>
         /// <returns>True if valid.  False otherwise.</returns>
         /// <remarks>
@@ -106,13 +110,15 @@ namespace WebGoatCore.Models
             }
             return (sum % 10 == 0);
         }
-        public string ChargeCard(decimal ChargeAmount)
+
+        public string ChargeCard(decimal amount)
         {
             //Here is where we'd actually charge the card if this were real.
             var code = new Random().Next(999999).ToString("000000");
             return code;
         }
         #endregion
+
         #region Private methods
         private XDocument ReadCreditCardFile()
         {
@@ -148,14 +154,15 @@ namespace WebGoatCore.Models
             }
             return document;
         }
-        private void WriteCreditCardFile(XDocument XmlDocument)
+
+        private void WriteCreditCardFile(XDocument xmlDocument)
         {
             try
             {
                 using (var writeStream = File.Open(Filename, FileMode.Create))
                 {
                     var writer = new StreamWriter(writeStream);
-                    XmlDocument.Save(writer);
+                    xmlDocument.Save(writer);
                     writer.Close();
                 }
             }
@@ -176,6 +183,7 @@ namespace WebGoatCore.Models
                 throw ex;
             }
         }
+
         private bool CardExistsForUser()
         {
             var document = ReadCreditCardFile();
@@ -197,12 +205,14 @@ namespace WebGoatCore.Models
             }
             return true;
         }
+
         private void CreateNewCreditCardFile()
         {
             var document = new XDocument();
             document.Add(new XElement("CreditCards"));
             WriteCreditCardFile(document);
         }
+
         private void UpdateCardForUser()
         {
             XDocument document = ReadCreditCardFile();
@@ -223,6 +233,7 @@ namespace WebGoatCore.Models
             }
 
         }
+
         private void InsertCardForUser()
         {
             XDocument document = ReadCreditCardFile();

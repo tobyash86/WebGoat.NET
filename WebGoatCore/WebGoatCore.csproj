@@ -7,12 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Controllers\CheckoutController.cs~RF9894f09.TMP" />
-    <None Remove="NORTHWND.MDF" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="NORTHWND.MDF" />
+	<Content Include="NORTHWND_log.ldf">
+      <DependentUpon>NORTHWND.MDF</DependentUpon>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
