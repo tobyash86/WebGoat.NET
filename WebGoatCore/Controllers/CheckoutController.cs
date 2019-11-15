@@ -149,9 +149,7 @@ namespace WebGoatCore.Controllers
                 OrderDate = DateTime.Now,
                 RequiredDate = DateTime.Now.AddDays(7),
                 Freight = _shipperRepository.GetShipperByShipperId(model.ShippingMethod).GetShippingCost(model.Cart.SubTotal),
-                //TODO: Throws an error if we don't set the date. Try to set it to null or something.
-                ShippedDate = DateTime.Now.AddDays(3),
-                EmployeeId = 1
+                EmployeeId = 1,
             };
 
             var approvalCode = creditCard.ChargeCard(order.Total);
