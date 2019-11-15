@@ -43,11 +43,11 @@ namespace WebGoatCore.Data
             {
                 return string.Format("1Z{0} {1} {2} {3} {4} {5}", random.Next(999).ToString("000"), random.Next(999).ToString("000"), random.Next(99).ToString("00"), random.Next(9999).ToString("0000"), random.Next(999).ToString("000"), random.Next(9).ToString("0"));
             }
-            else if (companyName.Contains("Fedex"))
+            else if (companyName.Contains("FedEx"))
             {
                 return string.Format("{0}{1}", random.Next(999999).ToString("000000"), random.Next(999999).ToString("000000"));
             }
-            else if (companyName.Contains("Postal Service"))
+            else if (companyName.Contains("US Postal Service"))
             {
                 return string.Format("{0} {1} {2}", random.Next(9999).ToString("0000"), random.Next(9999).ToString("0000"), random.Next(99).ToString("00"));
             }
