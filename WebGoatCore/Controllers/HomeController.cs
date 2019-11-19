@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebGoatCore.ViewModels;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace WebGoatCore.Controllers
 {
@@ -34,7 +35,8 @@ namespace WebGoatCore.Controllers
         {
             return View(new ErrorViewModel
             {
-                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier,
+                ExceptionInfo = HttpContext.Features.Get<IExceptionHandlerPathFeature>(),
             });
         }
     }
