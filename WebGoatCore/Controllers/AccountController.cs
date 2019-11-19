@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebGoatCore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebGoatCore.Controllers
 {
@@ -185,6 +186,61 @@ namespace WebGoatCore.Controllers
                 }
             }
 
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult AddUserTemp()
+        {
+            var model = new AddUserTempViewModel
+            {
+                IsIssuerAdmin = User.IsInRole("Admin"),
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> AddUserTemp(AddUserTempViewModel model)
+        {
+            if(!model.IsIssuerAdmin)
+            {
+                return RedirectToAction("Login");
+            }
+
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser(model.NewUsername)
+                {
+                    Email = model.NewEmail
+                };
+
+                var result = await _userManager.CreateAsync(user, model.NewPassword);
+                if (result.Succeeded)
+                {
+                    if (model.MakeNewUserAdmin)
+                    {
+                        result = await _userManager.AddToRoleAsync(user, "admin");
+                        if (!result.Succeeded)
+                        {
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+
+            model.CreatedUser = true;
             return View(model);
         }
     }

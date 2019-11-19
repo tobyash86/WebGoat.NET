@@ -1,0 +1,53 @@
+﻿@model AddUserTempViewModel
+
+@{
+    ViewData["Title"] = "AddUserTemp";
+}
+
+<h1>
+    Add a new user
+</h1>
+<p>
+    Note: This page was created for the big staffing push. It is intented to be a temporary
+    solution. When the staffing crunch is over, it should be deleted. It is secure,
+    though. It will check to make sure that the user is an adminstrative user before
+    allowing him/her to add new users.
+</p>
+<div>
+    @if (!Model.IsIssuerAdmin)
+    {
+        <span class="validation-summary-errors">You must be an administrator to add new users. Log back in and try again.</span>
+    }
+    @Html.ValidationSummary()
+    @if (Model.CreatedUser)
+    {
+        <span style="font-size: 1.2em">@Model.NewUsername was created.</span>
+    }
+</div>
+@using (Html.BeginForm(FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.IsIssuerAdmin)
+    <fieldset>
+        <legend>New user's information</legend>
+        @Html.LabelFor(m => m.NewUsername)
+        <br>
+        @Html.TextBoxFor(m => m.NewUsername, new { @maxlength = 40 })
+        @Html.ValidationMessageFor(m => m.NewUsername)
+        <br>
+        @Html.LabelFor(m => m.NewPassword)
+        <br>
+        @Html.PasswordFor(m => m.NewPassword, new { @maxlength = 60 })
+        @Html.ValidationMessageFor(m => m.NewPassword)
+        <br>
+        @Html.LabelFor(m => m.NewEmail)
+        <br>
+        @Html.TextBoxFor(m => m.NewEmail, new { @maxlength = 60 })
+        @Html.ValidationMessageFor(m => m.NewEmail)
+        <br>
+        <span title="Make admin user?">
+            @Html.CheckBoxFor(m => m.MakeNewUserAdmin)
+            @Html.LabelFor(m => m.MakeNewUserAdmin)
+        </span>
+    </fieldset>
+    <input type="submit" value="Add User" disabled="@(Model.IsIssuerAdmin ? null : "disabled")">
+}

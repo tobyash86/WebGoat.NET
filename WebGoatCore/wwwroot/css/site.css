@@ -84,6 +84,10 @@ input[type=text] {
 }
 .validation-summary-errors ul {
     list-style: none;
+    padding: 0;
+}
+.field-validation-error {
+    color: Red;
 }
 
 h1, h2, h3, h4, h5, h6 {
