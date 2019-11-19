@@ -24,6 +24,10 @@
                 </td>
             </tr>
         }
+        @if (Model.OrderDetails.Any())
+        {
+            <tr><td class="table-separator" colspan="6"></td></tr>
+        }
         <tr>
             <td></td>
             <td style="text-align: right">Subtotal:</td>

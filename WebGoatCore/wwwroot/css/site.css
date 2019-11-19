@@ -260,3 +260,8 @@ legend {
     justify-content: center;
     flex-direction: row;
 }
+
+.table-separator {
+    width: 100%;
+    border-top: 2px solid #555;
+}
