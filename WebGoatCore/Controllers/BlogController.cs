@@ -46,11 +46,11 @@ namespace WebGoatCore.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public IActionResult Create() => View();
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public IActionResult Create(string title, string contents)
         {
             var blogEntry = _blogEntryRepository.CreateBlogEntry(title, contents, User.Identity.Name!);

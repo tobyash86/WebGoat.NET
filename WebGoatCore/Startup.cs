@@ -68,7 +68,8 @@ namespace WebGoatCore
 
             services.AddSession(options =>
             {
-                options.Cookie.HttpOnly = true;
+                options.Cookie.HttpOnly = false;
+                options.IdleTimeout = TimeSpan.FromHours(1);
             });
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WebGoatCore.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
@@ -21,6 +22,7 @@ namespace WebGoatCore.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login(string? returnUrl)
         {
             return View(new LoginViewModel
@@ -30,6 +32,7 @@ namespace WebGoatCore.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
@@ -62,7 +65,6 @@ namespace WebGoatCore.Controllers
             }
         }
 
-        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
@@ -70,6 +72,7 @@ namespace WebGoatCore.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Register()
         {
             await _signInManager.SignOutAsync();
@@ -77,6 +80,7 @@ namespace WebGoatCore.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -190,7 +194,6 @@ namespace WebGoatCore.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public IActionResult AddUserTemp()
         {
             var model = new AddUserTempViewModel
@@ -201,7 +204,6 @@ namespace WebGoatCore.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> AddUserTemp(AddUserTempViewModel model)
         {
             if(!model.IsIssuerAdmin)

@@ -71,13 +71,13 @@ namespace WebGoatCore.Controllers
             return View(model);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public IActionResult Manage()
         {
             return View(_productRepository.GetAllProducts());
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult Add()
         {
@@ -89,7 +89,7 @@ namespace WebGoatCore.Controllers
             });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult Add(Product product)
         {
@@ -110,7 +110,7 @@ namespace WebGoatCore.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public IActionResult Edit(int id)
         {
@@ -122,7 +122,7 @@ namespace WebGoatCore.Controllers
             });
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [HttpPost("{id?}")]
         public IActionResult Edit(Product product)
         {
