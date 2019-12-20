@@ -18,7 +18,13 @@ namespace WebGoatCore.Data
         {
             return _context.Shippers.ToDictionary(
                 s => s.ShipperId, 
-                s => $"{s.CompanyName} {s.ServiceName} - {s.GetShippingCost(orderSubtotal):C}");
+                s => GetShippingCostString(s, orderSubtotal));
+        }
+
+        private string GetShippingCostString(Shipper shipper, decimal orderSubtotal)
+        {
+            var shippingCost = shipper.GetShippingCost(orderSubtotal).ToString("C", System.Globalization.CultureInfo.GetCultureInfo("en-us"));
+            return $"{shipper.CompanyName} {shipper.ServiceName} - {shippingCost}";
         }
 
         public Shipper GetShipperByShipperId(int shipperId)
