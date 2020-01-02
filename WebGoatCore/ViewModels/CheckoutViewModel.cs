@@ -52,9 +52,32 @@ namespace WebGoatCore.ViewModels
         [Required(ErrorMessage = "Please mark whether credit card number should be remembered")]
         public bool RememberCreditCard { get; set; }
 
-        public IDictionary<int, string> ShippingOptions { get; set; }
+        private static IDictionary<int, string> _shippingOptions;
+        public IDictionary<int, string> ShippingOptions {
+            get
+            {
+                return _shippingOptions;
+            }
 
-        public IList<int> AvailableExpirationYears { get; set; }
+            set
+            {
+                _shippingOptions = value;
+            }
+        }
+
+        private static IList<int> _expYears;
+        public IList<int> AvailableExpirationYears
+        {
+            get
+            {
+                return _expYears;
+            }
+
+            set
+            {
+                _expYears = value;
+            }
+        }
 
         public Cart? Cart { get; set; }
     }

@@ -19,6 +19,7 @@ namespace WebGoatCore.Controllers
         private readonly ShipperRepository _shipperRepository;
         private readonly OrderRepository _orderRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private CheckoutViewModel _model;
 
         public CheckoutController(UserManager<IdentityUser> userManager, CustomerRepository customerRepository, IWebHostEnvironment webHostEnvironment, ShipperRepository shipperRepository, OrderRepository orderRepository)
         {
@@ -32,41 +33,49 @@ namespace WebGoatCore.Controllers
         [HttpGet]
         public IActionResult Checkout()
         {
-            var model = new CheckoutViewModel();
+            if(_model == null)
+            {
+                InitializeModel();
+            }
+
+            return View(_model);
+        }
+
+        private void InitializeModel()
+        {
+            _model = new CheckoutViewModel();
             var customer = GetCustomerOrAddError();
             var creditCard = GetCreditCardForUser();
 
             try
             {
                 creditCard.GetCardForUser();
-                model.CreditCard = creditCard.Number;
-                model.ExpirationMonth = creditCard.Expiry.Month;
-                model.ExpirationYear = creditCard.Expiry.Year;
+                _model.CreditCard = creditCard.Number;
+                _model.ExpirationMonth = creditCard.Expiry.Month;
+                _model.ExpirationYear = creditCard.Expiry.Year;
             }
             catch (NullReferenceException)
             {
             }
 
-            model.Cart = HttpContext.Session.Get<Cart>("Cart");
-            if (model.Cart == null || model.Cart.OrderDetails.Count == 0)
+            _model.Cart = HttpContext.Session.Get<Cart>("Cart");
+            if (_model.Cart == null || _model.Cart.OrderDetails.Count == 0)
             {
                 ModelState.AddModelError(string.Empty, "You have no items in your cart.");
             }
 
             if (customer != null)
             {
-                model.ShipTarget = customer.CompanyName;
-                model.Address = customer.Address;
-                model.City = customer.City;
-                model.Region = customer.Region;
-                model.PostalCode = customer.PostalCode;
-                model.Country = customer.Country;
+                _model.ShipTarget = customer.CompanyName;
+                _model.Address = customer.Address;
+                _model.City = customer.City;
+                _model.Region = customer.Region;
+                _model.PostalCode = customer.PostalCode;
+                _model.Country = customer.Country;
             }
 
-            model.AvailableExpirationYears = Enumerable.Range(1, 5).Select(i => DateTime.Now.Year + i).ToList();
-            model.ShippingOptions = _shipperRepository.GetShippingOptions(model.Cart?.SubTotal ?? 0);
-
-            return View(model);
+            _model.AvailableExpirationYears = Enumerable.Range(1, 5).Select(i => DateTime.Now.Year + i).ToList();
+            _model.ShippingOptions = _shipperRepository.GetShippingOptions(_model.Cart?.SubTotal ?? 0);
         }
 
         [HttpPost]
@@ -114,7 +123,8 @@ namespace WebGoatCore.Controllers
             if (!creditCard.IsValid())
             {
                 ModelState.AddModelError(string.Empty, "That card is not valid. Please enter a valid card.");
-                return View(model);
+                _model = model;
+                return View(_model);
             }
 
             if (model.RememberCreditCard)

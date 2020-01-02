@@ -61,8 +61,7 @@
         <br>
         @Html.LabelFor(m => m.ExpirationMonth)
         <select asp-for="ExpirationMonth">
-            <option selected="selected" value="--">--</option>
-            <option value="01">January</option>
+            <option selected="selected" value="01">January</option>
             <option value="02">February</option>
             <option value="03">March</option>
             <option value="04">April</option>
@@ -77,7 +76,6 @@
         </select>
         @Html.ValidationMessageFor(m => m.ExpirationMonth)
     <select asp-for="ExpirationYear">
-        <option selected="selected" value="--">--</option>
         @foreach (var year in Model.AvailableExpirationYears)
         {
             <option value=@year>@year</option>
