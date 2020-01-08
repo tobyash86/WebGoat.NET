@@ -82,7 +82,7 @@ namespace WebGoatCore.Models
         /// </remarks>
         public bool IsValid()
         {
-            if (Expiry < DateTime.Today)
+            if (Expiry < DateTime.Today || string.IsNullOrEmpty(this.Number))
             {
                 return false;
             }

@@ -38,7 +38,7 @@ namespace WebGoatCore.ViewModels
 
         [Display(Name = "Credit card number:")]
         [DataType(DataType.CreditCard, ErrorMessage = "This doesn't look like credit card number")]
-        [Required(ErrorMessage = "adsasdasd")]
+        [Required(ErrorMessage = "Please provide valid card number.")]
         public string CreditCard { get; set; }
 
         [Display(Name = "Expiration")]
