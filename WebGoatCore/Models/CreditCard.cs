@@ -89,6 +89,12 @@ namespace WebGoatCore.Models
 
             // Remove non-digits
             var creditCardNumber = Regex.Replace(Number, @"[^\d]", "");
+
+            if (string.IsNullOrEmpty(creditCardNumber))
+            {
+                return false;
+            }
+
             var number = creditCardNumber.ToCharArray();
 
             // Validate based on card type, first if tests length, second tests prefix
