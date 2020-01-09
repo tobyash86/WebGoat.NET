@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Globalization;
+using System.Threading;
 
 namespace WebGoatCore.Data
 {
@@ -24,6 +26,7 @@ namespace WebGoatCore.Data
 
         public int CreateOrder(Order order)
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
             // These commented lines cause EF Core to do wierd things.
             // Instead, make the query manually.
 
