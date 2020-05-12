@@ -25,7 +25,65 @@ RUNNING!
 
 ## How to build and run?
 
-TBD
+### 1. Run in a Docker container
+
+Provided Dockerfile is compatible with both Linux and Windows containers.  
+To build a Docker image please execute command:
+
+```sh
+docker build --pull --rm -t webgoat .
+```
+
+#### Linux containers
+
+To run `webgoat` image please execute command:
+
+```sh
+docker run -d -p 5000:80 --name webgoat webgoat
+```
+
+`WebGoat.NETCore` website should be accessible under address http://localhost:5000.
+
+#### Windows containers
+
+To run `webgoat` image please execute command:
+
+```sh
+docker run --name webgoat webgoat
+```
+
+Windows containers do not support binding to a localhost, so to access the website it is required to get Docker container IP adsress. This can be done by executing the following command:
+
+```sh
+docker exec webgoat ipconfig
+```
+as a result, output from ipconfig should appear, e.g:
+
+```
+Ethernet adapter Ethernet:
+
+   Connection-specific DNS Suffix  . : 
+   Link-local IPv6 Address . . . . . : fe80::1967:6598:124:cfa3%4
+   IPv4 Address. . . . . . . . . . . : 172.29.245.43
+   Subnet Mask . . . . . . . . . . . : 255.255.240.0
+   Default Gateway . . . . . . . . . : 172.29.240.1
+```
+Now it is clear that `WebGoat.NETCore` website should be acessible under e.g. http://172.29.245.43.
+
+### 2. Run locally using dotnet.exe (Kestrel)
+
+To run `WebGoat.NETCore` locally, first it needs to be built and published:
+
+```sh
+dotnet publish -c release -o ./app 
+```
+
+as a result built web application will be deployed into `app` folder in current directory. The following command will execute it on local host:
+
+```sh
+dotnet ./app/WebGoatCore.dll --urls=http://localhost:5000
+```
+As specified in `--urls` parameter, the web application will be hosted under http://localhost:5000.
 
 ## Known issues:
 
