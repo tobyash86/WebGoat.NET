@@ -8,15 +8,34 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
+using Microsoft.Extensions.FileProviders;
 
 namespace WebGoatCore
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration, IHostEnvironment environment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            Configuration = configuration;
-            NorthwindContext.Initialize(environment);
+            var execDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+
+            var builder = new ConfigurationBuilder();
+
+            var dic = new Dictionary<string, string>
+            {
+                {Constants.WEBGOAT_ROOT, execDirectory},
+            };
+            builder.AddInMemoryCollection(dic);
+            builder.AddConfiguration(configuration);
+            Configuration = builder.Build();
+
+            env.WebRootFileProvider = new CompositeFileProvider(
+                env.WebRootFileProvider, new PhysicalFileProvider(Path.Combine(execDirectory, "wwwroot"))
+            );
+
+            NorthwindContext.Initialize(this.Configuration, env);
         }
 
         public IConfiguration Configuration { get; }

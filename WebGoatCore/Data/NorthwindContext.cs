@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Data.Sqlite;
-using System;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -13,10 +12,11 @@ namespace WebGoatCore.Data
 {
     public class NorthwindContext : IdentityDbContext<IdentityUser>
     {
-        public static void Initialize(IHostEnvironment env)
+        public static void Initialize(IConfiguration configuration, IHostEnvironment env)
         {
+            var execDirectory = configuration.GetValue(Constants.WEBGOAT_ROOT, env.ContentRootPath);
             var builder = new SqliteConnectionStringBuilder();
-            builder.DataSource = Path.Combine(env.ContentRootPath, "NORTHWND.sqlite");
+            builder.DataSource = Path.Combine(execDirectory, "NORTHWND.sqlite");
             ConnString = builder.ConnectionString;
         }
 
