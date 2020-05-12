@@ -3,13 +3,24 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.Data.Sqlite;
 using System;
+using System.IO;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 
 namespace WebGoatCore.Data
 {
     public class NorthwindContext : IdentityDbContext<IdentityUser>
     {
-        public static string ConnString = $"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename={Environment.CurrentDirectory}\\NORTHWND.MDF;Integrated Security=True;MultipleActiveResultSets=True;";
+        public static void Initialize(IHostEnvironment env)
+        {
+            var builder = new SqliteConnectionStringBuilder();
+            builder.DataSource = Path.Combine(env.ContentRootPath, "NORTHWND.sqlite");
+            ConnString = builder.ConnectionString;
+        }
+
+        public static string ConnString;
 
         public static readonly LoggerFactory _myLoggerFactory =
             new LoggerFactory(new[] {

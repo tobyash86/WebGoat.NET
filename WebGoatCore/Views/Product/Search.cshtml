@@ -43,7 +43,7 @@
                         <a asp-action="Details" asp-route-productId=@product.Product.ProductId>@product.Product.ProductName</a>
                     </td>
                     <td>@product.Product.QuantityPerUnit</td>
-                    <td>$@product.Product.UnitPrice</td>
+                    <td>$@product.Product.DecimalUnitPrice</td>
                 </tr>
             }
         </tbody>

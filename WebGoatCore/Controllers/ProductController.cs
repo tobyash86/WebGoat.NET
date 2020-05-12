@@ -137,10 +137,10 @@ namespace WebGoatCore.Controllers
 
         private string GetImageUrlForProduct(Product product)
         {
-            var imageUrl = $"/images/productImages/{product.ProductId}.jpg";
+            var imageUrl = $"/Images/ProductImages/{product.ProductId}.jpg";
             if (!_webHostEnvironment.WebRootFileProvider.GetFileInfo(imageUrl).Exists)
             {
-                imageUrl = "/images/productImages/NoImage.jpg";
+                imageUrl = "/Images/ProductImages/NoImage.jpg";
             }
             return imageUrl;
         }

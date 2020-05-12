@@ -22,7 +22,7 @@
             <br>
             Unit: @Model.Product.QuantityPerUnit
             <br>
-            Price: @Model.Product.UnitPrice
+            Price: @Model.Product.DecimalUnitPrice;
         </div>
         <form asp-controller="Cart" asp-action="AddOrder" asp-route-productId=@Model.Product.ProductId>
             <label for="quantity">Quantity:</label>

@@ -17,7 +17,7 @@
             @foreach (var product in Model)
             {
                 <li>
-                    <a asp-action="Edit" asp-route-id=@product.ProductId>@product.ProductName</a>  Price: @product.UnitPrice In stock: @product.UnitsInStock On order: @product.UnitsOnOrder
+                    <a asp-action="Edit" asp-route-id=@product.ProductId>@product.ProductName</a>  Price: @product.DecimalUnitPrice In stock: @product.UnitsInStock On order: @product.UnitsOnOrder
                 </li>
             }
         </ul>

@@ -223,6 +223,7 @@ namespace WebGoatCore.Controllers
                 {
                     if (model.MakeNewUserAdmin)
                     {
+                        // TODO: role should be Admin?
                         result = await _userManager.AddToRoleAsync(user, "admin");
                         if (!result.Succeeded)
                         {

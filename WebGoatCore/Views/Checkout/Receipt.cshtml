@@ -26,7 +26,7 @@
                                 <a asp-controller="Product" asp-action="Details" asp-route-productId=@orderDetails.ProductId>@orderDetails.ProductId</a>
                             </td>
                             <td>@orderDetails.Product.ProductName</td>
-                            <td>@orderDetails.UnitPrice</td>
+                            <td>@orderDetails.DecimalUnitPrice</td>
                             <td>@orderDetails.Quantity</td>
                             <td>@orderDetails.ExtendedPrice</td>
                         </tr>

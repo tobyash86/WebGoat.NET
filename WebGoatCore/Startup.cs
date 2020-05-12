@@ -13,9 +13,10 @@ namespace WebGoatCore
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostEnvironment environment)
         {
             Configuration = configuration;
+            NorthwindContext.Initialize(environment);
         }
 
         public IConfiguration Configuration { get; }
@@ -26,7 +27,7 @@ namespace WebGoatCore
                 .AddRazorRuntimeCompilation();
 
             services.AddDbContext<NorthwindContext>(options =>
-                options.UseSqlServer(NorthwindContext.ConnString)
+                options.UseSqlite(NorthwindContext.ConnString)
                     .UseLazyLoadingProxies(),
                 ServiceLifetime.Scoped);
 

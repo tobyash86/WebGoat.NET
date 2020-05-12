@@ -47,9 +47,9 @@
             @Html.ValidationMessageFor(m => m.Product.QuantityPerUnit)
         </p>
         <p>
-            @Html.LabelFor(m => m.Product.UnitPrice)
-            @Html.TextBoxFor(m => m.Product.UnitPrice, new { @value = Model.Product?.UnitPrice })
-            @Html.ValidationMessageFor(m => m.Product.UnitPrice)
+            @Html.LabelFor(m => m.Product.DecimalUnitPrice)
+            @Html.TextBoxFor(m => m.Product.DecimalUnitPrice, new { @value = Model.Product?.DecimalUnitPrice })
+            @Html.ValidationMessageFor(m => m.Product.DecimalUnitPrice)
         </p>
         <p>
             @Html.LabelFor(m => m.Product.UnitsInStock)

@@ -10,7 +10,7 @@ namespace WebGoatCore.Models
         public string CreditCardNumber { get; set; }
         public DateTime ExpirationDate { get; set; }
         public string? CVV { get; set; }
-        public decimal AmountPaid { get; set; }
+        public double AmountPaid { get; set; }
         public DateTime PaymentDate { get; set; }
         public string ApprovalCode { get; set; }
 

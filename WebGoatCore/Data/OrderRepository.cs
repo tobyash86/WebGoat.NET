@@ -84,11 +84,11 @@ namespace WebGoatCore.Data
             return order.OrderId;
         }
 
-        public void CreateOrderPayment(int orderId, Decimal amountPaid, string creditCardNumber, DateTime expirationDate, string approvalCode)
+        public void CreateOrderPayment(int orderId, decimal amountPaid, string creditCardNumber, DateTime expirationDate, string approvalCode)
         {
             var orderPayment = new OrderPayment()
             {
-                AmountPaid = amountPaid,
+                AmountPaid = Convert.ToDouble(amountPaid),
                 CreditCardNumber = creditCardNumber,
                 ApprovalCode = approvalCode,
                 ExpirationDate = expirationDate,
