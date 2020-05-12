@@ -29,10 +29,8 @@ TBD
 
 ## Known issues:
 
-1. Used LocalDB format is compatible only with Windows OS, it needs to be replaced with SQLite
-2. No support for Docker Linux containers (see pt. 1).
-3. Newest OWASP Top 10 is not covered. Vulnerabilities needs to be added to the code base.
-4. Educational documents/trainings for each OWASP Top 10 category are missing (old OWASP Top 10 is covered).
+1. Newest OWASP Top 10 is not covered. Vulnerabilities needs to be added to the code base.
+2. Educational documents/trainings for each OWASP Top 10 category are missing (old OWASP Top 10 is covered).
 
 ## Changelog:
 
@@ -53,7 +51,9 @@ TBD
 - improved error messages for required form fields
 - fixed exception when no CCN was specified
 - fixed order value calculation on checkout
-- added docker scripts
+- added support for running on Linux OS
+- replaced SQL Server Local DB with SQLite database
+- added support for running WebGoat in Docker Linux container
 
 
 
