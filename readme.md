@@ -31,6 +31,7 @@ TBD
 
 1. Newest OWASP Top 10 is not covered. Vulnerabilities needs to be added to the code base.
 2. Educational documents/trainings for each OWASP Top 10 category are missing (old OWASP Top 10 is covered).
+3. ClickJacking example is not functional at the moment.
 
 ## Changelog:
 
