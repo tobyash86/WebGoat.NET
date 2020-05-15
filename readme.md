@@ -68,7 +68,7 @@ Ethernet adapter Ethernet:
    Subnet Mask . . . . . . . . . . . : 255.255.240.0
    Default Gateway . . . . . . . . . : 172.29.240.1
 ```
-Now it is clear that `WebGoat.NETCore` website should be acessible under e.g. http://172.29.245.43.
+Now it is clear that WebGoat.NETCore website should be acessible under e.g. http://172.29.245.43.
 
 ### 2. Run locally using dotnet.exe (Kestrel)
 
