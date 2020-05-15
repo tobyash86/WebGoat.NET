@@ -1,6 +1,6 @@
 # WebGoat.NETCore
 
-## A next generation WebGoat example project showing OWASP TOP 10 vulnerabilities in a practical way.
+## A next generation WebGoat example project showing OWASP TOP 10 vulnerabilities in a practical way
 
 This is a re-implementation of the original [WebGoat project for .NET](https://github.com/jerryhoff/WebGoat.NET).
 
