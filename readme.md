@@ -1,18 +1,18 @@
 # WebGoat.NETCore
 
-## A next generation WebGoat example project showing OWASP TOP 10 vulnerabilities in a practical way
+## The next generation of the WebGoat example project to demonstrate OWASP TOP 10 vulnerabilities
 
 This is a re-implementation of the original [WebGoat project for .NET](https://github.com/jerryhoff/WebGoat.NET).
 
 This web application is a learning platform that attempts to teach about
 common web security flaws. It contains generic security flaws that apply to
 most web applications. It also contains lessons that specifically pertain to
-the .NET framework. The excercises in this app are intented to teach about 
+the .NET framework. The exercises in this app are intended to teach about 
 web security attacks and how developers can overcome them.
 
 ### WARNING: 
 THIS WEB APPLICATION CONTAINS NUMEROUS SECURITY VULNERABILITIES 
-WHICH WILL RENDER YOUR COMPUTER VERY INSECURURE WHILE RUNNING! IT IS HIGHLY
+WHICH WILL RENDER YOUR COMPUTER VERY INSECURE WHILE RUNNING! IT IS HIGHLY
 RECOMMENDED TO COMPLETELY DISCONNECT YOUR COMPUTER FROM ALL NETWORKS WHILE
 RUNNING!
 
@@ -23,41 +23,41 @@ RUNNING!
 - Some (but not all!) of the lessons require a working SQL database. Setup
   guidelines are shown below.
 
-## How to build and run?
+## How to build and run
 
-### 1. Run in a Docker container
+### 1. Running in a Docker container
 
-Provided Dockerfile is compatible with both Linux and Windows containers.  
-To build a Docker image please execute command:
+The provided Dockerfile is compatible with both Linux and Windows containers.  
+To build a Docker image, execute the following command:
 
 ```sh
 docker build --pull --rm -t webgoat .
 ```
 
-#### Linux containers
+#### On Linux
 
-To run `webgoat` image please execute command:
+To run the `webgoat` image, execute the following command:
 
 ```sh
 docker run -d -p 5000:80 --name webgoat webgoat
 ```
 
-WebGoat.NETCore website should be accessible under address http://localhost:5000.
+WebGoat.NETCore website should be accessible at http://localhost:5000.
 
-#### Windows containers
+#### On Windows
 
-To run `webgoat` image please execute command:
+To run `webgoat` image, execute the following command:
 
 ```sh
 docker run --name webgoat webgoat
 ```
 
-Windows containers do not support binding to a localhost, so to access the website it is required to get Docker container IP adsress. This can be done by executing the following command:
+Windows containers do not support binding to localhost. To access the website, you need to provide the IP address of your Docker container. To obtain the IP, execute the following command:
 
 ```sh
 docker exec webgoat ipconfig
 ```
-as a result, output from ipconfig should appear, e.g:
+The output will include the IP of the 'webgoat' container, for example:
 
 ```
 Ethernet adapter Ethernet:
@@ -68,51 +68,56 @@ Ethernet adapter Ethernet:
    Subnet Mask . . . . . . . . . . . : 255.255.240.0
    Default Gateway . . . . . . . . . : 172.29.240.1
 ```
-Now it is clear that WebGoat.NETCore website should be acessible under e.g. http://172.29.245.43.
+
+In the above example, you can access the WebGoat.NETCore website at http://172.29.245.43.
 
 ### 2. Run locally using dotnet.exe (Kestrel)
 
-To run WebGoat.NETCore locally, first it needs to be built and published:
+1. Build and publish WebGoat.NETCore with the following command:
 
 ```sh
 dotnet publish -c release -o ./app 
 ```
 
-as a result built web application will be deployed into `app` folder in current directory. The following command will execute it on local host:
+The web application will be deployed to the `app` folder in the current directory.
+
+2. Execute the web application on localhost with the following command:
 
 ```sh
 dotnet ./app/WebGoatCore.dll --urls=http://localhost:5000
 ```
-As specified in `--urls` parameter, the web application will be hosted under http://localhost:5000.
+
+The the WebGoat.NETCore website will be accessible at the URL specified with the `--urls` parameter: http://localhost:5000.
+
 
 ## Known issues:
 
-1. Newest OWASP Top 10 is not covered. Vulnerabilities needs to be added to the code base.
-2. Educational documents/trainings for each OWASP Top 10 category are missing (old OWASP Top 10 is covered).
-3. ClickJacking example is not functional at the moment.
+1. The latest OWASP Top 10 is not covered. The uncovered vulnerabilities need to be added to the code base.
+2. Educational documents/trainings for any categories of the latest OWASP Top 10 are not available (the previous version of OWASP Top 10 is covered).
+3. The ClickJacking example is currently not functional.
 
 ## Changelog:
 
 ### Initial version:
-- converted WebGoat.NET (.NET Framework) to WebGoat.NETCore (.NET Core)
-- updated a set of functionalities to be compatible with .NET Core:
+- Converted WebGoat.NET (.NET Framework) to WebGoat.NETCore (.NET Core).
+- Updated a set of functionalities to be compatible with .NET Core:
     - register/login/logout
     - cart/checkout
     - blog
     - products management
     - shipment tracking
-- improved site styles
-- redirecting to a recent page after login
-- included exception data on error pages
-- improvements around misspellings and formattings
-- improved build experience
-- fixed 'Keep shopping' link
-- improved error messages for required form fields
-- fixed exception when no CCN was specified
-- fixed order value calculation on checkout
-- added support for running on Linux OS
-- replaced SQL Server Local DB with SQLite database
-- added support for running WebGoat in Docker Linux container
+- Improved the site styles.
+- Improved redirecting to a recent page after login.
+- Included exception data on error pages.
+- Improved misspelling and formatting.
+- Improved the build process.
+- Fixed the 'Keep shopping' link.
+- Improved the error messages for required form fields.
+- Fixed the exception when no CCN was specified.
+- Fixed order value calculation on checkout.
+- Added support for running on Linux OS.
+- Replaced SQL Server Local DB with SQLite database.
+- Added support for running WebGoat in a Linux Docker container.
 
 
 
