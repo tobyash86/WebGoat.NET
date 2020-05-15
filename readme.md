@@ -105,7 +105,7 @@ The the WebGoat.NETCore website will be accessible at the URL specified with the
     - products management
     - shipment tracking
 - Improved the site styles.
-- Added redirecting to a recent page after login.
+- Added redirecting to the recent page after login.
 - Included exception data on error pages.
 - Improved spelling and formatting.
 - Improved the build process.
