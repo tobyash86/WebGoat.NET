@@ -19,9 +19,7 @@ RUNNING!
 ### Notes:
  - Google Chrome performs filtering for reflected XSS attacks. These attacks
    will not work unless chrome is run with the argument 
-   --disable-xss-auditor. 
-- Some (but not all!) of the lessons require a working SQL database. Setup
-  guidelines are shown below.
+   --disable-xss-auditor.
 
 ## How to build and run
 
@@ -107,7 +105,7 @@ The the WebGoat.NETCore website will be accessible at the URL specified with the
     - products management
     - shipment tracking
 - Improved the site styles.
-- Improved redirecting to a recent page after login.
+- Added redirecting to a recent page after login.
 - Included exception data on error pages.
 - Improved spelling and formatting.
 - Improved the build process.
