@@ -109,7 +109,7 @@ The the WebGoat.NETCore website will be accessible at the URL specified with the
 - Improved the site styles.
 - Improved redirecting to a recent page after login.
 - Included exception data on error pages.
-- Improved misspelling and formatting.
+- Improved spelling and formatting.
 - Improved the build process.
 - Fixed the 'Keep shopping' link.
 - Improved the error messages for required form fields.
