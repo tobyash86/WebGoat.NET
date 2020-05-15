@@ -42,7 +42,7 @@ To run `webgoat` image please execute command:
 docker run -d -p 5000:80 --name webgoat webgoat
 ```
 
-`WebGoat.NETCore` website should be accessible under address http://localhost:5000.
+WebGoat.NETCore website should be accessible under address http://localhost:5000.
 
 #### Windows containers
 
