@@ -72,7 +72,7 @@ Now it is clear that `WebGoat.NETCore` website should be acessible under e.g. ht
 
 ### 2. Run locally using dotnet.exe (Kestrel)
 
-To run `WebGoat.NETCore` locally, first it needs to be built and published:
+To run WebGoat.NETCore locally, first it needs to be built and published:
 
 ```sh
 dotnet publish -c release -o ./app 
