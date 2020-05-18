@@ -32,7 +32,7 @@ To build a Docker image, execute the following command:
 docker build --pull --rm -t webgoat .
 ```
 
-#### On Linux
+#### Linux containers
 
 To run the `webgoat` image, execute the following command:
 
@@ -42,7 +42,7 @@ docker run -d -p 5000:80 --name webgoat webgoat
 
 WebGoat.NETCore website should be accessible at http://localhost:5000.
 
-#### On Windows
+#### Windows containers
 
 To run `webgoat` image, execute the following command:
 
