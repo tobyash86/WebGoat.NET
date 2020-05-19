@@ -30,9 +30,9 @@ namespace WebGoatCore.Data
             // These commented lines cause EF Core to do wierd things.
             // Instead, make the query manually.
 
-            //order = _context.Orders.Add(order).Entity;
-            //_context.SaveChanges();
-            //return order.OrderId;
+            // order = _context.Orders.Add(order).Entity;
+            // _context.SaveChanges();
+            // return order.OrderId;
 
             var sql = "INSERT INTO Orders (" +
                 "CustomerId, EmployeeId, OrderDate, RequiredDate, ShippedDate, ShipVia, Freight, ShipName, ShipAddress, " +
@@ -41,7 +41,7 @@ namespace WebGoatCore.Data
                 $"'{order.CustomerId}','{order.EmployeeId}','{order.OrderDate:yyyy-MM-dd}','{order.RequiredDate:yyyy-MM-dd}'," +
                 $"'{order.ShippedDate:yyyy-MM-dd}','{order.ShipVia}','{order.Freight}','{order.ShipName}','{order.ShipAddress}'," +
                 $"'{order.ShipCity}','{order.ShipRegion}','{order.ShipPostalCode}','{order.ShipCountry}')";
-            sql += ";\nSELECT TOP 1 OrderID FROM Orders ORDER BY OrderID DESC;";
+            sql += ";\nSELECT OrderID FROM Orders ORDER BY OrderID DESC LIMIT 1;";
 
             using (var command = _context.Database.GetDbConnection().CreateCommand())
             {
@@ -50,7 +50,7 @@ namespace WebGoatCore.Data
 
                 using var dataReader = command.ExecuteReader();
                 dataReader.Read();
-                order.OrderId = (int)dataReader[0];
+                order.OrderId = Convert.ToInt32(dataReader[0]);
             }
 
             sql = ";\nINSERT INTO OrderDetails (" +

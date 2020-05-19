@@ -1,14 +1,14 @@
 ﻿using WebGoatCore.Models;
 using WebGoatCore.Data;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using WebGoatCore.ViewModels;
 using System.Linq;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace WebGoatCore.Controllers
 {
@@ -18,16 +18,16 @@ namespace WebGoatCore.Controllers
         private readonly CustomerRepository _customerRepository;
         private readonly ShipperRepository _shipperRepository;
         private readonly OrderRepository _orderRepository;
-        private readonly IWebHostEnvironment _webHostEnvironment;
         private CheckoutViewModel _model;
+        private string _resourcePath;
 
-        public CheckoutController(UserManager<IdentityUser> userManager, CustomerRepository customerRepository, IWebHostEnvironment webHostEnvironment, ShipperRepository shipperRepository, OrderRepository orderRepository)
+        public CheckoutController(UserManager<IdentityUser> userManager, CustomerRepository customerRepository, IHostEnvironment hostEnvironment, IConfiguration configuration, ShipperRepository shipperRepository, OrderRepository orderRepository)
         {
             _userManager = userManager;
             _customerRepository = customerRepository;
             _shipperRepository = shipperRepository;
-            _webHostEnvironment = webHostEnvironment;
             _orderRepository = orderRepository;
+            _resourcePath = configuration.GetValue(Constants.WEBGOAT_ROOT, hostEnvironment.ContentRootPath);
         }
 
         [HttpGet]
@@ -159,7 +159,7 @@ namespace WebGoatCore.Controllers
             };
 
             //Create the order itself.
-            int orderId = _orderRepository.CreateOrder(order);
+            var orderId = _orderRepository.CreateOrder(order);
 
             //Create the payment record.
             _orderRepository.CreateOrderPayment(orderId, order.Total, creditCard.Number, creditCard.Expiry, approvalCode);
@@ -247,7 +247,7 @@ namespace WebGoatCore.Controllers
         {
             return new CreditCard()
             {
-                Filename = Path.Combine(_webHostEnvironment.WebRootPath, "StoredCreditCards.xml"),
+                Filename = Path.Combine(_resourcePath, "StoredCreditCards.xml"),
                 Username = _userManager.GetUserName(User)
             };
         }
