@@ -34,12 +34,13 @@ namespace WebGoatCore.Data
             // _context.SaveChanges();
             // return order.OrderId;
 
+            string shippedDate = order.ShippedDate.HasValue ? "'" + string.Format("yyyy-MM-dd", order.ShippedDate.Value) + "'" : "NULL";
             var sql = "INSERT INTO Orders (" +
                 "CustomerId, EmployeeId, OrderDate, RequiredDate, ShippedDate, ShipVia, Freight, ShipName, ShipAddress, " +
                 "ShipCity, ShipRegion, ShipPostalCode, ShipCountry" +
                 ") VALUES (" +
                 $"'{order.CustomerId}','{order.EmployeeId}','{order.OrderDate:yyyy-MM-dd}','{order.RequiredDate:yyyy-MM-dd}'," +
-                $"'{order.ShippedDate:yyyy-MM-dd}','{order.ShipVia}','{order.Freight}','{order.ShipName}','{order.ShipAddress}'," +
+                $"{shippedDate},'{order.ShipVia}','{order.Freight}','{order.ShipName}','{order.ShipAddress}'," +
                 $"'{order.ShipCity}','{order.ShipRegion}','{order.ShipPostalCode}','{order.ShipCountry}')";
             sql += ";\nSELECT OrderID FROM Orders ORDER BY OrderID DESC LIMIT 1;";
 
