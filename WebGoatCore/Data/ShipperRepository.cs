@@ -23,7 +23,7 @@ namespace WebGoatCore.Data
 
         private string GetShippingCostString(Shipper shipper, decimal orderSubtotal)
         {
-            var shippingCost = shipper.GetShippingCost(orderSubtotal).ToString(System.Globalization.CultureInfo.GetCultureInfo("en-us"));
+            var shippingCost = Math.Round(shipper.GetShippingCost(orderSubtotal), 2).ToString(System.Globalization.CultureInfo.GetCultureInfo("en-us"));
             return $"{shipper.CompanyName} {shipper.ServiceName} - {shippingCost}";
         }
 
