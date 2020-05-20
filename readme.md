@@ -119,6 +119,7 @@ The the WebGoat.NETCore website will be accessible at the URL specified with the
 - Added support for running on Linux OS.
 - Replaced SQL Server Local DB with SQLite database.
 - Added support for running WebGoat in a Linux Docker container.
+- Improved formatting of prices (rounding + removed $ character for consistency)
 
 
 
