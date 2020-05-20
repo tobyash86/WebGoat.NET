@@ -145,7 +145,7 @@ namespace WebGoatCore.Controllers
                 CustomerId = customer.CustomerId,
                 OrderDate = DateTime.Now,
                 RequiredDate = DateTime.Now.AddDays(7),
-                Freight = _shipperRepository.GetShipperByShipperId(model.ShippingMethod).GetShippingCost(model.Cart.SubTotal),
+                Freight = Math.Round(_shipperRepository.GetShipperByShipperId(model.ShippingMethod).GetShippingCost(model.Cart.SubTotal), 2),
                 EmployeeId = 1,
             };
 

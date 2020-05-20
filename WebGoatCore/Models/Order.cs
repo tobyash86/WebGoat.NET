@@ -30,7 +30,7 @@ namespace WebGoatCore.Models
 
         public decimal SubTotal => OrderDetails.Sum(od => od.ExtendedPrice);
 
-        public decimal Total => SubTotal + Freight;
+        public decimal Total => Math.Round(SubTotal + Freight, 2);
 
         public static string GetPackageTrackingUrl(string Carrier, string TrackingNumber)
         {
