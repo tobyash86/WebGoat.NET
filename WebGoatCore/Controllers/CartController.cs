@@ -43,7 +43,15 @@ namespace WebGoatCore.Controllers
                 Product = product,
                 UnitPrice = product.UnitPrice
             };
-            cart.OrderDetails.Add(orderDetail);
+            if(!cart.OrderDetails.ContainsKey(orderDetail.ProductId))
+            {
+                cart.OrderDetails.Add(orderDetail.ProductId, orderDetail);
+            }
+            else
+            {
+                var originalOrder = cart.OrderDetails[orderDetail.ProductId];
+                originalOrder.Quantity += orderDetail.Quantity;
+            }
 
             HttpContext.Session.Set("Cart", cart);
 
@@ -57,13 +65,12 @@ namespace WebGoatCore.Controllers
             {
                 if (HttpContext.Session.TryGet<Cart>("Cart", out var cart))
                 {
-                    var orderDetail = cart.OrderDetails.First(od => od.ProductId == productId);
-                    if (orderDetail == null)
+                    if (!cart.OrderDetails.ContainsKey(productId))
                     {
                         return View("RemoveOrderError", string.Format("Product {0} was not found in your cart.", productId));
                     }
 
-                    cart.OrderDetails.Remove(orderDetail);
+                    cart.OrderDetails.Remove(productId);
                     HttpContext.Session.Set("Cart", cart);
 
                     Response.Redirect("~/ViewCart.aspx");
