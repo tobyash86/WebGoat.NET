@@ -141,7 +141,7 @@ namespace WebGoatCore.Controllers
                 ShipRegion = model.Region,
                 ShipPostalCode = model.PostalCode,
                 ShipCountry = model.Country,
-                OrderDetails = model.Cart.OrderDetails,
+                OrderDetails = model.Cart.OrderDetails.Values.ToList(),
                 CustomerId = customer.CustomerId,
                 OrderDate = DateTime.Now,
                 RequiredDate = DateTime.Now.AddDays(7),

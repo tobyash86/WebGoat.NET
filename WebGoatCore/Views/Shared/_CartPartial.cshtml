@@ -9,7 +9,7 @@
             <th>Quantity</th>
             <th>Extended Price</th>
         </tr>
-        @foreach (var order in Model.OrderDetails)
+        @foreach (var order in Model.OrderDetails.Values)
         {
             <tr class="itemRow">
                 <td class="productId">@order.ProductId</td>
