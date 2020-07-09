@@ -35,22 +35,23 @@ namespace WebGoatCore.Controllers
             }
 
             var product = _productRepository.GetProductById(productId);
-            var orderDetail = new OrderDetail()
+            
+            if(!cart.OrderDetails.ContainsKey(productId))
             {
-                Discount = 0.0F,
-                ProductId = productId,
-                Quantity = quantity,
-                Product = product,
-                UnitPrice = product.UnitPrice
-            };
-            if(!cart.OrderDetails.ContainsKey(orderDetail.ProductId))
-            {
+                var orderDetail = new OrderDetail()
+                {
+                    Discount = 0.0F,
+                    ProductId = productId,
+                    Quantity = quantity,
+                    Product = product,
+                    UnitPrice = product.UnitPrice
+                };
                 cart.OrderDetails.Add(orderDetail.ProductId, orderDetail);
             }
             else
             {
-                var originalOrder = cart.OrderDetails[orderDetail.ProductId];
-                originalOrder.Quantity += orderDetail.Quantity;
+                var originalOrder = cart.OrderDetails[productId];
+                originalOrder.Quantity += quantity;
             }
 
             HttpContext.Session.Set("Cart", cart);
