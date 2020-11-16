@@ -33,12 +33,12 @@ namespace WebGoatCore.Data
                 .Take(numberOfProductsToReturn)
                 .ToList();
 
-            if (topProducts.Count == 0)
+            if(topProducts.Count < 4)
             {
-                topProducts = _context.Products
+                topProducts.AddRange(_context.Products
                     .OrderByDescending(p => p.UnitPrice)
-                    .Take(numberOfProductsToReturn)
-                    .ToList();
+                    .Take(numberOfProductsToReturn - topProducts.Count)
+                    .ToList());
             }
 
             return topProducts;
