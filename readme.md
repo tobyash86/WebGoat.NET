@@ -93,10 +93,13 @@ The the WebGoat.NETCore website will be accessible at the URL specified with the
 1. The latest OWASP Top 10 is not covered. The uncovered vulnerabilities need to be added to the code base.
 2. Educational documents/trainings for any categories of the latest OWASP Top 10 are not available (the previous version of OWASP Top 10 is covered).
 3. The ClickJacking example is currently not functional.
-4. There are some raw SQL queries in the code. We should consider using EF Core instead.
-6. Sometimes there is only one featured product diplayed on main page (instead of four).
 
 ## Changelog:
+
+### A set of bug fixes:
+
+- fixed varying number of featured products to be always to be always 4
+- removed raw SQL query from code base
 
 ### Initial version:
 - Converted WebGoat.NET (.NET Framework) to WebGoat.NETCore (.NET Core).
