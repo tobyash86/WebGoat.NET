@@ -46,7 +46,7 @@ namespace WebGoatCore.Data
 
         public List<Product> GetAllProducts()
         {
-            return _context.Products.OrderBy(p => p.ProductId).ToList();
+            return _context.Products.OrderBy(p => p.ProductName).ToList();
         }
 
         public List<Product> FindNonDiscontinuedProducts(string? productName, int? categoryId)
@@ -63,7 +63,7 @@ namespace WebGoatCore.Data
                 products = products.Where(p => p.CategoryId == categoryId);
             }
 
-            return products.ToList();
+            return products.OrderBy(p => p.ProductName).ToList();
         }
 
         public Product Update(Product product)
