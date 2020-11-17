@@ -71,6 +71,8 @@ In the above example, you can access the WebGoat.NETCore website at http://172.2
 
 ### 2. Run locally using dotnet.exe (Kestrel)
 
+Requires .NET Core SDK 3.0 or later.
+
 1. Build and publish WebGoat.NETCore with the following command:
 
 ```sh
