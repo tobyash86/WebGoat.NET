@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using WebGoatCore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using WebGoatCore.Models;
 
 namespace WebGoatCore.Controllers
 {
@@ -68,6 +69,7 @@ namespace WebGoatCore.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+            HttpContext.Session.Set("Cart", new Cart());
             return RedirectToAction("Index", "Home");
         }
 
