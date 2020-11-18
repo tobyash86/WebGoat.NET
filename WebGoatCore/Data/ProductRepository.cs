@@ -53,14 +53,13 @@ namespace WebGoatCore.Data
         {
             var products = _context.Products.Where(p => !p.Discontinued);
 
-            if (productName != null)
-            {
-                products = products.Where(p => p.ProductName.Contains(productName));
-            }
-
             if (categoryId != null)
             {
                 products = products.Where(p => p.CategoryId == categoryId);
+            }
+            if (productName != null)
+            {
+                 return products.ToList().Where(p => p.ProductName.Contains(productName, StringComparison.CurrentCultureIgnoreCase)).OrderBy(p => p.ProductName).ToList();
             }
 
             return products.OrderBy(p => p.ProductName).ToList();
