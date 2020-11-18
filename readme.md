@@ -37,7 +37,7 @@ docker build --pull --rm -t webgoat.net .
 To run the `webgoat.net` image, execute the following command:
 
 ```sh
-docker run -d -p 5000:80 --name webgoat.net webgoat.net
+docker run --rm -d -p 5000:80 --name webgoat.net webgoat.net
 ```
 
 WebGoat.NETCore website should be accessible at http://localhost:5000.
@@ -47,7 +47,7 @@ WebGoat.NETCore website should be accessible at http://localhost:5000.
 To run `webgoat.net` image, execute the following command:
 
 ```sh
-docker run --name webgoat.net webgoat.net
+docker run --rm --name webgoat.net webgoat.net
 ```
 
 Windows containers do not support binding to localhost. To access the website, you need to provide the IP address of your Docker container. To obtain the IP, execute the following command:
@@ -68,6 +68,14 @@ Ethernet adapter Ethernet:
 ```
 
 In the above example, you can access the WebGoat.NETCore website at http://172.29.245.43.
+
+#### Stopping Docker container
+
+To stop the `webgoat.net` container, execute the following command:
+
+```sh
+docker stop webgoat.net
+```
 
 ### 2. Run locally using dotnet.exe (Kestrel)
 
