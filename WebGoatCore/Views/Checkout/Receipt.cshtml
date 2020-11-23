@@ -10,51 +10,51 @@
         @if (Model != null)
         {
             <p>Order: @Model.OrderId</p>
-            <table class="Receipt">
+            <table class="receipt">
                 <tbody>
-                    <tr>
-                        <th>Product Id</th>
-                        <th>Product Name</th>
-                        <th>Unit Price</th>
-                        <th>Quantity</th>
-                        <th>Extended Price</th>
+                    <tr class="headerRow">
+                        <th class="tabHeader">Product Id</th>
+                        <th class="tabHeader">Product Name</th>
+                        <th class="tabHeader">Unit Price</th>
+                        <th class="tabHeader">Quantity</th>
+                        <th class="tabHeader">Extended Price</th>
                     </tr>
                     @foreach (var orderDetails in Model.OrderDetails)
                     {
-                        <tr>
-                            <td>
+                        <tr class="itemRow">
+                            <td class="tabCell">
                                 <a asp-controller="Product" asp-action="Details" asp-route-productId=@orderDetails.ProductId>@orderDetails.ProductId</a>
                             </td>
-                            <td>@orderDetails.Product.ProductName</td>
-                            <td>@orderDetails.DecimalUnitPrice</td>
-                            <td>@orderDetails.Quantity</td>
-                            <td>@orderDetails.ExtendedPrice</td>
+                            <td class="tabCell">@orderDetails.Product.ProductName</td>
+                            <td class="tabCell">@orderDetails.DecimalUnitPrice.ToString("F")</td>
+                            <td class="tabCell">@orderDetails.Quantity</td>
+                            <td class="tabCell">@orderDetails.ExtendedPrice.ToString("F")</td>
                         </tr>
                     }
                     @if (Model.OrderDetails.Any())
                     {
                         <tr><td class="table-separator" colspan="5"></td></tr>
                     }
-                    <tr>
+                    <tr class="itemRow">
                         <td></td>
-                        <td style="text-align: right">Subtotal:</td>
+                        <td class="tabCell">Subtotal:</td>
                         <td></td>
                         <td></td>
-                        <td class="SubTotal" style="text-align: right;">@Model.SubTotal</td>
+                        <td class="tabCell">@Model.SubTotal.ToString("F")</td>
                     </tr>
-                    <tr>
+                    <tr class="itemRow">
                         <td></td>
-                        <td style="text-align: right">Freight:</td>
+                        <td class="tabCell">Freight:</td>
                         <td></td>
                         <td></td>
-                        <td style="text-align: right;">@Model.Freight</td>
+                        <td class="tabCell">@Model.Freight.ToString("F")</td>
                     </tr>
-                    <tr>
+                    <tr class="itemRow">
                         <td></td>
-                        <td style="text-align: right">Total:</td>
+                        <td class="tabCell">Total:</td>
                         <td></td>
                         <td></td>
-                        <td class="SubTotal" style="text-align: right;">@Model.Total</td>
+                        <td class="tabCell">@Model.Total.ToString("F")</td>
                     </tr>
                 </tbody>
             </table>
