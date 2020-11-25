@@ -168,16 +168,16 @@ div.blogResponseContents {
 
 
 /* Cart */
-table.cartTable {
-    /*border: 1px solid;*/
+table.receipt {
+    /* border: 1px solid; */
     width: 70%;
-    padding: 2px;
-    text-align: center;
+    padding: 4px;
+    
 }
 
-table.cartTable .quantityInput {
+table.receipt .quantityInput {
     width: 2.5em;
-    text-align: center;
+    text-align: right;
 }
 
 
@@ -247,7 +247,7 @@ legend {
 }
 
 .productListItem figcaption {
-    text-align: center;
+    text-align: right;
 }
 .productListItem figure {
     display: inline-block;
@@ -264,4 +264,17 @@ legend {
 .table-separator {
     width: 100%;
     border-top: 2px solid #888;
+}
+
+table.receipt tr {
+    text-align: right;
+}
+
+table.receipt th {
+    text-align: left;
+}
+
+table.receipt td {
+    text-align: right;
+    padding: 10px;
 }

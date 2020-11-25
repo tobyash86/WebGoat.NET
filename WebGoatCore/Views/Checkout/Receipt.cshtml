@@ -10,7 +10,7 @@
         @if (Model != null)
         {
             <p>Order: @Model.OrderId</p>
-            <table class="Receipt">
+            <table class="receipt">
                 <tbody>
                     <tr>
                         <th>Product Id</th>
@@ -26,9 +26,9 @@
                                 <a asp-controller="Product" asp-action="Details" asp-route-productId=@orderDetails.ProductId>@orderDetails.ProductId</a>
                             </td>
                             <td>@orderDetails.Product.ProductName</td>
-                            <td>@orderDetails.DecimalUnitPrice</td>
+                            <td>@orderDetails.DecimalUnitPrice.ToString("F")</td>
                             <td>@orderDetails.Quantity</td>
-                            <td>@orderDetails.ExtendedPrice</td>
+                            <td>@orderDetails.ExtendedPrice.ToString("F")</td>
                         </tr>
                     }
                     @if (Model.OrderDetails.Any())
@@ -37,24 +37,24 @@
                     }
                     <tr>
                         <td></td>
-                        <td style="text-align: right">Subtotal:</td>
+                        <td>Subtotal:</td>
                         <td></td>
                         <td></td>
-                        <td class="SubTotal" style="text-align: right;">@Model.SubTotal</td>
+                        <td>@Model.SubTotal.ToString("F")</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td style="text-align: right">Freight:</td>
+                        <td>Freight:</td>
                         <td></td>
                         <td></td>
-                        <td style="text-align: right;">@Model.Freight</td>
+                        <td>@Model.Freight.ToString("F")</td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td style="text-align: right">Total:</td>
+                        <td>Total:</td>
                         <td></td>
                         <td></td>
-                        <td class="SubTotal" style="text-align: right;">@Model.Total</td>
+                        <td>@Model.Total.ToString("F")</td>
                     </tr>
                 </tbody>
             </table>

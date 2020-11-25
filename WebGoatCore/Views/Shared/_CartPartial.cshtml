@@ -1,6 +1,6 @@
 ﻿@model Cart
 
-<table class="cartTable">
+<table class="receipt">
     <tbody>
         <tr>
             <th>Product Id</th>
@@ -11,14 +11,14 @@
         </tr>
         @foreach (var order in Model.OrderDetails.Values)
         {
-            <tr class="itemRow">
-                <td class="productId">@order.ProductId</td>
+            <tr>
+                <td>@order.ProductId</td>
                 <td>@order.Product.ProductName</td>
-                <td>@order.DecimalUnitPrice</td>
+                <td>@order.DecimalUnitPrice.ToString("F")</td>
                 <td>
                     <input type="text" value=@order.Quantity class="quantityInput">
                 </td>
-                <td class="extendedPrice">@order.ExtendedPrice</td>
+                <td>@order.ExtendedPrice.ToString("F")</td>
                 <td>
                     <a asp-controller="Cart" asp-action="RemoveOrder" asp-route-productId=@order.ProductId>remove</a>
                 </td>
@@ -30,10 +30,10 @@
         }
         <tr>
             <td></td>
-            <td style="text-align: right">Subtotal:</td>
+            <td>Subtotal:</td>
             <td></td>
             <td></td>
-            <td style="border-top: 5px">@Model.SubTotal</td>
+            <td style="border-top: 5px">@Model.SubTotal.ToString("F")</td>
         </tr>
     </tbody>
 </table>
