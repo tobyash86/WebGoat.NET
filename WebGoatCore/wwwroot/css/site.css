@@ -266,15 +266,15 @@ legend {
     border-top: 2px solid #888;
 }
 
-table.receipt tbody tr.itemRow {
+table.receipt tr {
     text-align: right;
 }
 
-table.receipt tbody tr.headerRow th.tabHeader {
+table.receipt th {
     text-align: left;
 }
 
-table.receipt tbody tr.itemRow td.tabCell {
+table.receipt td {
     text-align: right;
     padding: 10px;
 }

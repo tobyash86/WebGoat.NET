@@ -2,23 +2,23 @@
 
 <table class="receipt">
     <tbody>
-        <tr class="headerRow">
-            <th class="tabHeader">Product Id</th>
-            <th class="tabHeader">Product Name</th>
-            <th class="tabHeader">Unit Price</th>
-            <th class="tabHeader">Quantity</th>
-            <th class="tabHeader">Extended Price</th>
+        <tr>
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th>Extended Price</th>
         </tr>
         @foreach (var order in Model.OrderDetails.Values)
         {
-            <tr class="itemRow">
-                <td class="tabCell">@order.ProductId</td>
-                <td class="tabCell">@order.Product.ProductName</td>
-                <td class="tabCell">@order.DecimalUnitPrice.ToString("F")</td>
-                <td class="tabCell">
+            <tr>
+                <td>@order.ProductId</td>
+                <td>@order.Product.ProductName</td>
+                <td>@order.DecimalUnitPrice.ToString("F")</td>
+                <td>
                     <input type="text" value=@order.Quantity class="quantityInput">
                 </td>
-                <td class="tabCell">@order.ExtendedPrice.ToString("F")</td>
+                <td>@order.ExtendedPrice.ToString("F")</td>
                 <td>
                     <a asp-controller="Cart" asp-action="RemoveOrder" asp-route-productId=@order.ProductId>remove</a>
                 </td>
@@ -28,12 +28,12 @@
         {
             <tr><td class="table-separator" colspan="6"></td></tr>
         }
-        <tr class="itemRow">
+        <tr>
             <td></td>
-            <td class="tabCell">Subtotal:</td>
+            <td>Subtotal:</td>
             <td></td>
             <td></td>
-            <td class="tabCell" style="border-top: 5px">@Model.SubTotal.ToString("F")</td>
+            <td style="border-top: 5px">@Model.SubTotal.ToString("F")</td>
         </tr>
     </tbody>
 </table>
