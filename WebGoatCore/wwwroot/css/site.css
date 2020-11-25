@@ -274,6 +274,10 @@ table.receipt th {
     text-align: left;
 }
 
+table.receipt tr.centered th {
+    text-align: center;
+}
+
 table.receipt td {
     text-align: right;
     padding: 10px;
