@@ -278,3 +278,8 @@ table.receipt td {
     text-align: right;
     padding: 10px;
 }
+
+img.logo {
+    width: 183px;
+    height: 54px;
+}
