@@ -118,10 +118,9 @@ namespace WebGoatCore
             else
             {
                 app.UseExceptionHandler($"/{StatusCodeController.NAME}?code=500");
-                app.UseHsts();
             }
 
-            app.UseStatusCodePagesWithRedirects($"/{StatusCodeController.NAME}?code=" + "{0}");
+            app.UseStatusCodePagesWithRedirects($"/{StatusCodeController.NAME}?code={{0}}");
 
             app.UseStaticFiles();
 
