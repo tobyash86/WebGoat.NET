@@ -1,5 +1,4 @@
 ﻿@model ProductDetailsViewModel
-
 @{
     ViewData["Title"] = "Product details";
 }
@@ -25,8 +24,12 @@
             Price: @Model.Product.DecimalUnitPrice;
         </div>
         <form asp-controller="Cart" asp-action="AddOrder" asp-route-productId=@Model.Product.ProductId>
-            <label for="quantity">Quantity:</label>
-            <input name="quantity" type="text" value="1">
+            <label for="Quantity">Quantity:</label>
+            <input name="Quantity" type="text" value="@Model.Quantity">
+            @if (Model.Quantity <= 0)
+            {
+                <label for="Quantity" style="color: red;">Quantity must be a positive number</label>
+            }
             <input type="submit" value="Add to cart">
         </form>
     }

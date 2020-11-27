@@ -29,6 +29,11 @@ namespace WebGoatCore.Controllers
         [HttpPost("{productId}")]
         public IActionResult AddOrder(int productId, short quantity)
         {
+            if(quantity <= 0)
+            {
+                return RedirectToAction("Details", "Product", new { productId = productId, quantity = quantity });
+            }
+
             if (!HttpContext.Session.TryGet<Cart>("Cart", out var cart))
             {
                 cart = new Cart();
