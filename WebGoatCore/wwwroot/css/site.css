@@ -271,10 +271,6 @@ table.receipt tr {
 }
 
 table.receipt th {
-    text-align: left;
-}
-
-table.receipt tr.centered th {
     text-align: center;
 }
 
