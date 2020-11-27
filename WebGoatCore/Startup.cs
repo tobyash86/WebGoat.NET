@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Mvc;
+using WebGoatCore.Controllers;
 
 namespace WebGoatCore
 {
@@ -115,8 +117,11 @@ namespace WebGoatCore
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler($"/{StatusCodeController.NAME}?code=500");
             }
+
+            app.UseStatusCodePagesWithRedirects($"/{StatusCodeController.NAME}?code={{0}}");
+
             app.UseStaticFiles();
 
             app.UseRouting();
