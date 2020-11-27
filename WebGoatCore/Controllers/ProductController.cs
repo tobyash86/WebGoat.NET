@@ -49,7 +49,7 @@ namespace WebGoatCore.Controllers
         }
 
         [HttpGet("{productId}")]
-        public IActionResult Details(int productId)
+        public IActionResult Details(int productId, short quantity = 1)
         {
             var model = new ProductDetailsViewModel();
             try
@@ -58,6 +58,7 @@ namespace WebGoatCore.Controllers
                 model.Product = product;
                 model.CanAddToCart = true;
                 model.ProductImageUrl = GetImageUrlForProduct(product);
+                model.Quantity = quantity;
             }
             catch (InvalidOperationException)
             {
