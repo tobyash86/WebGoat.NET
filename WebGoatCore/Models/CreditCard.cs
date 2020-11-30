@@ -37,7 +37,12 @@ namespace WebGoatCore.Models
             {
                 XElement ccElement = GetCreditCardXmlElement(document);
 
-                Username = Username;
+                var userNameElement = ccElement.Element("Username");
+                if (userNameElement != null)
+                {
+                    Username = userNameElement.Value;
+                }
+
                 var expiryElement = ccElement.Element("Expiry");
                 if (expiryElement != null)
                 {
@@ -57,10 +62,6 @@ namespace WebGoatCore.Models
             catch (XmlException)     //File is corrupt. Delete and recreate.
             {
                 CreateNewCreditCardFile();
-            }
-            catch (Exception)
-            {
-                throw;
             }
         }
 
@@ -162,10 +163,6 @@ namespace WebGoatCore.Models
             {
                 CreateNewCreditCardFile();
             }
-            catch (Exception)
-            {
-                throw;
-            }
             return document;
         }
 
@@ -192,10 +189,6 @@ namespace WebGoatCore.Models
             {
                 CreateNewCreditCardFile();
             }
-            catch (Exception)
-            {
-                throw;
-            }
         }
 
         private bool CardExistsForUser()
@@ -208,10 +201,6 @@ namespace WebGoatCore.Models
             catch (WebGoatCreditCardNotFoundException)
             {
                 return false;
-            }
-            catch (Exception)
-            {
-                throw;
             }
             return true;
         }
@@ -226,41 +215,27 @@ namespace WebGoatCore.Models
         private void UpdateCardForUser()
         {
             XDocument document = ReadCreditCardFile();
-            try
-            {
-                GetCardForUser();
-                WriteCreditCardFile(document);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            GetCardForUser();
+            WriteCreditCardFile(document);
         }
 
         private void InsertCardForUser()
         {
             XDocument document = ReadCreditCardFile();
-            try
+            var root = document.Root;
+            if(root != null)
             {
-                var root = document.Root;
-                if(root != null)
-                {
-                    root.Add(new XElement("CreditCard",
-                        new XElement("Username", Username),
-                        new XElement("Number", Number),
-                        new XElement("Expiry", Expiry)
-                        ));
-                    WriteCreditCardFile(document);
-                }
-                else
-                {
-                    // this should never happen
-                    throw new WebGoatFatalException("Cannot access credit card storage!");
-                }
+                root.Add(new XElement("CreditCard",
+                    new XElement("Username", Username),
+                    new XElement("Number", Number),
+                    new XElement("Expiry", Expiry)
+                    ));
+                WriteCreditCardFile(document);
             }
-            catch (Exception)
+            else
             {
-                throw;
+                // this should never happen
+                throw new WebGoatFatalException("Cannot access credit card storage!");
             }
         }
         #endregion

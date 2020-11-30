@@ -18,7 +18,7 @@ namespace WebGoatCore.Controllers
         private readonly CustomerRepository _customerRepository;
         private readonly ShipperRepository _shipperRepository;
         private readonly OrderRepository _orderRepository;
-        private CheckoutViewModel _model = null!;
+        private CheckoutViewModel _model;
         private string _resourcePath;
 
         public CheckoutController(UserManager<IdentityUser> userManager, CustomerRepository customerRepository, IHostEnvironment hostEnvironment, IConfiguration configuration, ShipperRepository shipperRepository, OrderRepository orderRepository)
@@ -28,6 +28,7 @@ namespace WebGoatCore.Controllers
             _shipperRepository = shipperRepository;
             _orderRepository = orderRepository;
             _resourcePath = configuration.GetValue(Constants.WEBGOAT_ROOT, hostEnvironment.ContentRootPath);
+            _model = new CheckoutViewModel();
         }
 
         [HttpGet]
