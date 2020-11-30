@@ -18,7 +18,7 @@ namespace WebGoatCore.Controllers
         private readonly CustomerRepository _customerRepository;
         private readonly ShipperRepository _shipperRepository;
         private readonly OrderRepository _orderRepository;
-        private CheckoutViewModel _model;
+        private CheckoutViewModel _model = null!;
         private string _resourcePath;
 
         public CheckoutController(UserManager<IdentityUser> userManager, CustomerRepository customerRepository, IHostEnvironment hostEnvironment, IConfiguration configuration, ShipperRepository shipperRepository, OrderRepository orderRepository)
@@ -67,11 +67,11 @@ namespace WebGoatCore.Controllers
             if (customer != null)
             {
                 _model.ShipTarget = customer.CompanyName;
-                _model.Address = customer.Address;
-                _model.City = customer.City;
-                _model.Region = customer.Region;
-                _model.PostalCode = customer.PostalCode;
-                _model.Country = customer.Country;
+                _model.Address = customer.Address ?? string.Empty;
+                _model.City = customer.City ?? string.Empty;
+                _model.Region = customer.Region ?? string.Empty;
+                _model.PostalCode = customer.PostalCode ?? string.Empty;
+                _model.Country = customer.Country ?? string.Empty;
             }
 
             _model.AvailableExpirationYears = Enumerable.Range(1, 5).Select(i => DateTime.Now.Year + i).ToList();

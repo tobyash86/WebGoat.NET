@@ -20,7 +20,7 @@ namespace WebGoatCore.Data
             ConnString = builder.ConnectionString;
         }
 
-        public static string ConnString;
+        public static string? ConnString;
 
         public static readonly LoggerFactory _myLoggerFactory =
             new LoggerFactory(new[] {

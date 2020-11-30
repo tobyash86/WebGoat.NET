@@ -25,7 +25,7 @@ namespace WebGoatCore
             return default;
         }
 
-        public static bool TryGet<T>(this ISession session, string key, out T value)
+        public static bool TryGet<T>(this ISession session, string key, out T? value)
         {
             var str = session.GetString(key);
             if (str == null)
