@@ -1,4 +1,4 @@
-# WebGoat.NETCore [Preview version]
+# WebGoat.NET version 0.1
 
 ## The next generation of the WebGoat example project to demonstrate OWASP TOP 10 vulnerabilities
 
