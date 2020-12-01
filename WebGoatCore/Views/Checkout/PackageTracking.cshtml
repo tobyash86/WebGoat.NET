@@ -19,7 +19,7 @@
                 Your orders
             </h3>
             <div>
-                <table>
+                <table class="receipt">
                     <tbody>
                         <tr>
                             <th>Order</th>
@@ -34,9 +34,9 @@
                             <tr>
                                 <td>@order.OrderId</td>
                                 <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
-                                <td>@order.Freight</td>
+                                <td>@order.Freight.ToString("F")</td>
                                 <td>@order.ShipVia</td>
-                                <td>@order.Total</td>
+                                <td>@order.Total.ToString("F")</td>
                                 <td>
                                     @if (order.Shipment == null)
                                     {
