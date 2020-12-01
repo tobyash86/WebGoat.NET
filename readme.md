@@ -79,7 +79,7 @@ docker stop webgoat.net
 
 ### 2. Run locally using dotnet.exe (Kestrel)
 
-Requires .NET Core SDK 3.0 or later.
+Requires .NET 5 SDK.
 
 1. Build and publish WebGoat.NETCore with the following command:
 
@@ -97,42 +97,16 @@ dotnet ./app/WebGoatCore.dll --urls=http://localhost:5000
 
 The the WebGoat.NETCore website will be accessible at the URL specified with the `--urls` parameter: http://localhost:5000.
 
+### 2. Run using a script
+The WebGoat.NET projects ships with scripts that allow you conveniently run the web application. The following scripts are located in the the "script" directory in the root of the project:
+- runInDocker.bat - Runs the application in a Docker container on Windows.
+- runInDocker.sh - Runs the application in a Docker container on Linux.
+- runLocal.bat - Runs the application locally on Windows.
+- runLocal.sh - Runs the application locally on Linux.
 
 ## Known issues:
 
 1. The latest OWASP Top 10 is not covered. The uncovered vulnerabilities need to be added to the code base.
 2. Educational documents/trainings for any categories of the latest OWASP Top 10 are not available (the previous version of OWASP Top 10 is covered).
-3. The ClickJacking example is currently not functional.
-
-## Changelog:
-
-### A set of bug fixes:
-
-- fixed varying number of featured products to be always to be always 4
-- removed raw SQL query from code base
-
-### Initial version:
-- Converted WebGoat.NET (.NET Framework) to WebGoat.NETCore (.NET Core).
-- Updated a set of functionalities to be compatible with .NET Core:
-    - register/login/logout
-    - cart/checkout
-    - blog
-    - products management
-    - shipment tracking
-- Improved the site styles.
-- Added redirecting to the recent page after login.
-- Included exception data on error pages.
-- Improved spelling and formatting.
-- Improved the build process.
-- Fixed the 'Keep shopping' link.
-- Improved the error messages for required form fields.
-- Fixed the exception when no CCN was specified.
-- Fixed order value calculation on checkout.
-- Added support for running on Linux OS.
-- Replaced SQL Server Local DB with SQLite database.
-- Added support for running WebGoat in a Linux Docker container.
-- Improved formatting of prices (rounding + removed $ character for consistency)
-
-
 
 
