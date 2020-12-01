@@ -46,17 +46,16 @@ namespace WebGoatCore.Controllers
         {
             _model = new CheckoutViewModel();
 
+            _model.Cart = HttpContext.Session.Get<Cart>("Cart");
             _model.AvailableExpirationYears = Enumerable.Range(1, 5).Select(i => DateTime.Now.Year + i).ToList();
             _model.ShippingOptions = _shipperRepository.GetShippingOptions(_model.Cart?.SubTotal ?? 0);
 
-            var customer = GetCustomerOrAddError();
-
-            _model.Cart = HttpContext.Session.Get<Cart>("Cart");
             if (_model.Cart == null || _model.Cart.OrderDetails.Count == 0)
             {
                 ModelState.AddModelError(string.Empty, "You have no items in your cart.");
             }
 
+            var customer = GetCustomerOrAddError();
             if (customer != null)
             {
                 var creditCard = GetCreditCardForUser();
