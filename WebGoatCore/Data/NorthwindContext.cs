@@ -18,9 +18,13 @@ namespace WebGoatCore.Data
             var builder = new SqliteConnectionStringBuilder();
             builder.DataSource = Path.Combine(execDirectory, "NORTHWND.sqlite");
             ConnString = builder.ConnectionString;
+            if(string.IsNullOrEmpty(ConnString))
+            {
+                throw new WebGoatCore.Exceptions.WebGoatStartupException("Cannot compute connection string to connect database!");
+            }
         }
 
-        public static string ConnString;
+        public static string? ConnString;
 
         public static readonly LoggerFactory _myLoggerFactory =
             new LoggerFactory(new[] {

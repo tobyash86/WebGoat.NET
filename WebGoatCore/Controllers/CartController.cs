@@ -2,7 +2,6 @@
 using WebGoatCore.Data;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
 
 namespace WebGoatCore.Controllers
 {
@@ -16,14 +15,19 @@ namespace WebGoatCore.Controllers
             _productRepository = productRepository;
         }
 
-        public IActionResult Index()
+        private Cart GetCart()
         {
-            if (!HttpContext.Session.TryGet<Cart>("Cart", out var cart))
+            HttpContext.Session.TryGet<Cart>("Cart", out var cart);
+            if(cart == null)
             {
                 cart = new Cart();
             }
+            return cart;
+        }
 
-            return View(cart);
+        public IActionResult Index()
+        {
+            return View(GetCart());
         }
 
         [HttpPost("{productId}")]
@@ -34,13 +38,9 @@ namespace WebGoatCore.Controllers
                 return RedirectToAction("Details", "Product", new { productId = productId, quantity = quantity });
             }
 
-            if (!HttpContext.Session.TryGet<Cart>("Cart", out var cart))
-            {
-                cart = new Cart();
-            }
-
             var product = _productRepository.GetProductById(productId);
             
+            var cart = GetCart();
             if(!cart.OrderDetails.ContainsKey(productId))
             {
                 var orderDetail = new OrderDetail()
@@ -69,18 +69,16 @@ namespace WebGoatCore.Controllers
         {
             try
             {
-                if (HttpContext.Session.TryGet<Cart>("Cart", out var cart))
+                var cart = GetCart();
+                if (!cart.OrderDetails.ContainsKey(productId))
                 {
-                    if (!cart.OrderDetails.ContainsKey(productId))
-                    {
-                        return View("RemoveOrderError", string.Format("Product {0} was not found in your cart.", productId));
-                    }
-
-                    cart.OrderDetails.Remove(productId);
-                    HttpContext.Session.Set("Cart", cart);
-
-                    Response.Redirect("~/ViewCart.aspx");
+                    return View("RemoveOrderError", string.Format("Product {0} was not found in your cart.", productId));
                 }
+
+                cart.OrderDetails.Remove(productId);
+                HttpContext.Session.Set("Cart", cart);
+
+                Response.Redirect("~/ViewCart.aspx");
             }
             catch (Exception ex)
             {

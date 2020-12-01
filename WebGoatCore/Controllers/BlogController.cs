@@ -32,7 +32,7 @@ namespace WebGoatCore.Controllers
         [HttpPost("{entryId}")]
         public IActionResult Reply(int entryId, string contents)
         {
-            var userName = User.Identity.Name ?? "Anonymous";
+            var userName = User?.Identity?.Name ?? "Anonymous";
             var response = new BlogResponse()
             {
                 Author = userName,
@@ -53,7 +53,7 @@ namespace WebGoatCore.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Create(string title, string contents)
         {
-            var blogEntry = _blogEntryRepository.CreateBlogEntry(title, contents, User.Identity.Name!);
+            var blogEntry = _blogEntryRepository.CreateBlogEntry(title, contents, User!.Identity!.Name!);
             return View(blogEntry);
         }
 
