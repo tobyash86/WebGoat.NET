@@ -52,7 +52,7 @@ namespace WebGoatCore.Models
                 var numberElement = ccElement.Element("Number");
                 if (numberElement != null)
                 {
-                    Expiry = Convert.ToDateTime(numberElement.Value);
+                    Number = numberElement.Value;
                 }
             }
             catch (IndexOutOfRangeException)     //File exists but has nothing in it.
@@ -215,7 +215,20 @@ namespace WebGoatCore.Models
         private void UpdateCardForUser()
         {
             XDocument document = ReadCreditCardFile();
-            GetCardForUser();
+            XElement ccElement = GetCreditCardXmlElement(document);
+
+            var expiryElement = ccElement.Element("Expiry");
+            if (expiryElement != null)
+            {
+                expiryElement.Value = Expiry.ToString();
+            }
+
+            var numberElement = ccElement.Element("Number");
+            if (numberElement != null)
+            {
+                numberElement.Value = Number;
+            }
+
             WriteCreditCardFile(document);
         }
 
