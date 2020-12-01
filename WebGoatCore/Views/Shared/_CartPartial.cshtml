@@ -15,9 +15,7 @@
                 <td>@order.ProductId</td>
                 <td>@order.Product.ProductName</td>
                 <td>@order.DecimalUnitPrice.ToString("F")</td>
-                <td>
-                    <input type="text" value=@order.Quantity class="quantityInput" disabled="disabled">
-                </td>
+                <td>@order.Quantity</td>
                 <td>@order.ExtendedPrice.ToString("F")</td>
                 <td>
                     <a asp-controller="Cart" asp-action="RemoveOrder" asp-route-productId=@order.ProductId>remove</a>
