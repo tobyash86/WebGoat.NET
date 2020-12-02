@@ -4,10 +4,10 @@
 ### Added
 
 ### Fixed
-- Fixed varying number of featured products to be always to be always 4
+- Fixed varying number of featured products to always be 4.
 
 ### Removed
-- Removed raw SQL query from code base
+
 
 ## Preview Release
 
