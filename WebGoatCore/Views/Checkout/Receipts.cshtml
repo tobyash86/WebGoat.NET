@@ -8,7 +8,7 @@
 <div>
     @if (Model != null)
     {
-        <table class="receipts">
+        <table class="receipt">
             <tbody>
                 <tr>
                     <th>Details</th>
@@ -22,8 +22,8 @@
                         <td>
                             <a asp-action="Receipt" asp-route-id=@order.OrderId>@order.OrderId</a>
                         </td>
-                        <td>@order.OrderDate</td>
-                        <td>@order.Total</td>
+                        <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                        <td>@order.Total.ToString("F")</td>
                         @if (order.Shipment != null)
                         {
                             <td>

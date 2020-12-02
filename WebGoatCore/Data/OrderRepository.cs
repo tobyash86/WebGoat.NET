@@ -65,7 +65,7 @@ namespace WebGoatCore.Data
                     $"'{orderDetails.Discount}')";
             }
 
-            if(order.Shipment != null)
+            if (order.Shipment != null)
             {
                 var shipment = order.Shipment;
                 shipment.OrderId = order.OrderId;

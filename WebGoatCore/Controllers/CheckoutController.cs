@@ -9,6 +9,7 @@ using WebGoatCore.ViewModels;
 using System.Linq;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
+using WebGoatCore.Exceptions;
 
 namespace WebGoatCore.Controllers
 {
@@ -18,7 +19,7 @@ namespace WebGoatCore.Controllers
         private readonly CustomerRepository _customerRepository;
         private readonly ShipperRepository _shipperRepository;
         private readonly OrderRepository _orderRepository;
-        private CheckoutViewModel _model;
+        private CheckoutViewModel? _model;
         private string _resourcePath;
 
         public CheckoutController(UserManager<IdentityUser> userManager, CustomerRepository customerRepository, IHostEnvironment hostEnvironment, IConfiguration configuration, ShipperRepository shipperRepository, OrderRepository orderRepository)
@@ -44,38 +45,33 @@ namespace WebGoatCore.Controllers
         private void InitializeModel()
         {
             _model = new CheckoutViewModel();
-            var customer = GetCustomerOrAddError();
-            var creditCard = GetCreditCardForUser();
-
-            try
-            {
-                creditCard.GetCardForUser();
-                _model.CreditCard = creditCard.Number;
-                _model.ExpirationMonth = creditCard.Expiry.Month;
-                _model.ExpirationYear = creditCard.Expiry.Year;
-            }
-            catch (NullReferenceException)
-            {
-            }
 
             _model.Cart = HttpContext.Session.Get<Cart>("Cart");
+            _model.AvailableExpirationYears = Enumerable.Range(1, 5).Select(i => DateTime.Now.Year + i).ToList();
+            _model.ShippingOptions = _shipperRepository.GetShippingOptions(_model.Cart?.SubTotal ?? 0);
+
             if (_model.Cart == null || _model.Cart.OrderDetails.Count == 0)
             {
                 ModelState.AddModelError(string.Empty, "You have no items in your cart.");
             }
 
+            var customer = GetCustomerOrAddError();
             if (customer != null)
             {
-                _model.ShipTarget = customer.CompanyName;
-                _model.Address = customer.Address;
-                _model.City = customer.City;
-                _model.Region = customer.Region;
-                _model.PostalCode = customer.PostalCode;
-                _model.Country = customer.Country;
-            }
+                var creditCard = GetCreditCardForUser();
 
-            _model.AvailableExpirationYears = Enumerable.Range(1, 5).Select(i => DateTime.Now.Year + i).ToList();
-            _model.ShippingOptions = _shipperRepository.GetShippingOptions(_model.Cart?.SubTotal ?? 0);
+                creditCard.GetCardForUser();
+                _model.CreditCard = creditCard.Number;
+                _model.ExpirationMonth = creditCard.Expiry.Month;
+                _model.ExpirationYear = creditCard.Expiry.Year;
+
+                _model.ShipTarget = customer.CompanyName;
+                _model.Address = customer.Address ?? string.Empty;
+                _model.City = customer.City ?? string.Empty;
+                _model.Region = customer.Region ?? string.Empty;
+                _model.PostalCode = customer.PostalCode ?? string.Empty;
+                _model.Country = customer.Country ?? string.Empty;
+            }
         }
 
         [HttpPost]
@@ -94,29 +90,22 @@ namespace WebGoatCore.Controllers
             {
                 creditCard.GetCardForUser();
             }
-            catch (NullReferenceException)
+            catch (WebGoatCreditCardNotFoundException)
             {
             }
 
             //Get form of payment
-            //If old card is null or if the number, month or year were changed then take what was on the form.
-            if (creditCard.Number.Length <= 4)
+            //If form specified card number, try to use it instead one stored for user
+            if (model.CreditCard != null && model.CreditCard.Length >= 13)
             {
                 creditCard.Number = model.CreditCard;
                 creditCard.Expiry = new DateTime(model.ExpirationYear, model.ExpirationMonth, 1);
             }
             else
             {
-                if (model.CreditCard.Substring(model.CreditCard.Length - 4) !=
-                    creditCard.Number.Substring(creditCard.Number.Length - 4))
-                {
-                    creditCard.Number = model.CreditCard;
-                }
-
-                if (model.ExpirationMonth != creditCard.ExpiryMonth || model.ExpirationYear != creditCard.ExpiryYear)
-                {
-                    creditCard.Expiry = new DateTime(model.ExpirationYear, model.ExpirationMonth, 1);
-                }
+                ModelState.AddModelError(string.Empty, "The card number specified is too short.");
+                _model = model;
+                return View(_model);
             }
 
             //Authorize payment through our bank or Authorize.net or someone.
@@ -141,7 +130,7 @@ namespace WebGoatCore.Controllers
                 ShipRegion = model.Region,
                 ShipPostalCode = model.PostalCode,
                 ShipCountry = model.Country,
-                OrderDetails = model.Cart.OrderDetails,
+                OrderDetails = model.Cart.OrderDetails.Values.ToList(),
                 CustomerId = customer.CustomerId,
                 OrderDate = DateTime.Now,
                 RequiredDate = DateTime.Now.AddDays(7),

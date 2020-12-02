@@ -2,7 +2,6 @@
 using WebGoatCore.Data;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
 
 namespace WebGoatCore.Controllers
 {
@@ -16,34 +15,49 @@ namespace WebGoatCore.Controllers
             _productRepository = productRepository;
         }
 
-        public IActionResult Index()
+        private Cart GetCart()
         {
-            if (!HttpContext.Session.TryGet<Cart>("Cart", out var cart))
+            HttpContext.Session.TryGet<Cart>("Cart", out var cart);
+            if(cart == null)
             {
                 cart = new Cart();
             }
+            return cart;
+        }
 
-            return View(cart);
+        public IActionResult Index()
+        {
+            return View(GetCart());
         }
 
         [HttpPost("{productId}")]
         public IActionResult AddOrder(int productId, short quantity)
         {
-            if (!HttpContext.Session.TryGet<Cart>("Cart", out var cart))
+            if(quantity <= 0)
             {
-                cart = new Cart();
+                return RedirectToAction("Details", "Product", new { productId = productId, quantity = quantity });
             }
 
             var product = _productRepository.GetProductById(productId);
-            var orderDetail = new OrderDetail()
+            
+            var cart = GetCart();
+            if(!cart.OrderDetails.ContainsKey(productId))
             {
-                Discount = 0.0F,
-                ProductId = productId,
-                Quantity = quantity,
-                Product = product,
-                UnitPrice = product.UnitPrice
-            };
-            cart.OrderDetails.Add(orderDetail);
+                var orderDetail = new OrderDetail()
+                {
+                    Discount = 0.0F,
+                    ProductId = productId,
+                    Quantity = quantity,
+                    Product = product,
+                    UnitPrice = product.UnitPrice
+                };
+                cart.OrderDetails.Add(orderDetail.ProductId, orderDetail);
+            }
+            else
+            {
+                var originalOrder = cart.OrderDetails[productId];
+                originalOrder.Quantity += quantity;
+            }
 
             HttpContext.Session.Set("Cart", cart);
 
@@ -55,19 +69,16 @@ namespace WebGoatCore.Controllers
         {
             try
             {
-                if (HttpContext.Session.TryGet<Cart>("Cart", out var cart))
+                var cart = GetCart();
+                if (!cart.OrderDetails.ContainsKey(productId))
                 {
-                    var orderDetail = cart.OrderDetails.First(od => od.ProductId == productId);
-                    if (orderDetail == null)
-                    {
-                        return View("RemoveOrderError", string.Format("Product {0} was not found in your cart.", productId));
-                    }
-
-                    cart.OrderDetails.Remove(orderDetail);
-                    HttpContext.Session.Set("Cart", cart);
-
-                    Response.Redirect("~/ViewCart.aspx");
+                    return View("RemoveOrderError", string.Format("Product {0} was not found in your cart.", productId));
                 }
+
+                cart.OrderDetails.Remove(productId);
+                HttpContext.Session.Set("Cart", cart);
+
+                Response.Redirect("~/ViewCart.aspx");
             }
             catch (Exception ex)
             {

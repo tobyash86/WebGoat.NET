@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
+using WebGoatCore.Exceptions;
 
 namespace WebGoatCore.Models
 {
@@ -34,17 +35,30 @@ namespace WebGoatCore.Models
             XDocument document = ReadCreditCardFile();
             try
             {
-                var xElement = document.Descendants("CreditCard").FirstOrDefault(c => c.Element("Username").Value.Equals(Username));
-                if (!xElement.HasElements)
-                {
-                    throw new NullReferenceException(string.Format("No card found for {0}.", Username));
-                }
+                XElement? ccElement = GetCreditCardXmlElement(document);
 
-                Username = Username;
-                Expiry = Convert.ToDateTime(xElement.Element("Expiry").Value);
-                Number = xElement.Element("Number").Value;
+                if(ccElement != null)
+                {
+                    var userNameElement = ccElement.Element("Username");
+                    if (userNameElement != null)
+                    {
+                        Username = userNameElement.Value;
+                    }
+
+                    var expiryElement = ccElement.Element("Expiry");
+                    if (expiryElement != null)
+                    {
+                        Expiry = Convert.ToDateTime(expiryElement.Value);
+                    }
+
+                    var numberElement = ccElement.Element("Number");
+                    if (numberElement != null)
+                    {
+                        Number = numberElement.Value;
+                    }
+                }
             }
-            catch (IndexOutOfRangeException)     //File exists but has nothing in in.
+            catch (IndexOutOfRangeException)     //File exists but has nothing in it.
             {
                 CreateNewCreditCardFile();
             }
@@ -52,14 +66,21 @@ namespace WebGoatCore.Models
             {
                 CreateNewCreditCardFile();
             }
-            catch (NullReferenceException)   //The row was not found.
+        }
+
+        private XElement? GetCreditCardXmlElement(XDocument document)
+        {
+            var ccElement = document.Descendants("CreditCard").FirstOrDefault(c =>
             {
-                throw new NullReferenceException(string.Format("Credit card for {0} was not found.", Username));
-            }
-            catch (Exception)
+                var userNameElement = c.Element("Username");
+
+                return userNameElement != null && userNameElement.Value.Equals(Username);
+            });
+            if (ccElement != null && ccElement.HasElements)
             {
-                throw;
+                return ccElement;
             }
+            return null;
         }
 
         public void SaveCardForUser()
@@ -90,7 +111,8 @@ namespace WebGoatCore.Models
             // Remove non-digits
             var creditCardNumber = Regex.Replace(Number, @"[^\d]", "");
 
-            if (string.IsNullOrEmpty(creditCardNumber))
+            // minimal valid number length = 13
+            if (string.IsNullOrEmpty(creditCardNumber) || creditCardNumber.Length < 13)
             {
                 return false;
             }
@@ -140,21 +162,9 @@ namespace WebGoatCore.Models
             {
                 CreateNewCreditCardFile();
             }
-            catch (IndexOutOfRangeException)     //File exists but has nothing in in.
-            {
-                CreateNewCreditCardFile();
-            }
             catch (XmlException)     //File is corrupt. Delete and recreate.
             {
                 CreateNewCreditCardFile();
-            }
-            catch (NullReferenceException)   //The row was not found.
-            {
-                throw new NullReferenceException(string.Format("Credit card for {0} was not found.", Username));
-            }
-            catch (Exception)
-            {
-                throw;
             }
             return document;
         }
@@ -182,32 +192,13 @@ namespace WebGoatCore.Models
             {
                 CreateNewCreditCardFile();
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
         }
 
         private bool CardExistsForUser()
         {
             var document = ReadCreditCardFile();
-            try
-            {
-                var xElement = document.Descendants("CreditCard").FirstOrDefault(c => c.Element("Username").Value.Equals(Username));
-                if (!xElement.HasElements)
-                {
-                    throw new NullReferenceException(string.Format("No card found for {0}.", Username));
-                }
-            }
-            catch (NullReferenceException)
-            {
-                return false;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return true;
+            var element = GetCreditCardXmlElement(document);
+            return element != null;
         }
 
         private void CreateNewCreditCardFile()
@@ -220,30 +211,36 @@ namespace WebGoatCore.Models
         private void UpdateCardForUser()
         {
             XDocument document = ReadCreditCardFile();
-            try
+            XElement? ccElement = GetCreditCardXmlElement(document);
+
+            if(ccElement != null)
             {
-                var xElement = document.Descendants("CreditCard").FirstOrDefault(c => c.Element("Username").Value.Equals(Username));
-                xElement.Element("Expiry").Value = Expiry.ToString();
-                xElement.Element("Number").Value = Number;
+                var expiryElement = ccElement.Element("Expiry");
+                if (expiryElement != null)
+                {
+                    expiryElement.Value = Expiry.ToString();
+                }
+
+                var numberElement = ccElement.Element("Number");
+                if (numberElement != null)
+                {
+                    numberElement.Value = Number;
+                }
+
                 WriteCreditCardFile(document);
             }
-            catch (NullReferenceException)   //The row was not found.
+            else
             {
-                throw new NullReferenceException(string.Format("Credit card for {0} was not found.", Username));
+                throw new WebGoatCreditCardNotFoundException(string.Format("No card found for {0}.", Username));
             }
-            catch (Exception)
-            {
-                throw;
-            }
-
         }
 
         private void InsertCardForUser()
         {
             XDocument document = ReadCreditCardFile();
-            try
+            var root = document.Root;
+            if(root != null)
             {
-                var root = document.Root;
                 root.Add(new XElement("CreditCard",
                     new XElement("Username", Username),
                     new XElement("Number", Number),
@@ -251,9 +248,10 @@ namespace WebGoatCore.Models
                     ));
                 WriteCreditCardFile(document);
             }
-            catch (Exception)
+            else
             {
-                throw;
+                // this should never happen
+                throw new WebGoatFatalException("Cannot access credit card storage!");
             }
         }
         #endregion

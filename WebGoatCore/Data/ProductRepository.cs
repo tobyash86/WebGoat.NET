@@ -33,12 +33,12 @@ namespace WebGoatCore.Data
                 .Take(numberOfProductsToReturn)
                 .ToList();
 
-            if (topProducts.Count == 0)
+            if(topProducts.Count < 4)
             {
-                topProducts = _context.Products
+                topProducts.AddRange(_context.Products
                     .OrderByDescending(p => p.UnitPrice)
-                    .Take(numberOfProductsToReturn)
-                    .ToList();
+                    .Take(numberOfProductsToReturn - topProducts.Count)
+                    .ToList());
             }
 
             return topProducts;
@@ -46,24 +46,23 @@ namespace WebGoatCore.Data
 
         public List<Product> GetAllProducts()
         {
-            return _context.Products.OrderBy(p => p.ProductId).ToList();
+            return _context.Products.OrderBy(p => p.ProductName).ToList();
         }
 
         public List<Product> FindNonDiscontinuedProducts(string? productName, int? categoryId)
         {
             var products = _context.Products.Where(p => !p.Discontinued);
 
-            if (productName != null)
-            {
-                products = products.Where(p => p.ProductName.Contains(productName));
-            }
-
             if (categoryId != null)
             {
                 products = products.Where(p => p.CategoryId == categoryId);
             }
+            if (productName != null)
+            {
+                 return products.ToList().Where(p => p.ProductName.Contains(productName, StringComparison.CurrentCultureIgnoreCase)).OrderBy(p => p.ProductName).ToList();
+            }
 
-            return products.ToList();
+            return products.OrderBy(p => p.ProductName).ToList();
         }
 
         public Product Update(Product product)

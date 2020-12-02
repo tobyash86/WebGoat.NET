@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Microsoft.Extensions.FileProviders;
+using WebGoatCore.Controllers;
+using WebGoatCore.Exceptions;
 
 namespace WebGoatCore
 {
@@ -19,7 +21,7 @@ namespace WebGoatCore
     {
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
-            var execDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var execDirectory = GetExecDirectory();
 
             var builder = new ConfigurationBuilder();
 
@@ -36,6 +38,21 @@ namespace WebGoatCore
             );
 
             NorthwindContext.Initialize(this.Configuration, env);
+        }
+
+        private static string GetExecDirectory()
+        {
+            string? entryDir = null;
+            string? entryLocation = Assembly.GetEntryAssembly()?.Location;
+            if(!string.IsNullOrEmpty(entryLocation))
+            {
+                entryDir = Path.GetDirectoryName(entryLocation);
+            }
+            if(!string.IsNullOrEmpty(entryDir))
+            {
+                return entryDir;
+            }
+            throw new WebGoatStartupException("Cannot locate entry assembly location!");
         }
 
         public IConfiguration Configuration { get; }
@@ -115,8 +132,11 @@ namespace WebGoatCore
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler($"/{StatusCodeController.NAME}?code=500");
             }
+
+            app.UseStatusCodePagesWithRedirects($"/{StatusCodeController.NAME}?code={{0}}");
+
             app.UseStaticFiles();
 
             app.UseRouting();

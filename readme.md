@@ -1,4 +1,4 @@
-# WebGoat.NETCore [Preview version]
+# WebGoat.NET version 0.1
 
 ## The next generation of the WebGoat example project to demonstrate OWASP TOP 10 vulnerabilities
 
@@ -21,6 +21,9 @@ RUNNING!
    will not work unless chrome is run with the argument 
    `--disable-xss-auditor`.
 
+## Requirements
+- .NET 5 SDK
+
 ## How to build and run
 
 ### 1. Running in a Docker container
@@ -29,33 +32,33 @@ The provided Dockerfile is compatible with both Linux and Windows containers.
 To build a Docker image, execute the following command:
 
 ```sh
-docker build --pull --rm -t webgoat .
+docker build --pull --rm -t webgoat.net .
 ```
 
 #### Linux containers
 
-To run the `webgoat` image, execute the following command:
+To run the `webgoat.net` image, execute the following command:
 
 ```sh
-docker run -d -p 5000:80 --name webgoat webgoat
+docker run --rm -d -p 5000:80 --name webgoat.net webgoat.net
 ```
 
 WebGoat.NETCore website should be accessible at http://localhost:5000.
 
 #### Windows containers
 
-To run `webgoat` image, execute the following command:
+To run `webgoat.net` image, execute the following command:
 
 ```sh
-docker run --name webgoat webgoat
+docker run --rm --name webgoat.net webgoat.net
 ```
 
 Windows containers do not support binding to localhost. To access the website, you need to provide the IP address of your Docker container. To obtain the IP, execute the following command:
 
 ```sh
-docker exec webgoat ipconfig
+docker exec webgoat.net ipconfig
 ```
-The output will include the IP of the 'webgoat' container, for example:
+The output will include the IP of the 'webgoat.net' container, for example:
 
 ```
 Ethernet adapter Ethernet:
@@ -68,6 +71,14 @@ Ethernet adapter Ethernet:
 ```
 
 In the above example, you can access the WebGoat.NETCore website at http://172.29.245.43.
+
+#### Stopping Docker container
+
+To stop the `webgoat.net` container, execute the following command:
+
+```sh
+docker stop webgoat.net
+```
 
 ### 2. Run locally using dotnet.exe (Kestrel)
 
@@ -87,40 +98,16 @@ dotnet ./app/WebGoatCore.dll --urls=http://localhost:5000
 
 The the WebGoat.NETCore website will be accessible at the URL specified with the `--urls` parameter: http://localhost:5000.
 
+### 2. Run using a script
+The WebGoat.NET projects ships with scripts that allow you to conveniently run the web application. The following scripts are located in the the "script" directory in the root of the project:
+- runInDocker.bat - Runs the application in a Docker container on Windows.
+- runInDocker.sh - Runs the application in a Docker container on Linux.
+- runLocal.bat - Runs the application locally on Windows.
+- runLocal.sh - Runs the application locally on Linux.
 
 ## Known issues:
 
 1. The latest OWASP Top 10 is not covered. The uncovered vulnerabilities need to be added to the code base.
 2. Educational documents/trainings for any categories of the latest OWASP Top 10 are not available (the previous version of OWASP Top 10 is covered).
-3. The ClickJacking example is currently not functional.
-4. There are some raw SQL queries in the code. We should consider using EF Core instead.
-5. There is an exeption thrown after checkout if there are two exactly the same product entries in the cart.
-6. Sometimes there is only one featured product diplayed on main page (instead of four).
-
-## Changelog:
-
-### Initial version:
-- Converted WebGoat.NET (.NET Framework) to WebGoat.NETCore (.NET Core).
-- Updated a set of functionalities to be compatible with .NET Core:
-    - register/login/logout
-    - cart/checkout
-    - blog
-    - products management
-    - shipment tracking
-- Improved the site styles.
-- Added redirecting to the recent page after login.
-- Included exception data on error pages.
-- Improved spelling and formatting.
-- Improved the build process.
-- Fixed the 'Keep shopping' link.
-- Improved the error messages for required form fields.
-- Fixed the exception when no CCN was specified.
-- Fixed order value calculation on checkout.
-- Added support for running on Linux OS.
-- Replaced SQL Server Local DB with SQLite database.
-- Added support for running WebGoat in a Linux Docker container.
-- Improved formatting of prices (rounding + removed $ character for consistency)
-
-
 
 
