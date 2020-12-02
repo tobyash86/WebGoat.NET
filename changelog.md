@@ -6,7 +6,7 @@
 - Added .NET 5 SDK as a minimum requirement to run WebGoat locally.
 - Added UI enhancements to improve the look and feel of the application.
 - Added examples of a valid credit card number.
-- Added a notification about an empty credit card field.
+- Added improved validation of credit card numbers provided by the user.
 
 ### Fixed
 - Fixed the varying number of featured products to always be four.
@@ -15,7 +15,6 @@
 - Fixed entry duplication in the cart which caused a runtime exception on checkout.
 - Fixed the Docker run commands to remove a Docker container when the container is stopped.
 - Fixed case sensitivity of the search bar.
-- Fixed the My Account link to show information about the user's account.
 - Fixed the About page to remove outdated information and a broken link.
 
 ### Removed
