@@ -1,5 +1,9 @@
 # WebGoat.NET version 0.1
 
+## Build status
+
+![build .NET 5](https://github.com/tobyash86/WebGoat.NETCore/workflows/build%20.NET%205/badge.svg)
+
 ## The next generation of the WebGoat example project to demonstrate OWASP TOP 10 vulnerabilities
 
 This is a re-implementation of the original [WebGoat project for .NET](https://github.com/rappayne/WebGoat.NET).
