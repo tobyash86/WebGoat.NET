@@ -21,6 +21,9 @@ RUNNING!
    will not work unless chrome is run with the argument 
    `--disable-xss-auditor`.
 
+## Requirements
+- .NET 5 SDK
+
 ## How to build and run
 
 ### 1. Running in a Docker container
@@ -78,8 +81,6 @@ docker stop webgoat.net
 ```
 
 ### 2. Run locally using dotnet.exe (Kestrel)
-
-Requires .NET 5 SDK.
 
 1. Build and publish WebGoat.NETCore with the following command:
 
