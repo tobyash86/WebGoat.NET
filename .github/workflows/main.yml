@@ -6,9 +6,9 @@ name: dottest-3
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ dottest-3 ]
+    branches: [ dt-3 ]
   pull_request:
-    branches: [ dottest-3 ]
+    branches: [ dt-3 ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
