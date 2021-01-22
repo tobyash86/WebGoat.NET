@@ -3,6 +3,7 @@
 ## Build status
 
 ![build .NET 5](https://github.com/tobyash86/WebGoat.NETCore/workflows/build%20.NET%205/badge.svg)
+![dotTEST](https://github.com/tobyash86/WebGoat.NET/workflows/dottest-3/badge.svg?branch=dt-3)
 
 ## The next generation of the WebGoat example project to demonstrate OWASP TOP 10 vulnerabilities
 
