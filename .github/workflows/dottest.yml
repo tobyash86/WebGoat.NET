@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: dottest-3
+name: dotTEST
 
 # Controls when the action will run. 
 on:
@@ -16,7 +16,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  build:
+  dotTEST Analysis:
     # The type of runner that the job will run on
     runs-on: self-hosted
 
@@ -25,7 +25,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: PROTO Run dotTEST analyzer
+      - name: Run dotTEST analyzer
         # You may pin to the exact commit or the version.
         # uses: tobyash86/run-dottest-analyzer-proto@1bc4be095189f455793afdb10b47127e06ae25ff
         uses: tobyash86/run-dottest-analyzer-proto@prda0.1.7a
