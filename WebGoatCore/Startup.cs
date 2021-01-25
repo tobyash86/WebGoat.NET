@@ -21,6 +21,8 @@ namespace WebGoatCore
     {
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
+            try
+            {
             var execDirectory = GetExecDirectory();
 
             var builder = new ConfigurationBuilder();
@@ -38,6 +40,11 @@ namespace WebGoatCore
             );
 
             NorthwindContext.Initialize(this.Configuration, env);
+            }
+            catch (Exception e)
+            {
+
+            }
         }
 
         private static string GetExecDirectory()
