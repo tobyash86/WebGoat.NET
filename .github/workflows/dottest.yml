@@ -34,6 +34,7 @@ jobs:
           # Path to working directory.
           installDir: c:\Program Files\Parasoft\dotTEST\2021.1
           config: OWASP Top 10-2017
+          fail: true
       
       # ---------------------------------------------------------------
       # Upload the findings into the GitHub code scanning alert section
