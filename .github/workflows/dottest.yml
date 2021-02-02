@@ -30,7 +30,7 @@ jobs:
         continue-on-error: true
         # You may pin to the exact commit or the version.
         # uses: tobyash86/run-dottest-analyzer-proto@1bc4be095189f455793afdb10b47127e06ae25ff
-        uses: tobyash86/run-dottest-analyzer-proto@prda0.1.13a
+        uses: tobyash86/run-dottest-analyzer-proto@prda0.1.14a
         with:
           # Path to working directory.
           installDir: c:\Program Files\Parasoft\dotTEST\2021.1
