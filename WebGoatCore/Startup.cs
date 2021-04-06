@@ -43,7 +43,7 @@ namespace WebGoatCore
             }
             catch (Exception e)
             {
-
+                1.ToString();
             }
         }
 
