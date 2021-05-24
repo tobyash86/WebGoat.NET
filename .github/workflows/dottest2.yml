@@ -36,18 +36,17 @@ jobs:
           installDir: c:\Program Files\Parasoft\dotTEST\2021.1
           testConfig: OWASP Top 10-2017
           fail: true
-      
+          
+  publish:
       # ---------------------------------------------------------------
       # Upload the findings into the GitHub code scanning alert section
-      - name: Upload results to GitHub
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: ${{ steps.dottest.outputs.report }}
-          
-      # ---------------------------------------------------------------
-      # Archive the findings reports as job artifact
-      - name: Upload report artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: Report files
-          path: ${{ steps.dottest.outputs.reportDir }}/*.*
+      name: Upload results to GitHub
+      needs: dotTEST-analysis
+      runs-on: self-hosted
+      if: always()
+      steps:
+        - uses: technote-space/workflow-conclusion-action@v2
+        - uses: github/codeql-action/upload-sarif@v1
+          with:
+            sarif_file: ${{ jobs.dotTEST-analysis.steps.dottest.outputs.report }}
+          if: env.WORKFLOW_CONCLUSION == 'failure'
