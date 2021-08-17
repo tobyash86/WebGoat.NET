@@ -114,5 +114,5 @@ The WebGoat.NET projects ships with scripts that allow you to conveniently run t
 
 1. The latest OWASP Top 10 is not covered. The uncovered vulnerabilities need to be added to the code base.
 2. Educational documents/trainings for any categories of the latest OWASP Top 10 are not available.
-
+ 
 
