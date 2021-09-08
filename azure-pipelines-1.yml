@@ -1,0 +1,36 @@
+trigger:
+- master
+
+pool: default
+
+steps:
+
+- checkout: self
+  persistCredentials: true
+
+# dotTEST: Full checkout required to have full SCM data on a report
+- task: CmdLine@2
+  displayName: Checkout $(Build.SourceBranchName)
+  inputs:
+    script: |
+            git checkout $(Build.SourceBranchName)
+            git pull
+
+- task: RunDotTEST@0
+  inputs:
+    workingDir: '$(Pipeline.Workspace)'
+    installDir: 'c:\Program Files\Parasoft\dotTEST\2021.2'
+    solution: '.\**\*.sln'
+    nobuild: true
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '../report/report.sarif'
+    ArtifactName: 'CodeAnalysisLogs' # Special name
+    publishLocation: 'Container'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '../report'
+    ArtifactName: 'DottestReports' # Special name
+    publishLocation: 'Container'
