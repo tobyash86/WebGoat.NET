@@ -14,7 +14,7 @@ most web applications. It also contains lessons that specifically pertain to
 the .NET framework. The exercises in this app are intended to teach about 
 web security attacks and how developers can overcome them.
 
-### WARNING: 
+### WARNING!: 
 THIS WEB APPLICATION CONTAINS NUMEROUS SECURITY VULNERABILITIES 
 WHICH WILL RENDER YOUR COMPUTER VERY INSECURE WHILE RUNNING! IT IS HIGHLY
 RECOMMENDED TO COMPLETELY DISCONNECT YOUR COMPUTER FROM ALL NETWORKS WHILE
