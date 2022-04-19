@@ -153,5 +153,12 @@ namespace WebGoatCore
                     pattern: "{controller=Home}/{action=Index}");
             });
         }
+        
+        public int startupNotUsed(int a, int b) // Function added to generate same FA Violation
+        {
+            var c = 1;
+            b = 0;
+            return a / b;
+        }
     }
 }
