@@ -44,11 +44,11 @@ namespace WebGoatCore
         {
             string? entryDir = null;
             string? entryLocation = Assembly.GetEntryAssembly()?.Location;
-            if(!string.IsNullOrEmpty(entryLocation))
+            if (!string.IsNullOrEmpty(entryLocation))
             {
                 entryDir = Path.GetDirectoryName(entryLocation);
             }
-            if(!string.IsNullOrEmpty(entryDir))
+            if (!string.IsNullOrEmpty(entryDir))
             {
                 return entryDir;
             }
@@ -152,6 +152,13 @@ namespace WebGoatCore
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}");
             });
+        }
+
+        public int startupNotUsed(int a, int b) // Function added to generate same FA Violation
+        {
+            var c = 1;
+            b = 0;
+            return a / b;
         }
     }
 }
