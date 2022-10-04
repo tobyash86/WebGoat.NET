@@ -1,8 +1,8 @@
-# WebGoat.NET version 0.1
+# WebGoat.NET version 0.2
 
 ## Build status
 
-![build .NET 5](https://github.com/tobyash86/WebGoat.NETCore/workflows/build%20.NET%205/badge.svg)
+![build .NET 7](https://github.com/tobyash86/WebGoat.NET/workflows/build%20.NET%207/badge.svg)
 
 ## The next generation of the WebGoat example project to demonstrate OWASP TOP 10 vulnerabilities
 
@@ -26,7 +26,7 @@ RUNNING!
    `--disable-xss-auditor`.
 
 ## Requirements
-- .NET 5 SDK
+- .NET 7 SDK
 
 ## How to build and run
 
@@ -47,7 +47,7 @@ To run the `webgoat.net` image, execute the following command:
 docker run --rm -d -p 5000:80 --name webgoat.net webgoat.net
 ```
 
-WebGoat.NETCore website should be accessible at http://localhost:5000.
+WebGoat.NET website should be accessible at http://localhost:5000.
 
 #### Windows containers
 
@@ -86,7 +86,7 @@ docker stop webgoat.net
 
 ### 2. Run locally using dotnet.exe (Kestrel)
 
-1. Build and publish WebGoat.NETCore with the following command:
+1. Build and publish WebGoat.NET with the following command:
 
 ```sh
 dotnet publish -c release -o ./app 
@@ -97,10 +97,10 @@ The web application will be deployed to the `app` folder in the current director
 2. Execute the web application on localhost with the following command:
 
 ```sh
-dotnet ./app/WebGoatCore.dll --urls=http://localhost:5000
+dotnet ./app/WebGoat.NET.dll --urls=http://localhost:5000
 ```
 
-The the WebGoat.NETCore website will be accessible at the URL specified with the `--urls` parameter: http://localhost:5000.
+The the WebGoat.NET website will be accessible at the URL specified with the `--urls` parameter: http://localhost:5000.
 
 ### 2. Run using a script
 The WebGoat.NET projects ships with scripts that allow you to conveniently run the web application. The following scripts are located in the the "script" directory in the root of the project:
