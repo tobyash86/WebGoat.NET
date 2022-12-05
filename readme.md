@@ -102,7 +102,7 @@ dotnet ./app/WebGoat.NET.dll --urls=http://localhost:5000
 
 The the WebGoat.NET website will be accessible at the URL specified with the `--urls` parameter: http://localhost:5000.
 
-### 2. Run using a script
+### 3. Run using a script
 The WebGoat.NET projects ships with scripts that allow you to conveniently run the web application. The following scripts are located in the the "script" directory in the root of the project:
 - runInDocker.bat - Runs the application in a Docker container on Windows.
 - runInDocker.sh - Runs the application in a Docker container on Linux.
