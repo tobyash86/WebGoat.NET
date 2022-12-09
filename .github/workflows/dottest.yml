@@ -58,7 +58,7 @@ jobs:
         with:
           # Path to working directory.
           installDir: c:\Program Files\Parasoft\dotTEST\2022.2
-          testConfig: Run VSTest with Coverage
+          testConfig: Run VSTest Tests with Coverage
       
       # ---------------------------------------------------------------
       # Upload the findings into the GitHub code scanning alert section
