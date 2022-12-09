@@ -29,13 +29,11 @@ jobs:
         with: 
           fetch-depth: 0
 
+      # Download last artifacts and unzip them
       - uses: blablacar/action-download-last-artifact@master
         with:
          name: Test Report files
          path: baseline_reports
-
-      - name: unzip
-        run: powershell -command 'Expand-Archive -Path "baseline_reports\Test Report files.zip" -DestinationPath "baseline_reports"'
 
       - name: Run dotTEST unit tests
         id: dottest_ut
