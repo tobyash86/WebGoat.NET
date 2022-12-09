@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.32916.344
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebGoat.NET", "WebGoat.NET\WebGoat.NET.csproj", "{706965ED-4ADB-4E9B-AD9F-6EE2C8B8382F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebGoat.NET.Tests", "WebGoat.NET.Tests\WebGoat.NET.Tests.csproj", "{082A7819-F294-49D8-90E7-F207F60B984F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{706965ED-4ADB-4E9B-AD9F-6EE2C8B8382F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{706965ED-4ADB-4E9B-AD9F-6EE2C8B8382F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{706965ED-4ADB-4E9B-AD9F-6EE2C8B8382F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{082A7819-F294-49D8-90E7-F207F60B984F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{082A7819-F294-49D8-90E7-F207F60B984F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{082A7819-F294-49D8-90E7-F207F60B984F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{082A7819-F294-49D8-90E7-F207F60B984F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
