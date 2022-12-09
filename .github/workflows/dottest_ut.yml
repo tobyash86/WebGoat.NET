@@ -46,6 +46,7 @@ jobs:
           testConfig: Run VSTest Tests with Coverage
           referenceReportFile: baseline_reports\report.xml
           referenceCoverageFile: baseline_reports\coverage.xml
+          reference: baseline_reports\a.dll
       
       # ---------------------------------------------------------------
       # Upload the findings into the GitHub code scanning alert section
