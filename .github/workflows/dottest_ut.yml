@@ -44,9 +44,8 @@ jobs:
           # Path to working directory.
           installDir: c:\Program Files\Parasoft\dotTEST\2022.2
           testConfig: Run VSTest Tests with Coverage
-          referenceReportFile: baseline_reports\report.xml
-          referenceCoverageFile: baseline_reports\coverage.xml
-          reference: baseline_reports\a.dll
+          referenceReportFile: c:\actions-runner\_work\WebGoat.NET\WebGoat.NET\baseline_reports\report.xml
+          referenceCoverageFile: c:\actions-runner\_work\WebGoat.NET\WebGoat.NET\baseline_reports\coverage.xml
       
       # ---------------------------------------------------------------
       # Upload the findings into the GitHub code scanning alert section
