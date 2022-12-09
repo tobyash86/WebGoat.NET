@@ -11,6 +11,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebGoat.NET.Tests;
 
+[TestFixture]
 public class Tests
 {
     Mock<NorthwindContext> _context;
