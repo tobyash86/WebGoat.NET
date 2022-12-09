@@ -62,6 +62,16 @@ public class Tests
         Assert.That(entry.Author, Is.EqualTo("admin"));
     }
 
+    [Test]
+    public void GetTopEntriesTest()
+    {
+        var blogEntryRepo = new BlogEntryRepository(_context.Object);
+
+        var entries = blogEntryRepo.GetTopBlogEntries();
+
+        Assert.That(entries.Count, Is.EqualTo(1));
+    }
+
     private static Mock<DbSet<T>> CreateDbSetMock<T>(IEnumerable<T> elements) where T : class
     {
         var elementsAsQueryable = elements.AsQueryable();

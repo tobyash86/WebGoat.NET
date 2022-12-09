@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WebGoat.NET.Logger;
 
 namespace WebGoatCore.Data
 {
@@ -17,6 +18,7 @@ namespace WebGoatCore.Data
 
         public BlogEntry CreateBlogEntry(string title, string contents, string username)
         {
+            DummyLogger.Log($"Adding blog entry - title: {title} | user: {username}");
             var entry = new BlogEntry
             {
                 Title = title,
@@ -27,6 +29,7 @@ namespace WebGoatCore.Data
 
             entry = _context.BlogEntries.Add(entry).Entity;
             _context.SaveChanges();
+            DummyLogger.Log("Entry added");
             return entry;
         }
 
