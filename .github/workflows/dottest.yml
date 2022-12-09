@@ -40,7 +40,7 @@ jobs:
       - name: Upload static results to GitHub
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: ${{ steps.dottest.outputs.report }}
+          sarif_file: ${{ steps.dottest_sa.outputs.report }}
           
       # ---------------------------------------------------------------
       # Archive the findings reports as job artifact
@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Report files
-          path: ${{ steps.dottest.outputs.reportDir }}/*.*
+          path: ${{ steps.dottest_sa.outputs.reportDir }}/*.*
 
       - name: Run dotTEST unit tests
         id: dottest_ut
@@ -65,7 +65,7 @@ jobs:
       - name: Upload execution results to GitHub
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: ${{ steps.dottest.outputs.report }}
+          sarif_file: ${{ steps.dottest_ut.outputs.report }}
           
       # ---------------------------------------------------------------
       # Archive the findings reports as job artifact
@@ -73,5 +73,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Test Report files
-          path: ${{ steps.dottest.outputs.reportDir }}/*.*
+          path: ${{ steps.dottest_ut.outputs.reportDir }}/*.*
 
