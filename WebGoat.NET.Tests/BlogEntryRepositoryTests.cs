@@ -15,7 +15,7 @@ public class Tests
 {
     Mock<NorthwindContext> _context;
 
-    [OneTimeSetUp]
+    [SetUp]
     public void Setup()
     {
         // create test DB
@@ -34,15 +34,9 @@ public class Tests
             return entityEntry;
         };
 
-        var mockSet = new Mock<DbSet<BlogEntry>>();
-        mockSet.As<IDbAsyncEnumerable<BlogEntry>>()
-            .Setup(m => m.GetAsyncEnumerator())
-        .Returns(new TestDbAsyncEnumerator<BlogEntry>(initialBlogEntries.GetEnumerator()));
+        var mockSet = CreateDbSetMock(initialBlogEntries);
         
         mockSet.Setup(m => m.Add(It.IsAny<BlogEntry>())).Returns(mockEntityEntry);
-
-        mockSet.As<IQueryable<BlogEntry>>()
-            .SetupGet(m => m.Provider).Returns(initialBlogEntries.Provider);
 
         _context = new Mock<NorthwindContext>();
         _context.SetupGet(c => c.BlogEntries).Returns(mockSet.Object);
@@ -56,5 +50,28 @@ public class Tests
         var entry = blogEntryRepo.CreateBlogEntry("NEW ENTRY", "NEW ENTRY CONTENT", "me");
 
         Assert.That(entry.Author, Is.EqualTo("me"));
+    }
+
+    [Test]
+    public void GetBlogEntryTest()
+    {
+        var blogEntryRepo = new BlogEntryRepository(_context.Object);
+
+        var entry = blogEntryRepo.GetBlogEntry(1);
+
+        Assert.That(entry.Author, Is.EqualTo("admin"));
+    }
+
+    private static Mock<DbSet<T>> CreateDbSetMock<T>(IEnumerable<T> elements) where T : class
+    {
+        var elementsAsQueryable = elements.AsQueryable();
+        var dbSetMock = new Mock<DbSet<T>>();
+
+        dbSetMock.As<IQueryable<T>>().Setup(m => m.Provider).Returns(elementsAsQueryable.Provider);
+        dbSetMock.As<IQueryable<T>>().Setup(m => m.Expression).Returns(elementsAsQueryable.Expression);
+        dbSetMock.As<IQueryable<T>>().Setup(m => m.ElementType).Returns(elementsAsQueryable.ElementType);
+        dbSetMock.As<IQueryable<T>>().Setup(m => m.GetEnumerator()).Returns(elementsAsQueryable.GetEnumerator());
+
+        return dbSetMock;
     }
 }
