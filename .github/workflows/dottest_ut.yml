@@ -29,6 +29,14 @@ jobs:
         with: 
           fetch-depth: 0
 
+      - uses: actions/download-artifact@v3
+        with:
+         name: Test Report files
+         path: baseline_reports
+
+      - name: unzip
+        run: powershell -command "Expand-Archive baseline_reports\Test Report files.zip baseline_reports"
+
       - name: Run dotTEST unit tests
         id: dottest_ut
         # You may pin to the exact commit or the version.
