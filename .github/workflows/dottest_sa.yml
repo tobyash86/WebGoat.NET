@@ -39,7 +39,13 @@ jobs:
           installDir: c:\Program Files\Parasoft\dotTEST\2022.2
           testConfig: OWASP Top 10-2021
           property: 'scope.scontrol.files.filter.mode=branch;
-            scope.scontrol.ref.branch=origin/main'
+            scope.scontrol.ref.branch=origin/main;
+            scope.scontrol=true;
+            scontrol.rep1.type=git;
+            scontrol.rep1.git.url=${{ github.server_url }}/${{ github.repository }};
+            scontrol.rep1.git.branch=${{github.branch}};
+            scontrol.rep1.git.workspace=${GITHUB_WORKSPACE};
+            scontrol.git.exec=C\:\\Program Files\\Git\\bin\\git.exe'
       
       # ---------------------------------------------------------------
       # Upload the findings into the GitHub code scanning alert section
