@@ -1,11 +1,11 @@
 # This is a basic workflow to help you get started with Actions
 
-name: dotTEST Unit Tests
+name: dotTEST TIA
 
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-  push:
+  pull_request:
     branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -14,7 +14,7 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
-  dotTEST-UT-execution:
+  dotTEST-TIA:
     # The type of runner that the job will run on
     runs-on: self-hosted
 
@@ -33,7 +33,7 @@ jobs:
          name: Test Report files
          path: baseline_reports
 
-      - name: Run dotTEST unit tests
+      - name: Run dotTEST TIA
         id: dottest_ut
         # You may pin to the exact commit or the version.
         # uses: tobyash86/run-dottest-analyzer-proto@1bc4be095189f455793afdb10b47127e06ae25ff
@@ -57,6 +57,6 @@ jobs:
       - name: Upload execution artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: Test Report files
+          name: TIA Report files
           path: ${{ steps.dottest_ut.outputs.reportDir }}/*.*
 
