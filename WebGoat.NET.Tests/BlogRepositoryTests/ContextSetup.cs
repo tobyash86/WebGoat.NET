@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using WebGoatCore.Data;
 using WebGoatCore.Models;
 
-namespace WebGoat.NET.Tests
+namespace WebGoat.NET.Tests.BlogRepositoryTests
 {
     internal static class ContextSetup
     {

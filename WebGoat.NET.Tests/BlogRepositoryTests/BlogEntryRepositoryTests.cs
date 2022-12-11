@@ -10,7 +10,7 @@ using WebGoatCore.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using NUnit.Framework;
 
-namespace WebGoat.NET.Tests;
+namespace WebGoat.NET.Tests.BlogRepositoryTests;
 
 [TestFixture]
 public class Tests

@@ -22,8 +22,4 @@
     <ProjectReference Include="..\WebGoat.NET\WebGoat.NET.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="CategoryRepository\" />
-  </ItemGroup>
-
 </Project>
