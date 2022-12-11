@@ -32,4 +32,24 @@ public class Tests
 
         Assert.That(entry.Author, Is.EqualTo("admin"));
     }
+
+    [Test]
+    public void TestEntryCreation()
+    {
+        var blogEntryRepo = new BlogEntryRepository(_context.Object);
+
+        var entry = blogEntryRepo.CreateBlogEntry("NEW ENTRY", "NEW ENTRY CONTENT", "me");
+
+        Assert.That(entry.Author, Is.EqualTo("me"));
+    }
+
+    [Test]
+    public void GetTopEntriesTest()
+    {
+        var blogEntryRepo = new BlogEntryRepository(_context.Object);
+
+        var entries = blogEntryRepo.GetTopBlogEntries();
+
+        Assert.That(entries.Count, Is.EqualTo(1));
+    }
 }
