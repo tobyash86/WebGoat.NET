@@ -19,7 +19,7 @@ namespace WebGoat.NET.Tests.BlogRepositoryTests
         {
             // create test DB
             var initialBlogEntries = new List<BlogEntry> {
-            new BlogEntry() { Author = "admin", Contents = "Test Content", Id = 1, PostedDate = DateTime.Now, Responses = Array.Empty<BlogResponse>(), Title = "Test Title" }
+            new BlogEntry() { Author = "admin", Contents = "Test Content", Id = 1, PostedDate = DateTime.Now, Responses = new List<BlogResponse>(), Title = "Test Title" }
         }.AsQueryable();
 
             Func<BlogEntry, EntityEntry<BlogEntry>> mockEntityEntry = (BlogEntry data) =>
