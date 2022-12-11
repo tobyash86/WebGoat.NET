@@ -45,7 +45,7 @@ namespace WebGoatCore.Data
         }
 
         public virtual DbSet<BlogEntry> BlogEntries { get; set; }
-        public DbSet<BlogResponse> BlogResponses { get; set; }
+        public virtual DbSet<BlogResponse> BlogResponses { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
