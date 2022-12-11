@@ -8,6 +8,7 @@ using System.Data.Entity.Infrastructure;
 using WebGoatCore.Data;
 using WebGoatCore.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using NUnit.Framework;
 
 namespace WebGoat.NET.Tests;
 
