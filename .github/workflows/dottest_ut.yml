@@ -24,8 +24,6 @@ jobs:
       # Depth set to 0 for highest performance
       - name: Checkout sources
         uses: actions/checkout@v3
-        with: 
-          fetch-depth: 0
 
       # Download last artifacts and unzip them
       - uses: blablacar/action-download-last-artifact@master
@@ -42,8 +40,6 @@ jobs:
           # Path to working directory.
           installDir: c:\Program Files\Parasoft\dotTEST\2022.2
           testConfig: Run VSTest Tests with Coverage
-          referenceReportFile: c:\actions-runner\_work\WebGoat.NET\WebGoat.NET\baseline_reports\report.xml
-          referenceCoverageFile: c:\actions-runner\_work\WebGoat.NET\WebGoat.NET\baseline_reports\coverage.xml
       
       # ---------------------------------------------------------------
       # Upload the findings into the GitHub code scanning alert section
