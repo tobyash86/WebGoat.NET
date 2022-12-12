@@ -5,8 +5,6 @@ name: dotTEST Static Analysis
 # Controls when the action will run. 
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
-  push:
-    branches: [ main ]
   pull_request:
     branches: [ main ]
 
@@ -43,8 +41,8 @@ jobs:
             scope.scontrol=true;
             scontrol.rep1.type=git;
             scontrol.rep1.git.url=${{ github.server_url }}/${{ github.repository }};
-            scontrol.rep1.git.branch=${{github.branch}};
-            scontrol.rep1.git.workspace=${GITHUB_WORKSPACE};
+            scontrol.rep1.git.branch=${{ github.branch }};
+            scontrol.rep1.git.workspace=${{ github.workspace }};
             scontrol.git.exec=C:\Program Files\Git\bin\git.exe'
 
       # ---------------------------------------------------------------
