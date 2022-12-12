@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: dotTEST Static Analysis
+name: dotTEST minimal Static Analysis
 
 # Controls when the action will run. 
 on:
@@ -27,8 +27,8 @@ jobs:
         with: 
           fetch-depth: 0
 
-      - name: Run dotTEST static analysis
-        id: dottest_sa
+      - name: Run dotTEST min. SA
+        id: dottest_min_sa
         # You may pin to the exact commit or the version.
         # uses: tobyash86/run-dottest-analyzer-proto@1bc4be095189f455793afdb10b47127e06ae25ff
         uses: parasoft/run-dottest-analyzer@master
@@ -41,7 +41,6 @@ jobs:
             scope.scontrol=true;
             scontrol.rep1.type=git;
             scontrol.rep1.git.url=${{ github.server_url }}/${{ github.repository }};
-            scontrol.rep1.git.branch=${{ github.branch }};
             scontrol.rep1.git.workspace=${{ github.workspace }};
             scontrol.git.exec=C:\Program Files\Git\bin\git.exe'
 
@@ -50,7 +49,7 @@ jobs:
       - name: Upload static results to GitHub
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: ${{ steps.dottest_sa.outputs.report }}
+          sarif_file: ${{ steps.dottest_min_sa.outputs.report }}
           
       # ---------------------------------------------------------------
       # Archive the findings reports as job artifact
@@ -58,4 +57,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Report files
-          path: ${{ steps.dottest_sa.outputs.reportDir }}/*.*
+          path: ${{ steps.dottest_min_sa.outputs.reportDir }}/*.*
