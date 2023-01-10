@@ -13,6 +13,6 @@ WORKDIR /app
 COPY --from=build /app ./
 
 LABEL org.opencontainers.image.source=https://github.com/tobyash86/WebGoat.NET
-LABEL org.opencontainers.image.description="WebGoat.NETCore - port of original WebGoat.NET to .NET Core"
+LABEL org.opencontainers.image.description="WebGoat.NET - port of original WebGoat.NET (.NET Framework) to .NET"
 
 ENTRYPOINT ["dotnet", "WebGoat.NET.dll"] 
