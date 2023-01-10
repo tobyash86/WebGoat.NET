@@ -39,6 +39,8 @@ To build a Docker image, execute the following command:
 docker build --pull --rm -t webgoat.net .
 ```
 
+Please note that Linux image is already built by pipeline and can be pulled from [here](https://github.com/users/tobyash86/packages?repo_name=WebGoat.NET).
+
 #### Linux containers
 
 To run the `webgoat.net` image, execute the following command:
