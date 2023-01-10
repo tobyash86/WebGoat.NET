@@ -11,4 +11,8 @@ RUN dotnet publish -c release -o /app
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /app
 COPY --from=build /app ./
+
+LABEL org.opencontainers.image.source=https://github.com/tobyash86/WebGoat.NET
+LABEL org.opencontainers.image.description="WebGoat.NETCore - port of original WebGoat.NET to .NET Core"
+
 ENTRYPOINT ["dotnet", "WebGoat.NET.dll"] 
