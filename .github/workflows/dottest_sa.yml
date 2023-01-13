@@ -45,7 +45,7 @@ jobs:
       # ---------------------------------------------------------------
       # Archive the findings reports as job artifact
       - name: Upload static analysis artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Report files
           path: ${{ steps.dottest_min_sa.outputs.reportDir }}/*.*

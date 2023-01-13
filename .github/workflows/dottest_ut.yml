@@ -51,7 +51,7 @@ jobs:
       # ---------------------------------------------------------------
       # Archive the findings reports as job artifact
       - name: Upload execution artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Test Report files
           path: ${{ steps.dottest_ut.outputs.reportDir }}/*.*
