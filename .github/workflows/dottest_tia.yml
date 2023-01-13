@@ -48,7 +48,7 @@ jobs:
       # ---------------------------------------------------------------
       # Upload the findings into the GitHub code scanning alert section
       - name: Upload TIA results to GitHub
-        uses: github/codeql-action/upload-sarif@v1
+        uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: ${{ steps.dottest_ut.outputs.report }}
           
