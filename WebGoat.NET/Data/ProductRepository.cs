@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using Microsoft.EntityFrameworkCore;
 
 namespace WebGoatCore.Data
 {
@@ -51,20 +53,28 @@ namespace WebGoatCore.Data
 
         public List<Product> FindNonDiscontinuedProducts(string? productName, int? categoryId)
         {
-            var products = _context.Products.Where(p => !p.Discontinued);
+            var queryBuilder = new StringBuilder();
+            queryBuilder.Append("SELECT * FROM Products ");
 
             if (categoryId != null)
             {
-                products = products.Where(p => p.CategoryId == categoryId);
+                queryBuilder.Append($"WHERE CategoryId = {categoryId} ");
             }
-            if (productName != null)
+            if (categoryId != null && productName != null)
             {
-                 return products.ToList().Where(p => p.ProductName.Contains(productName, StringComparison.CurrentCultureIgnoreCase)).OrderBy(p => p.ProductName).ToList();
+                queryBuilder.Append($"AND UPPER(ProductName) LIKE UPPER('%{productName}%') ");
+            }
+            else if (categoryId == null && productName != null)
+            {
+                queryBuilder.Append($"WHERE UPPER(ProductName) LIKE UPPER('%{productName}%') ");
             }
 
-            return products.OrderBy(p => p.ProductName).ToList();
-        }
+            queryBuilder.Append("ORDER BY ProductName");
 
+            var query = queryBuilder.ToString();
+            return _context.Products.FromSqlRaw(query).ToList();
+        }
+        
         public Product Update(Product product)
         {
             product = _context.Products.Update(product).Entity;
