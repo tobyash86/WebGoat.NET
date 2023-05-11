@@ -25,12 +25,6 @@ jobs:
       - name: Checkout sources
         uses: actions/checkout@v3
 
-      # Download last artifacts and unzip them
-      - uses: blablacar/action-download-last-artifact@master
-        with:
-         name: Test Report files
-         path: baseline_reports
-
       - name: Run dotTEST unit tests
         id: dottest_ut
         # You may pin to the exact commit or the version.
@@ -43,7 +37,7 @@ jobs:
       
       # ---------------------------------------------------------------
       # Upload the findings into the GitHub code scanning alert section
-      - name: Upload TIA results to GitHub
+      - name: Upload UT results to GitHub
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: ${{ steps.dottest_ut.outputs.report }}
