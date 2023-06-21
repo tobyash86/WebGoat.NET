@@ -49,9 +49,17 @@ namespace WebGoatCore.Data
                 .Skip(startPosition)
                 .Take(numberOfEntries);
 
-            new System.Net.IPAddress(startPosition);
+            blogEntries = check(numberOfEntries, startPosition, blogEntries);
 
             return blogEntries.ToList();
+        }
+
+        private IQueryable<BlogEntry> check(int numberOfEntries, int startPosition, IQueryable<BlogEntry> blogEntries)
+        {
+            if(numberOfEntries > startPosition)
+                return blogEntries;
+
+            return null;
         }
     }
 }
