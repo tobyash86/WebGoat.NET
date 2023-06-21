@@ -49,7 +49,7 @@ namespace WebGoatCore.Data
                 .Skip(startPosition)
                 .Take(numberOfEntries);
 
-            if(blogEntries.FirstOrDefault() != null)
+            if(blogEntries != null)
                 DummyLogger.Log("Entries found!");
 
             return blogEntries.ToList();
