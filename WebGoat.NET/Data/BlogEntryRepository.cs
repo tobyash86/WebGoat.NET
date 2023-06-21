@@ -49,8 +49,7 @@ namespace WebGoatCore.Data
                 .Skip(startPosition)
                 .Take(numberOfEntries);
 
-            if(blogEntries != null)
-                DummyLogger.Log("Entries found!");
+            new System.Net.IPAddress(startPosition);
 
             return blogEntries.ToList();
         }
