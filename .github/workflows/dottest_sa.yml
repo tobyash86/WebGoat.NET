@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Run dotTEST static analysis
-        id: dottest_min_sa
+        id: dottest_sa
         # You may pin to the exact commit or the version.
         # uses: tobyash86/run-dottest-analyzer-proto@1bc4be095189f455793afdb10b47127e06ae25ff
         uses: parasoft/run-dottest-analyzer@2.0.0
@@ -40,7 +40,7 @@ jobs:
       - name: Upload static results to GitHub
         uses: github/codeql-action/upload-sarif@v2
         with:
-          sarif_file: ${{ steps.dottest_min_sa.outputs.report }}
+          sarif_file: ${{ steps.dottest_sa.outputs.report }}
           
       # ---------------------------------------------------------------
       # Archive the findings reports as job artifact
@@ -48,4 +48,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Report files
-          path: ${{ steps.dottest_min_sa.outputs.reportDir }}/*.*
+          path: ${{ steps.dottest_sa.outputs.reportDir }}/*.*

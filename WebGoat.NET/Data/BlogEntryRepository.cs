@@ -48,6 +48,10 @@ namespace WebGoatCore.Data
                 .OrderByDescending(b => b.PostedDate)
                 .Skip(startPosition)
                 .Take(numberOfEntries);
+
+            if(blogEntries.FirstOrDefault() != null)
+                DummyLogger.Log("Entries found!");
+
             return blogEntries.ToList();
         }
     }
