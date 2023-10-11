@@ -31,7 +31,7 @@ namespace WebGoat.NET.Tests.CategoryRepositoryTests
             {
                 var internalEntityEntry = new InternalEntityEntry(
                     new Mock<IStateManager>().Object,
-                    new RuntimeEntityType(nameof(BlogEntry), typeof(BlogEntry), false, null, null, null, ChangeTrackingStrategy.Snapshot, null, false),
+                    new RuntimeEntityType(nameof(BlogEntry), typeof(BlogEntry), false, null, null, null, ChangeTrackingStrategy.Snapshot, null, false, null),
                     data);
 
                 var entityEntry = new EntityEntry<Category>(internalEntityEntry);
