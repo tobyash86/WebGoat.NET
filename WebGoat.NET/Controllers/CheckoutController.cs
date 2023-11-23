@@ -158,6 +158,32 @@ namespace WebGoatCore.Controllers
             return RedirectToAction("Receipt");
         }
 
+        [HttpPost]
+        public IActionResult CreateOrder(CheckoutViewModel model)
+        {
+            var order = new Order
+            {
+                ShipVia = model.ShippingMethod,
+                ShipName = model.ShipTarget,
+                ShipAddress = model.Address,
+                ShipCity = model.City,
+                ShipRegion = model.Region,
+                ShipPostalCode = model.PostalCode,
+                ShipCountry = model.Country,
+                OrderDetails = model.Cart!.OrderDetails.Values.ToList(),
+                CustomerId = "0",
+                OrderDate = DateTime.Now,
+                RequiredDate = DateTime.Now.AddDays(7),
+                Freight = Math.Round(_shipperRepository.GetShipperByShipperId(model.ShippingMethod).GetShippingCost(model.Cart.SubTotal), 2),
+                EmployeeId = 1,
+            };
+
+            //Create the order itself.
+            var orderId = _orderRepository.CreateOrder(order);
+
+            return RedirectToAction("Receipt");
+        }
+
         public IActionResult Receipt(int? id)
         {
             var orderId = HttpContext.Session.GetInt32("OrderId");
