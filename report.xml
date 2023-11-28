@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<?xml version='1.0' encoding='UTF-8' standalone='no' pseudo='exist' ?>
 <ResultsSession buildId="dotTEST-2023-11-28" climode="true" execEnv="win32_x86_64" hasViols="true" id="1702650184628" lang="en_US" machine="Taon" prjModule="WebGoat.NET" project="dotTEST" tag="${scontrol_branch}-win32_x86_64" time="2023-11-28T13:55:34+01:00" toolDispName="dotTEST" toolId="dottest" toolName="DTP Engine for .NET" toolVer="2022.2.0" user="ttomczyk">
    <TestConfig machine="Taon" name="Recommended Rules" pseudoUrl="builtin://Recommended Rules" user="ttomczyk" />
    <Authors>
