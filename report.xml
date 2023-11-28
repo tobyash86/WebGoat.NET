@@ -1,0 +1,526 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ResultsSession buildId="dotTEST-2023-11-28" climode="true" execEnv="win32_x86_64" hasViols="true" id="1702650184628" lang="en_US" machine="Taon" prjModule="WebGoat.NET" project="dotTEST" tag="${scontrol_branch}-win32_x86_64" time="2023-11-28T13:55:34+01:00" toolDispName="dotTEST" toolId="dottest" toolName="DTP Engine for .NET" toolVer="2022.2.0" user="ttomczyk">
+   <TestConfig machine="Taon" name="Recommended Rules" pseudoUrl="builtin://Recommended Rules" user="ttomczyk" />
+   <Authors>
+      <Author id="dev1" name="ttomczyk" />
+   </Authors>
+   <Analyzers>
+      <Analyzer id="com.parasoft.xtest.dupcode.parser" name="Code Duplication Parser" ver="10.6.1.20221116" />
+      <Analyzer id="com.parasoft.dottest" name="Parasoft dotTEST" ver="10.6.1.866" />
+      <Analyzer id="com.parasoft.dottest.dupcode" name="Code Duplication Detector" ver="10.6.1.20221116" />
+   </Analyzers>
+   <VersionInfos>
+      <StorageInfo ownerId="" resultId="ISetupResult" ver="1" ver10x="1" />
+      <StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IMetricsViolation" ver="2" ver10x="1" />
+      <StorageInfo ownerId="" resultId="IExecutionViolation" ver="1" ver10x="1" />
+      <StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IDupCodeViolation" ver="2" ver10x="1" />
+      <StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="IFlowAnalysisViolation" ver="2" ver10x="1" />
+      <StorageInfo ownerId="" resultId="IFunctionalViolation" ver="1" ver10x="1" />
+      <StorageInfo ownerId="" resultId="IChangeImpactViolation" ver="1" ver10x="1" />
+      <StorageInfo ownerId="com.parasoft.xtest.checkers.api.standards" resultId="ICodingStandardsViolation" ver="2" ver10x="1" />
+      <StorageInfo ownerId="" resultId="IUnitTestViolation" ver="1" ver10x="1" />
+   </VersionInfos>
+   <Goals tsks="24">
+      
+   </Goals>
+   <Metrics>
+      <Metric avg="2.01" disp="true" id="METRIC.CC" max="10" min="1" name="McCabe Cyclomatic Complexity" noi="102" stddev="1.729">
+         <Info avg="2.01" disp="true" elem="WebGoat.NET" max="10" min="1" noi="102" stddev="1.729" />
+      </Metric>
+      <Metric avg="0.108" disp="true" id="METRIC.NBD" max="5" min="0" name="Nested Blocks Depth" noi="517" stddev="0.422">
+         <Info avg="0.108" disp="true" elem="WebGoat.NET" max="5" min="0" noi="517" stddev="0.422" />
+      </Metric>
+      <Metric avg="50.426" disp="true" id="METRIC.NOPLIF" max="260" min="7" name="Physical Lines in Files" noi="54" stddev="58.775">
+         <Info avg="50.426" disp="true" elem="WebGoat.NET" max="260" min="7" noi="54" stddev="58.775" />
+      </Metric>
+      <Metric avg="10.077" disp="true" id="METRIC.NOSLIM" max="67" min="1" name="Source Lines in Methods" noi="142" stddev="10.219">
+         <Info avg="10.077" disp="true" elem="WebGoat.NET" max="67" min="1" noi="142" stddev="10.219" />
+      </Metric>
+   </Metrics>
+   <Scope>
+      <Repositories />
+      <Locations>
+         <Loc hash="-341503242" locRef="1" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ApiResponse.cs" totLns="20" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ApiResponse.cs" />
+         <Loc hash="1981287678" locRef="2" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Program.cs" totLns="20" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Program.cs" />
+         <Loc hash="-97240628" locRef="3" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Startup.cs" totLns="164" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Startup.cs" />
+         <Loc hash="-1734198330" locRef="4" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Controllers/AccountController.cs" totLns="252" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Controllers/AccountController.cs" />
+         <Loc hash="-1322227123" locRef="5" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Controllers/BlogController.cs" totLns="61" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Controllers/BlogController.cs" />
+         <Loc hash="-524437902" locRef="6" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Controllers/CartController.cs" totLns="91" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Controllers/CartController.cs" />
+         <Loc hash="1604599375" locRef="7" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Controllers/CheckoutController.cs" totLns="244" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Controllers/CheckoutController.cs" />
+         <Loc hash="-413432654" locRef="8" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Controllers/HomeController.cs" totLns="43" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Controllers/HomeController.cs" />
+         <Loc hash="444203628" locRef="9" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Controllers/ProductController.cs" totLns="149" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Controllers/ProductController.cs" />
+         <Loc hash="144996210" locRef="10" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Controllers/StatusCodeController.cs" totLns="25" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Controllers/StatusCodeController.cs" />
+         <Loc hash="-366038174" locRef="11" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Data/BlogEntryRepository.cs" totLns="52" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Data/BlogEntryRepository.cs" />
+         <Loc hash="1950567090" locRef="12" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Data/BlogResponseRepository.cs" totLns="21" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Data/BlogResponseRepository.cs" />
+         <Loc hash="1674593369" locRef="13" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Data/CategoryRepository.cs" totLns="26" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Data/CategoryRepository.cs" />
+         <Loc hash="-162558796" locRef="14" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Data/Constants.cs" totLns="7" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Data/Constants.cs" />
+         <Loc hash="1521343394" locRef="15" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Data/CustomerRepository.cs" totLns="72" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Data/CustomerRepository.cs" />
+         <Loc hash="745710970" locRef="16" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Data/NorthwindContext.cs" totLns="65" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Data/NorthwindContext.cs" />
+         <Loc hash="-1505097719" locRef="17" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Data/OrderRepository.cs" totLns="112" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Data/OrderRepository.cs" />
+         <Loc hash="-2034892816" locRef="18" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Data/ProductRepository.cs" totLns="81" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Data/ProductRepository.cs" />
+         <Loc hash="-1049811379" locRef="19" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Data/ShipperRepository.cs" totLns="66" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Data/ShipperRepository.cs" />
+         <Loc hash="-150750363" locRef="20" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Data/SupplierRepository.cs" totLns="21" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Data/SupplierRepository.cs" />
+         <Loc hash="-1298866426" locRef="21" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Exceptions/AbstractWebGoatException.cs" totLns="24" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Exceptions/AbstractWebGoatException.cs" />
+         <Loc hash="-170070971" locRef="22" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Exceptions/WebGoatCreditCardNotFoundException.cs" totLns="24" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Exceptions/WebGoatCreditCardNotFoundException.cs" />
+         <Loc hash="1873922399" locRef="23" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Exceptions/WebGoatFatalException.cs" totLns="24" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Exceptions/WebGoatFatalException.cs" />
+         <Loc hash="1251539204" locRef="24" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Exceptions/WebGoatModelException.cs" totLns="24" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Exceptions/WebGoatModelException.cs" />
+         <Loc hash="-495542120" locRef="25" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Exceptions/WebGoatStartupException.cs" totLns="24" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Exceptions/WebGoatStartupException.cs" />
+         <Loc hash="538000143" locRef="26" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Models/BlogEntry.cs" totLns="17" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Models/BlogEntry.cs" />
+         <Loc hash="-2028625835" locRef="27" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Models/BlogResponse.cs" totLns="16" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Models/BlogResponse.cs" />
+         <Loc hash="1967120053" locRef="28" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Models/Cart.cs" totLns="19" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Models/Cart.cs" />
+         <Loc hash="563239203" locRef="29" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Models/Category.cs" totLns="14" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Models/Category.cs" />
+         <Loc hash="786024680" locRef="30" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Models/CreditCard.cs" totLns="259" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Models/CreditCard.cs" />
+         <Loc hash="343945440" locRef="31" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Models/Customer.cs" totLns="18" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Models/Customer.cs" />
+         <Loc hash="-1006872604" locRef="32" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Models/Order.cs" totLns="66" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Models/Order.cs" />
+         <Loc hash="-1877194582" locRef="33" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Models/OrderDetail.cs" totLns="21" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Models/OrderDetail.cs" />
+         <Loc hash="-1553568487" locRef="34" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Models/OrderPayment.cs" totLns="19" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Models/OrderPayment.cs" />
+         <Loc hash="-1475941784" locRef="35" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Models/Product.cs" totLns="35" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Models/Product.cs" />
+         <Loc hash="-1761607648" locRef="36" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Models/Shipment.cs" totLns="17" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Models/Shipment.cs" />
+         <Loc hash="635426261" locRef="37" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Models/Shipper.cs" totLns="19" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Models/Shipper.cs" />
+         <Loc hash="-1135992579" locRef="38" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Models/Supplier.cs" totLns="23" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Models/Supplier.cs" />
+         <Loc hash="981564739" locRef="39" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Utils/EmailSender.cs" totLns="40" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Utils/EmailSender.cs" />
+         <Loc hash="1310915648" locRef="40" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Utils/LinqExtensions.cs" totLns="13" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Utils/LinqExtensions.cs" />
+         <Loc hash="2139160603" locRef="41" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Utils/SessionExtensions.cs" totLns="41" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Utils/SessionExtensions.cs" />
+         <Loc hash="223819106" locRef="42" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ViewModels/AddUserTempViewModel.cs" totLns="19" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ViewModels/AddUserTempViewModel.cs" />
+         <Loc hash="1016429244" locRef="43" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ViewModels/ChangeAccountInfoViewModel.cs" totLns="32" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ViewModels/ChangeAccountInfoViewModel.cs" />
+         <Loc hash="-1017793280" locRef="44" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ViewModels/ChangePasswordViewModel.cs" totLns="24" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ViewModels/ChangePasswordViewModel.cs" />
+         <Loc hash="1277399263" locRef="45" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ViewModels/CheckoutViewModel.cs" totLns="84" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ViewModels/CheckoutViewModel.cs" />
+         <Loc hash="-2122656000" locRef="46" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ViewModels/ErrorViewModel.cs" totLns="13" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ViewModels/ErrorViewModel.cs" />
+         <Loc hash="603163953" locRef="47" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ViewModels/HomeViewModel.cs" totLns="11" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ViewModels/HomeViewModel.cs" />
+         <Loc hash="-882097845" locRef="48" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ViewModels/LoginViewModel.cs" totLns="22" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ViewModels/LoginViewModel.cs" />
+         <Loc hash="451006710" locRef="49" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ViewModels/PackageTrackingViewModel.cs" totLns="15" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ViewModels/PackageTrackingViewModel.cs" />
+         <Loc hash="823683157" locRef="50" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ViewModels/ProductAddOrEditViewModel.cs" totLns="14" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ViewModels/ProductAddOrEditViewModel.cs" />
+         <Loc hash="-1851470684" locRef="51" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ViewModels/ProductDetailsViewModel.cs" totLns="18" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ViewModels/ProductDetailsViewModel.cs" />
+         <Loc hash="1126456361" locRef="52" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ViewModels/ProductListViewModel.cs" totLns="20" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ViewModels/ProductListViewModel.cs" />
+         <Loc hash="634727895" locRef="53" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ViewModels/RegisterViewModel.cs" totLns="48" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ViewModels/RegisterViewModel.cs" />
+         <Loc hash="-179847856" locRef="54" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="ViewModels/StatusCodeViewModel.cs" totLns="17" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/ViewModels/StatusCodeViewModel.cs" />
+         <Loc hash="1832378756" locRef="55" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Account/AddUserTemp.cshtml" totLns="53" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Account/AddUserTemp.cshtml" />
+         <Loc hash="1848376609" locRef="56" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Account/ChangeAccountInfo.cshtml" totLns="46" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Account/ChangeAccountInfo.cshtml" />
+         <Loc hash="1743982215" locRef="57" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Account/ChangePassword.cshtml" totLns="41" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Account/ChangePassword.cshtml" />
+         <Loc hash="-427605064" locRef="58" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Account/ChangePasswordSuccess.cshtml" totLns="11" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Account/ChangePasswordSuccess.cshtml" />
+         <Loc hash="2075381121" locRef="59" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Account/Login.cshtml" totLns="39" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Account/Login.cshtml" />
+         <Loc hash="-2037903731" locRef="60" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Account/MyAccount.cshtml" totLns="19" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Account/MyAccount.cshtml" />
+         <Loc hash="-1899347647" locRef="61" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Account/Register.cshtml" totLns="75" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Account/Register.cshtml" />
+         <Loc hash="-1251050272" locRef="62" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Account/ViewAccountInfo.cshtml" totLns="29" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Account/ViewAccountInfo.cshtml" />
+         <Loc hash="-285253962" locRef="63" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Blog/Create.cshtml" totLns="34" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Blog/Create.cshtml" />
+         <Loc hash="-82132146" locRef="64" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Blog/Index.cshtml" totLns="29" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Blog/Index.cshtml" />
+         <Loc hash="1728673420" locRef="65" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Blog/Reply.cshtml" totLns="14" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Blog/Reply.cshtml" />
+         <Loc hash="-1341460315" locRef="66" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Blog/_BlogEntryPartial.cshtml" totLns="8" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Blog/_BlogEntryPartial.cshtml" />
+         <Loc hash="2116056912" locRef="67" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Cart/Index.cshtml" totLns="14" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Cart/Index.cshtml" />
+         <Loc hash="-1448906176" locRef="68" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Cart/RemoveOrderError.cshtml" totLns="7" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Cart/RemoveOrderError.cshtml" />
+         <Loc hash="1424058934" locRef="69" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Checkout/Checkout.cshtml" totLns="93" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Checkout/Checkout.cshtml" />
+         <Loc hash="-143471286" locRef="70" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Checkout/PackageTracking.cshtml" totLns="77" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Checkout/PackageTracking.cshtml" />
+         <Loc hash="590067991" locRef="71" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Checkout/Receipt.cshtml" totLns="65" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Checkout/Receipt.cshtml" />
+         <Loc hash="-1204394647" locRef="72" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Checkout/Receipts.cshtml" totLns="40" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Checkout/Receipts.cshtml" />
+         <Loc hash="877528366" locRef="73" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Home/About.cshtml" totLns="17" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Home/About.cshtml" />
+         <Loc hash="1054684201" locRef="74" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Home/Admin.cshtml" totLns="12" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Home/Admin.cshtml" />
+         <Loc hash="-636302839" locRef="75" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Home/Index.cshtml" totLns="50" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Home/Index.cshtml" />
+         <Loc hash="2007559182" locRef="76" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Product/AddOrEdit.cshtml" totLns="110" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Product/AddOrEdit.cshtml" />
+         <Loc hash="1182178817" locRef="77" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Product/Details.cshtml" totLns="36" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Product/Details.cshtml" />
+         <Loc hash="882827466" locRef="78" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Product/Manage.cshtml" totLns="25" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Product/Manage.cshtml" />
+         <Loc hash="1776708550" locRef="79" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Product/Search.cshtml" totLns="51" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Product/Search.cshtml" />
+         <Loc hash="-271360748" locRef="80" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Shared/Error.cshtml" totLns="14" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Shared/Error.cshtml" />
+         <Loc hash="1737630978" locRef="81" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Shared/_CartPartial.cshtml" totLns="37" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Shared/_CartPartial.cshtml" />
+         <Loc hash="656964659" locRef="82" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Shared/_CookieConsentPartial.cshtml" totLns="25" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Shared/_CookieConsentPartial.cshtml" />
+         <Loc hash="-416696018" locRef="83" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Shared/_Layout.cshtml" totLns="66" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Shared/_Layout.cshtml" />
+         <Loc hash="-794227589" locRef="84" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Shared/_LoginPartial.cshtml" totLns="17" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Shared/_LoginPartial.cshtml" />
+         <Loc hash="1523096274" locRef="85" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/Shared/_ValidationScriptsPartial.cshtml" totLns="18" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/Shared/_ValidationScriptsPartial.cshtml" />
+         <Loc hash="668958733" locRef="86" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/StatusCode/StatusCodeView.cshtml" totLns="10" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/StatusCode/StatusCodeView.cshtml" />
+         <Loc hash="930669752" locRef="87" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/_ViewImports.cshtml" totLns="4" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/_ViewImports.cshtml" />
+         <Loc hash="-1305797798" locRef="88" projId="WebGoat.NET" projPath="WebGoat.NET/WebGoat.NET" project="WebGoat.NET" resProjPath="Views/_ViewStart.cshtml" totLns="3" uri="file://Taon/c:/repos/github/tobyash86/WebGoat.NET/WebGoat.NET/Views/_ViewStart.cshtml" />
+      </Locations>
+   </Scope>
+   
+  <SetupProblems>
+    <Problem msg="Local settings file 'c:\repos\github\tobyash86\WebGoat.NET\.dottest\settings\dottestcli.properties' does not exist. Cannot use settings from this file." sev="1" totErrs="0" type="TUI">
+      <ErrorList />
+    </Problem>
+    <Problem msg="Source Control configuration issues:" sev="0" totErrs="5" type="Misconfig">
+      <ErrorList>
+        <Error val="A different 'git' repository has been found in settings, but it does not match source repository of tested resources:&#xd;&#xa;- url:   expected https://github.com/tobyash86/WebGoat.NET.git   :   found ssh://git@trove.parasoft.com:7999/dottest/dt-tests-integration.git&#xd;&#xa;- workspace:   expected c:\repos\github\tobyash86\WebGoat.NET   :   found /home/devtest/git/dt-tests-integration.git&#xd;&#xa;" />
+        <Error val="A different 'git' repository has been found in settings, but it does not match source repository of tested resources:&#xd;&#xa;- url:   expected https://github.com/tobyash86/WebGoat.NET.git   :   found ssh://git@trove.parasoft.com:7999/dottest/dt-tests-integration.git&#xd;&#xa;- workspace:   expected c:\repos\github\tobyash86\WebGoat.NET   :   found C:/it&#xd;&#xa;" />
+        <Error val="A different 'git' repository has been found in settings, but it does not match source repository of tested resources:&#xd;&#xa;- url:   expected https://github.com/tobyash86/WebGoat.NET.git   :   found ssh://git@trove.parasoft.com:7999/dottest/dt-engine.git&#xd;&#xa;- workspace:   expected c:\repos\github\tobyash86\WebGoat.NET   :   found /home/devtest/git/dt-engine.git&#xd;&#xa;" />
+        <Error val="A different 'git' repository has been found in settings, but it does not match source repository of tested resources:&#xd;&#xa;- url:   expected https://github.com/tobyash86/WebGoat.NET.git   :   found ssh://git@trove.parasoft.com:7999/dottest/dt-engine.git&#xd;&#xa;- workspace:   expected c:\repos\github\tobyash86\WebGoat.NET   :   found c:/.dt/src/engine&#xd;&#xa;" />
+        <Error val="A different 'git' repository has been found in settings, but it does not match source repository of tested resources:&#xd;&#xa;- url:   expected https://github.com/tobyash86/WebGoat.NET.git   :   found ssh://git@trove.parasoft.com:7999/dottest/dt-engine.git&#xd;&#xa;- workspace:   expected c:\repos\github\tobyash86\WebGoat.NET   :   found C:/dt/bld/full/engine&#xd;&#xa;" />
+      </ErrorList>
+    </Problem>
+    <Problem msg="Some static analysis rules are not supported for .NET Core/.NET Standard projects and were not executed during the analysis. &#xd;&#xa;See the dotTEST User Guide for the list of supported rules." sev="0" totErrs="0" type="InvalidSettings">
+      <ErrorList />
+    </Problem>
+  </SetupProblems>
+
+   <CodingStandards ownerId="com.parasoft.xtest.checkers.api.standards" time="0:00:43">
+      <Projects>
+         <Project bdCheckedFiles="0" bdTotalFiles="0" checkedFiles="88" checkedLns="3875" id="WebGoat.NET" name="WebGoat.NET" qfixErrs="0" suppErrs="0" totErrs="24" totFiles="88" totLns="3875" />
+      </Projects>
+      
+      
+      <Rules>
+         <CategoriesList>
+            <Category authTot="0;" authUrg="0;" desc="Flow Analysis" name="BD" rules="47" total="0">
+               <Category authTot="0;" authUrg="0;" desc="API" name="BD.API" rules="2" total="0" />
+               <Category authTot="1;" authUrg="1;" desc="Possible Bugs" name="BD.PB" rules="16" total="1" />
+               <Category authTot="0;" authUrg="0;" desc="Resources" name="BD.RES" rules="1" total="0" />
+               <Category authTot="0;" authUrg="0;" desc="Threads &amp; Synchronization" name="BD.TRS" rules="4" total="0" />
+               <Category authTot="0;" authUrg="0;" desc="Collections" name="BD.CO" rules="1" total="0" />
+               <Category authTot="0;" authUrg="0;" desc="Exceptions" name="BD.EXCEPT" rules="2" total="0" />
+            </Category>
+            <Category authTot="0;" authUrg="0;" desc="Better Readability and Maintainability" name="BRM" rules="15" total="0" />
+            <Category authTot="0;" authUrg="0;" desc="Code Duplication Detection" name="CDD" rules="4" total="0" />
+            <Category authTot="0;" authUrg="0;" desc="Class Member Usage Guidelines" name="CMUG" rules="48" total="0">
+               <Category authTot="0;" authUrg="0;" desc="Constructor Usage" name="CMUG.CU" rules="5" total="0" />
+               <Category authTot="0;" authUrg="0;" desc="Event Usage" name="CMUG.EVU" rules="16" total="0" />
+               <Category authTot="0;" authUrg="0;" desc="Method Usage" name="CMUG.MU" rules="10" total="0" />
+               <Category authTot="0;" authUrg="0;" desc="Field Usage" name="CMUG.FU" rules="4" total="0" />
+            </Category>
+            <Category authTot="0;" authUrg="0;" desc="C# only" name="CS" rules="67" total="0">
+               <Category authTot="0;" authUrg="0;" desc="Threads &amp; Synchronization" name="CS.TRS" rules="3" total="0" />
+               <Category authTot="0;" authUrg="0;" desc="Serialization Guidelines" name="CS.SERIAL" rules="3" total="0" />
+               <Category authTot="0;" authUrg="0;" desc="Possible Exception" name="CS.PE" rules="1" total="0" />
+               <Category authTot="0;" authUrg="0;" desc="Exceptions" name="CS.EXCEPT" rules="1" total="0" />
+               <Category authTot="0;" authUrg="0;" desc="Better Readability and Maintainability" name="CS.BRM" rules="16" total="0" />
+               <Category authTot="1;" authUrg="1;" desc="Possible Bugs" name="CS.PB" rules="25" total="1">
+                  <Category authTot="0;" authUrg="0;" desc="Useless Code" name="CS.PB.USC" rules="2" total="0" />
+               </Category>
+               <Category authTot="0;" authUrg="0;" desc="Security Inspection" name="CS.SEC" rules="3" total="0" />
+            </Category>
+            <Category authTot="0;" authUrg="0;" desc="Exceptions" name="EXCEPT" rules="4" total="0" />
+            <Category authTot="0;" authUrg="0;" desc="Garbage Collector" name="GC" rules="4" total="0" />
+            <Category authTot="0;" authUrg="0;" desc="Implementing Finalize and Dispose" name="IFD" rules="19" total="0" />
+            <Category authTot="0;" authUrg="0;" desc="Metric" name="METRIC" rules="50" total="0" />
+            <Category authTot="0;" authUrg="0;" desc="Operator Overloading Usage Guidelines" name="OPU" rules="20" total="0" />
+            <Category authTot="1;" authUrg="1;" desc="Possible Bugs" name="PB" rules="30" total="1">
+               <Category authTot="4;" authUrg="4;" desc="Incomplete Implementation" name="PB.II" rules="2" total="4" />
+            </Category>
+            <Category authTot="17;" authUrg="17;" desc="Security Inspection" name="SEC" rules="57" total="17">
+               <Category authTot="0;" authUrg="0;" desc="Web Security" name="SEC.WEB" rules="11" total="0" />
+            </Category>
+            <Category authTot="0;" authUrg="0;" desc="Serialization Guidelines" name="SERIAL" rules="14" total="0">
+               <Category authTot="0;" authUrg="0;" desc="Xml Serialization Guidelines" name="SERIAL.XML" rules="8" total="0" />
+            </Category>
+            <Category authTot="0;" authUrg="0;" desc="Threads &amp; Synchronization" name="TRS" rules="2" total="0" />
+            <Category authTot="0;" authUrg="0;" desc="Type Usage Guidelines" name="TUG" rules="21" total="0">
+               <Category authTot="0;" authUrg="0;" desc="Nested Type Usage" name="TUG.NTU" rules="2" total="0" />
+               <Category authTot="0;" authUrg="0;" desc="Derived Class Usage" name="TUG.DCU" rules="1" total="0" />
+               <Category authTot="0;" authUrg="0;" desc="Struct Usage" name="TUG.SU" rules="2" total="0" />
+            </Category>
+            <Category authTot="0;" authUrg="0;" desc="Visual Basic Only" name="VB" rules="4" total="0">
+               <Category authTot="0;" authUrg="0;" desc="Implementing Finalize and Dispose" name="VB.IFD" rules="1" total="0" />
+            </Category>
+         </CategoriesList>
+         <RulesList>
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.API" desc="Make sure implementation of Object.Equals(Object) properly handles null values" id="BD.API.EQNULL" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.API" desc="Make sure implementation of Object.Equals(Object) is reflexive" id="BD.API.EQREFL" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.CO" desc="Do not modify collection while iterating over it" id="BD.CO.ITMOD" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.EXCEPT" desc="Avoid ArgumentNullException" id="BD.EXCEPT.AN" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.EXCEPT" desc="Avoid NullReferenceException" id="BD.EXCEPT.NR" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.PB" desc="Avoid use before explicit initialization" id="BD.PB.NOTEXPLINIT" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="1;" authUrg="1;" cat="BD.PB" desc="Avoid division by zero" id="BD.PB.ZERO" sev="1" total="1" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.PB" desc="Avoid conditions that always evaluate to the same value" id="BD.PB.CC" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.PB" desc="Avoid dereferencing before checking for null" id="BD.PB.DEREF" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.PB" desc="Do not use disposed resources" id="BD.PB.DISP" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.PB" desc="Do not use managed resources in finalizers" id="BD.PB.FIN" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.PB" desc="Do not append null value to strings" id="BD.PB.STRNULL" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.PB" desc="Avoid switch with unreachable branches" id="BD.PB.SWITCH" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.RES" desc="Ensure resources are deallocated" id="BD.RES.LEAKS" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.TRS" desc="Do not abandon unreleased mutexes" id="BD.TRS.MUTEX" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BD.TRS" desc="Do not acquire locks in different order" id="BD.TRS.ORDER" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BRM" desc="Avoid hiding methods from base classes" id="BRM.HBCM" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BRM" desc="Avoid hiding properties from base classes" id="BRM.HBCP" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BRM" desc="Always provide names for threads" id="BRM.APNFT" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="BRM" desc="Use 'L' instead of 'l' to express 'long' integer constants" id="BRM.LINUPPERCASE" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.xtest.dupcode.parser" authTot="0;" authUrg="0;" cat="CDD" desc="Avoid method duplication" id="CDD.DUPM" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.xtest.dupcode.parser" authTot="0;" authUrg="0;" cat="CDD" desc="Avoid types duplication" id="CDD.DUPT" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CMUG.CU" desc="Avoid throwing exceptions from static constructors" id="CMUG.CU.ATES" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CMUG.EVU" desc="Avoid never listened private events" id="CMUG.EVU.ANLPE" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CMUG.EVU" desc="Avoid never raised events" id="CMUG.EVU.ANRE" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CMUG.EVU" desc="Do not return values from events" id="CMUG.EVU.DNRVFE" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CMUG.FU" desc="Avoid unused private fields" id="CMUG.FU.AUPF" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CMUG.MU" desc="Avoid parameter swapping when overriding or implementing methods" id="CMUG.MU.APSM" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CMUG.MU" desc="Ensure that method return values are used" id="CMUG.MU.RETVAL" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CMUG.MU" desc="Avoid unused private methods" id="CMUG.MU.AUPM" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.BRM" desc="Avoid checked, unchecked, fixed and unsafe statements with empty bodies" id="CS.BRM.CPEB" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.BRM" desc="Avoid initialization statements with empty bodies" id="CS.BRM.IEB" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.EXCEPT" desc="Avoid clearing stack trace while rethrowing exceptions" id="CS.EXCEPT.RETHROW" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Avoid assignment within a condition" id="CS.PB.AWC" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Avoid conditional statements with empty bodies" id="CS.PB.CEB" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="1;" authUrg="1;" cat="CS.PB" desc="Avoid try, catch, finally and using statements with empty bodies" id="CS.PB.EEB" sev="1" total="1" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Do not use floating point variables as loop indices" id="CS.PB.FPLI" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Avoid increment and decrement statements which have no effect" id="CS.PB.IDNE" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Review '?:' operator for potential misuse" id="CS.PB.MCO" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Do not increment or decrement on the same variable over multiple nested 'for' loop statements" id="CS.PB.NSIVFLN" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Do not compare value types to null" id="CS.PB.VTNV" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Avoid non-iterable loops" id="CS.PB.ANIL" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Do not use bitwise operators on bool operands" id="CS.PB.BITBOOL" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Avoid confusing assignments to constructor arguments" id="CS.PB.CCA" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Check for 'null' when using 'as' operator" id="CS.PB.CNFA" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Provide 'default:' for each 'switch' statement" id="CS.PB.DEFSWITCH" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Use initializer variable in a condition of 'for' loop" id="CS.PB.IVFLC" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Use initializer variable in 'for' loop iterator section" id="CS.PB.IVFLI" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Avoid inaccessible classes and structs" id="CS.PB.NACC" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Do not modify 'for' loop initializer variable in 'for' loop body" id="CS.PB.NSIVFLB" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Avoid using the unary + operator" id="CS.PB.PUO" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Return empty collection instead of null" id="CS.PB.REA" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Do not use an integer outside the range of [0, 31] as the amount of a shift" id="CS.PB.SHIFT" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB" desc="Avoid wrong indentation of blockless statements" id="CS.PB.WIBS" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PB.USC" desc="Avoid unreachable code" id="CS.PB.USC.UC" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.PE" desc="Verify FileDialog filter pattern" id="CS.PE.VFFP" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.SEC" desc="Do not re-create string from SecureString" id="CS.SEC.RSFSS" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.SERIAL" desc="Implement IDeserializationCallback for classes with NonSerialized fields" id="CS.SERIAL.IIDC" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.SERIAL" desc="Do not store non-serializable objects in Session" id="CS.SERIAL.SOIS" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.SERIAL" desc="Use the standard pattern while implementing ISerializable" id="CS.SERIAL.UIS" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="CS.TRS" desc="Avoid lock statements with empty bodies" id="CS.TRS.LEB" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="EXCEPT" desc="Do not catch  'NullReferenceException''" id="EXCEPT.NCNRE" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="EXCEPT" desc="Avoid throwing exceptions from exceptions constructors" id="EXCEPT.TIEC" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="GC" desc="Avoid static collections which may lead to memory leakage" id="GC.ASC" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="IFD" desc="Avoid calling Finalize directly" id="IFD.ACFD" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="IFD" desc="Avoid throwing exceptions from the Dispose method implementations" id="IFD.ATED" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="IFD" desc="Avoid throwing exceptions from finalizers" id="IFD.ATEF" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="IFD" desc="Method 'Dispose(bool)' in method 'Dispose()' should be called with true and in finalizer with false" id="IFD.DBDTFF" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="IFD" desc="IDisposable.Dispose() implementation should call specific methods" id="IFD.DCDSF" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="IFD" desc="Always call Dispose(bool) in finalizer if IDisposable is implemented" id="IFD.DCID" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="IFD" desc="In 'Dispose(bool)' use input parameter to check if it is actually disposing" id="IFD.DDFODB" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="IFD" desc="Provide finalizers in types which use resources" id="IFD.SRIF" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="IFD" desc="Type that implements 'IDisposable' should contain and use field with information about dispose state" id="IFD.TICUFDS" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="IFD" desc="Type that implements 'IDisposable' should implement 'Dispose(bool)' method" id="IFD.TIID" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="IFD" desc="Call the Dispose method of the base class from the Dispose method in the derived class" id="IFD.CBDM" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="IFD" desc="Method 'Dispose()' should not be overridable" id="IFD.DNV" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="IFD" desc="Implement IDisposable when you provide a destructor (finalizer)" id="IFD.IDWF" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="METRIC" desc="McCabe Cyclomatic Complexity" id="METRIC.CC" sev="3" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="METRIC" desc="Nested Blocks Depth" id="METRIC.NBD" sev="3" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="OPU" desc="Avoid throwing exceptions from Equals methods" id="OPU.ATEE" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="OPU" desc="Avoid throwing exceptions from GetHashCode methods" id="OPU.ATEGH" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="OPU" desc="Avoid throwing exceptions from implicit type conversion operators" id="OPU.ATEI" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="OPU" desc="Avoid throwing exceptions in equality operators" id="OPU.ATEOE" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="OPU" desc="Compare parameter of Equals(Object) method to null" id="OPU.CPNEQ" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="OPU" desc="Override the GetHashCode method whenever you override the Equals method" id="OPU.IGHWE" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="OPU" desc="Do not override operator equality in reference types" id="OPU.AOERT" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="OPU" desc="Compare parameter type of Equals(Object) method" id="OPU.CPTEQ" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="OPU" desc="Override Equals when implementing IComparable" id="OPU.IEWI" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="OPU" desc="Override Equals when you override operator ==" id="OPU.IEWOE" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="OPU" desc="Overload operators symmetrically" id="OPU.OOS" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="OPU" desc="Do not use ReferenceEquals() on value types" id="OPU.REVT" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="PB" desc="Avoid infinite recursive method calls" id="PB.AIRC" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="PB" desc="Do not use value types as arguments of Monitor.Enter and Monitor.Exit" id="PB.ALVT" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="PB" desc="Avoid throwing exceptions from ToString method" id="PB.ATETS" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="1;" authUrg="1;" cat="PB" desc="Verify number of arguments in Composite Formatting feature" id="PB.CFF" sev="1" total="1" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="PB" desc="Don't use illegal regular expression" id="PB.REG" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="PB" desc="Ensure static field is initialized before it is used" id="PB.SFAI" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="PB" desc="Ensure that method body used in ThreadStart/ParameterizedThreadStart is wrapped with 'try/catch'" id="PB.TMTC" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="PB" desc="Do not compare floating-point types for equality" id="PB.DNCF" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="PB" desc="Use TryParse method instead Parse on primitive types" id="PB.DNUP" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="PB" desc="Use String.IsNullOrEmpty to check if a string is null or empty" id="PB.INOE" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="PB" desc="Do not check whether the result of 'String.IndexOf()' is positive or not" id="PB.STRIDX" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="PB.II" desc="Do not leave code which throws System.NotImplementedException" id="PB.II.NIE" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="4;" authUrg="4;" cat="PB.II" desc="Ensure that comments do not contain task tags" id="PB.II.TODO" sev="2" total="4" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SEC" desc="Do not attempt to deny the SkipVerification security permission" id="SEC.ADSVSP" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SEC" desc="Do not change the RSA/DSA KeySize property" id="SEC.DNCCKS" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="1;" authUrg="1;" cat="SEC" desc="There should be no classes without namespace" id="SEC.ACWNS" sev="2" total="1" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SEC" desc="Avoid indexer wraparound in loops" id="SEC.AIWIL" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SEC" desc="Avoid using potentially dangerous methods" id="SEC.APDM" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SEC" desc="Do not use the Trace.Assert() method in production code" id="SEC.ATA" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SEC" desc="Do not use hardcoded string for password related parameters" id="SEC.HPW" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SEC" desc="Avoid using insecure algorithms for cryptography" id="SEC.ICA" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="13;" authUrg="13;" cat="SEC" desc="Ensure all exceptions are either logged with a standard logger or rethrown" id="SEC.LGE" sev="2" total="13" />
+            <Rule analyzer="com.parasoft.dottest" authTot="3;" authUrg="3;" cat="SEC" desc="Use System.Security.Cryptography.RandomNumberGenerator instead of System.Random" id="SEC.USSCR" sev="2" total="3" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SEC.WEB" desc="Ensure that authorization attributes match the controller" id="SEC.WEB.UAAMC" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SERIAL" desc="Ensure base classes are marked Serializable" id="SERIAL.BASECLASS" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SERIAL" desc="Ensure entire graph of object can be serialized" id="SERIAL.MEMBERFIELDS" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SERIAL" desc="Mark ISerializable.GetObjectData with SecurityPermissionAttribute" id="SERIAL.MGODWSPA" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SERIAL" desc="Call WriteObjectdata while implementing ISerializable.GetObjectData" id="SERIAL.GETOBJ" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SERIAL" desc="Always provide deserialization constructor when ISerializable interface is implemented" id="SERIAL.IDC" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SERIAL.XML" desc="Ensure that readonly property which is a collection does not expose any sensitive information" id="SERIAL.XML.CSG" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SERIAL.XML" desc="Ensure that property of collection type implements Add method and indexer" id="SERIAL.XML.CTS" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SERIAL.XML" desc="Make sure that type of serialized field/property is compatible with type used in XmlElementAttribute" id="SERIAL.XML.SOAFAP" sev="1" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SERIAL.XML" desc="Remove XmlAttribute from field and properties of comlex types" id="SERIAL.XML.ATTRIB" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SERIAL.XML" desc="Always provide default parameterless constructor in xml serialized class" id="SERIAL.XML.DCTOR" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SERIAL.XML" desc="Do not use interface type for xml serialized property or field" id="SERIAL.XML.IFAPS" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SERIAL.XML" desc="Make type used in xml serialization 'public'" id="SERIAL.XML.NPCS" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="SERIAL.XML" desc="Provide setter for xml serialized properties" id="SERIAL.XML.ROPS" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="TRS" desc="Avoid calling Thread.Abort()" id="TRS.THREADABORT" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="TRS" desc="Avoid calling Thread.Sleep()" id="TRS.THREADSLEEP" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="TUG.DCU" desc="Do not hide inherited fields" id="TUG.DCU.DNHF" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="TUG.NTU" desc="Avoid unused nested private types" id="TUG.NTU.AUPNT" sev="4" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="TUG.SU" desc="Enforce custom attribute ImmutableAtomic" id="TUG.SU.IAS" sev="2" total="0" />
+            <Rule analyzer="com.parasoft.dottest" authTot="0;" authUrg="0;" cat="VB.IFD" desc="Call the Finalize method of the base class from the finalizer in the derived class" id="VB.IFD.CBFM" sev="2" total="0" />
+         </RulesList>
+         <SeverityList>
+            <Severity authTot="3;" authUrg="3;" id="1" total="3" />
+            <Severity authTot="21;" authUrg="21;" id="2" total="21" />
+         </SeverityList>
+      </Rules>
+      
+  <Supps />
+
+      
+  <StdViols>
+    <StdViol msg="Consider declaring class ApiResponse inside a namespace" ln="3" locFile="WebGoat.NET/WebGoat.NET/ApiResponse.cs" auth="ttomczyk" rule="SEC.ACWNS" lnHash="2088325052" pkg="" rule.header="There should be no classes without namespace" locStartPos="13" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="244036a2-0c56-3be0-856e-c1e03d31ab32" locEndPos="24" urgent="true" locEndLn="3" goals="1," rev="unknown.revision" locStartln="3" sev="2" locRef="1" tool=".test" lineHash="2088325052" unbViolId="0443c3bb-fb5a-3e8e-a3ae-b58a6051246e" locType="sr" hash="-341503242" />
+    <FlowViol msg="Division by &quot;b&quot; which may possibly be zero" ln="161" locFile="WebGoat.NET/WebGoat.NET/Startup.cs" ruleSAFMsg="Point of division by zero" FirstElSrcRngEndPos="18" auth="ttomczyk" FirstElSrcRngEndLn="160" rule="BD.PB.ZERO" FirstElSrcRngStartPos="12" lnHash="-190332167" ruleSCSCMsg="Start of the path" pkg="WebGoatCore" FirstElSrcRngFile="WebGoat.NET/WebGoat.NET/Startup.cs" rule.header="Avoid division by zero" FirstElSrcRngStartln="160" locStartPos="19" analyzer="dottest" revTime="0" id="-2024838617" lang="dotnet" violId="9a2010c0-f76b-3c69-9afc-47e5bbc2068e" locEndPos="24" urgent="true" locEndLn="161" goals="1," rev="unknown.revision" locStartln="161" sev="1" locRef="3" tool=".test" lineHash="-190332167" unbViolId="36d8fc33-1f7d-3a76-8330-3c0d83704c4a" locType="sr" hash="-97240628" causeLocRef="3">
+      <Props />
+      <ElDescList>
+        <ElDesc lineHash="130624972" ln="160" srcRngStartPos="12" srcRngEndPos="18" locRef="3" locType="sr" srcRnghash="-97240628" srcRngStartln="160" srcRngEndLn="160" srcRngFile="WebGoat.NET/WebGoat.NET/Startup.cs" desc="b = 0;" ElType=".C" rngLn="160">
+          <Anns>
+            <Ann msg="Start of the path" kind="cause" />
+            <Ann msg="Variable assignment: b = 0" kind="valEval" />
+          </Anns>
+        </ElDesc>
+        <ElDesc lineHash="-190332167" ln="161" srcRngStartPos="19" srcRngEndPos="24" locRef="3" locType="sr" srcRnghash="-97240628" srcRngStartln="161" srcRngEndLn="161" srcRngFile="WebGoat.NET/WebGoat.NET/Startup.cs" desc="a / b" ElType=".P" rngLn="161">
+          <Anns>
+            <Ann msg="Point of division by zero" kind="point" />
+          </Anns>
+        </ElDesc>
+      </ElDescList>
+    </FlowViol>
+    <StdViol msg="Complete implementation: TODO: role should be Admin?" ln="228" locFile="WebGoat.NET/WebGoat.NET/Controllers/AccountController.cs" auth="ttomczyk" rule="PB.II.TODO" lnHash="-488133378" pkg="WebGoatCore.Controllers" rule.header="Ensure that comments do not contain task tags" locStartPos="27" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="0a44cf0d-4d00-3d3a-8ba4-817192e30b51" locEndPos="31" urgent="true" locEndLn="228" goals="1," rev="unknown.revision" locStartln="228" sev="2" locRef="4" tool=".test" lineHash="-488133378" unbViolId="02d72eb5-6267-32b8-928c-c63a1fb656d7" locType="sr" hash="-1734198330" />
+    <StdViol msg="Log or rethrow exception in method 'Controllers.CartController.RemoveOrder'." ln="83" locFile="WebGoat.NET/WebGoat.NET/Controllers/CartController.cs" auth="ttomczyk" rule="SEC.LGE" lnHash="1084005186" pkg="WebGoatCore.Controllers" rule.header="Ensure all exceptions are either logged with a standard logger or rethrown" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="50be6604-3eb9-3b44-8434-8aa4bd8d4588" locEndPos="13" urgent="true" locEndLn="86" goals="1," rev="unknown.revision" locStartln="83" sev="2" locRef="6" tool=".test" lineHash="1084005186" unbViolId="4a93ca1e-1f8d-332e-ab69-3b3d5564123c" locType="sr" hash="-524437902" />
+    <StdViol msg="Log or rethrow exception in method 'Controllers.CheckoutController.Checkout'." ln="93" locFile="WebGoat.NET/WebGoat.NET/Controllers/CheckoutController.cs" auth="ttomczyk" rule="SEC.LGE" lnHash="-747889090" pkg="WebGoatCore.Controllers" rule.header="Ensure all exceptions are either logged with a standard logger or rethrown" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="f21930c9-4330-3ece-9a4b-bf84edaee8bb" locEndPos="13" urgent="true" locEndLn="95" goals="1," rev="unknown.revision" locStartln="93" sev="2" locRef="7" tool=".test" lineHash="-747889090" unbViolId="96beef50-9010-3ca2-9bf8-a201f7e48066" locType="sr" hash="1604599375" />
+    <StdViol msg="Fill or remove empty 'catch' statement placed in method 'Checkout'." ln="93" locFile="WebGoat.NET/WebGoat.NET/Controllers/CheckoutController.cs" auth="ttomczyk" rule="CS.PB.EEB" lnHash="-747889090" pkg="WebGoatCore.Controllers" rule.header="Avoid try, catch, finally and using statements with empty bodies" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="da9e371b-8074-3887-b827-0cb471653f15" locEndPos="-1" urgent="true" locEndLn="94" goals="1," rev="unknown.revision" locStartln="93" sev="1" locRef="7" tool=".test" lineHash="-747889090" unbViolId="4546380b-1fc0-39ba-a74b-308e60db7510" locType="sr" hash="1604599375" />
+    <StdViol msg="Log or rethrow exception in method 'Controllers.CheckoutController.Receipt'." ln="180" locFile="WebGoat.NET/WebGoat.NET/Controllers/CheckoutController.cs" auth="ttomczyk" rule="SEC.LGE" lnHash="-889353875" pkg="WebGoatCore.Controllers" rule.header="Ensure all exceptions are either logged with a standard logger or rethrown" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="8da11ca6-e672-37c7-ab8a-4204ff930fe1" locEndPos="13" urgent="true" locEndLn="184" goals="1," rev="unknown.revision" locStartln="180" sev="2" locRef="7" tool=".test" lineHash="-889353875" unbViolId="5ae00e56-2bcd-3a80-98ea-4028a1019877" locType="sr" hash="1604599375" />
+    <StdViol msg="Log or rethrow exception in method 'Controllers.ProductController.Details'." ln="63" locFile="WebGoat.NET/WebGoat.NET/Controllers/ProductController.cs" auth="ttomczyk" rule="SEC.LGE" lnHash="-889353875" pkg="WebGoatCore.Controllers" rule.header="Ensure all exceptions are either logged with a standard logger or rethrown" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="5635c11d-0a9c-325e-9d8f-a0fb1ff37dc7" locEndPos="13" urgent="true" locEndLn="66" goals="1," rev="unknown.revision" locStartln="63" sev="2" locRef="9" tool=".test" lineHash="-889353875" unbViolId="2ecdf60a-516a-3618-ac6e-dcd4c8c712b7" locType="sr" hash="444203628" />
+    <StdViol msg="Log or rethrow exception in method 'Controllers.ProductController.Details'." ln="67" locFile="WebGoat.NET/WebGoat.NET/Controllers/ProductController.cs" auth="ttomczyk" rule="SEC.LGE" lnHash="1084005186" pkg="WebGoatCore.Controllers" rule.header="Ensure all exceptions are either logged with a standard logger or rethrown" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="14a0ceac-563b-3dad-9ba0-236e57d0683f" locEndPos="13" urgent="true" locEndLn="70" goals="1," rev="unknown.revision" locStartln="67" sev="2" locRef="9" tool=".test" lineHash="1084005186" unbViolId="1aa0382c-6a73-3fef-8a20-20522517e6ef" locType="sr" hash="444203628" />
+    <StdViol msg="Log or rethrow exception in method 'Controllers.ProductController.Add'." ln="102" locFile="WebGoat.NET/WebGoat.NET/Controllers/ProductController.cs" auth="ttomczyk" rule="SEC.LGE" lnHash="145675963" pkg="WebGoatCore.Controllers" rule.header="Ensure all exceptions are either logged with a standard logger or rethrown" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="749a015e-6895-3598-9e90-434cb594e434" locEndPos="13" urgent="true" locEndLn="111" goals="1," rev="unknown.revision" locStartln="102" sev="2" locRef="9" tool=".test" lineHash="145675963" unbViolId="97cac408-76d5-37d7-84c5-1f21b0f6b75e" locType="sr" hash="444203628" />
+    <StdViol msg="Complete implementation: TODO: should put this in a try/catch" ln="16" locFile="WebGoat.NET/WebGoat.NET/Data/BlogResponseRepository.cs" auth="ttomczyk" rule="PB.II.TODO" lnHash="-1105506179" pkg="WebGoatCore.Data" rule.header="Ensure that comments do not contain task tags" locStartPos="14" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="f031ae7e-94c8-323e-8e80-f31d1a4dc95a" locEndPos="18" urgent="true" locEndLn="16" goals="1," rev="unknown.revision" locStartln="16" sev="2" locRef="12" tool=".test" lineHash="-1105506179" unbViolId="19c57d5b-a55c-3d57-b21f-6f7f1417236b" locType="sr" hash="1950567090" />
+    <StdViol msg="Complete implementation: TODO: Add try/catch logic" ln="32" locFile="WebGoat.NET/WebGoat.NET/Data/CustomerRepository.cs" auth="ttomczyk" rule="PB.II.TODO" lnHash="-1602090374" pkg="WebGoatCore.Data" rule.header="Ensure that comments do not contain task tags" locStartPos="10" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="bb7e21fb-9d9b-389d-95ba-13d8ba760dd6" locEndPos="14" urgent="true" locEndLn="32" goals="1," rev="unknown.revision" locStartln="32" sev="2" locRef="15" tool=".test" lineHash="-1602090374" unbViolId="153fcc58-255b-3848-8dfb-18cfc7b4af38" locType="sr" hash="1521343394" />
+    <StdViol msg="Use System.Security.Cryptography.RandomNumberGenerator instead of System.Random." ln="62" locFile="WebGoat.NET/WebGoat.NET/Data/CustomerRepository.cs" auth="ttomczyk" rule="SEC.USSCR" lnHash="2029772336" pkg="WebGoatCore.Data" rule.header="Use System.Security.Cryptography.RandomNumberGenerator instead of System.Random" locStartPos="25" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="ec487bd9-bc51-3dec-953d-256c091dfe2a" locEndPos="37" urgent="true" locEndLn="62" goals="1," rev="unknown.revision" locStartln="62" sev="2" locRef="15" tool=".test" lineHash="2029772336" unbViolId="98a2fbde-5839-3ffb-bd5c-a855b71002ce" locType="sr" hash="1521343394" />
+    <StdViol msg="Adjust the string.Format call which expects 0 arguments to format but is invoked with 1 argument." ln="37" locFile="WebGoat.NET/WebGoat.NET/Data/OrderRepository.cs" auth="ttomczyk" rule="PB.CFF" lnHash="1497608597" pkg="WebGoatCore.Data" rule.header="Verify number of arguments in Composite Formatting feature" locStartPos="68" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="37142b83-703f-33b4-8b9d-a863977e0793" locEndPos="120" urgent="true" locEndLn="37" goals="1," rev="unknown.revision" locStartln="37" sev="1" locRef="17" tool=".test" lineHash="1497608597" unbViolId="af6cc086-8431-3dca-997a-c0b9dbdab521" locType="sr" hash="-1505097719" />
+    <StdViol msg="Complete implementation: TODO: Use the check digit algorithms to make it real..." ln="41" locFile="WebGoat.NET/WebGoat.NET/Data/ShipperRepository.cs" auth="ttomczyk" rule="PB.II.TODO" lnHash="-1047594876" pkg="WebGoatCore.Data" rule.header="Ensure that comments do not contain task tags" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="2f8bafa0-1c33-3b9e-a543-b49e923e039c" locEndPos="16" urgent="true" locEndLn="41" goals="1," rev="unknown.revision" locStartln="41" sev="2" locRef="19" tool=".test" lineHash="-1047594876" unbViolId="06bff3a3-f360-36d6-aa02-beed93b70428" locType="sr" hash="-1049811379" />
+    <StdViol msg="Use System.Security.Cryptography.RandomNumberGenerator instead of System.Random." ln="46" locFile="WebGoat.NET/WebGoat.NET/Data/ShipperRepository.cs" auth="ttomczyk" rule="SEC.USSCR" lnHash="2029772336" pkg="WebGoatCore.Data" rule.header="Use System.Security.Cryptography.RandomNumberGenerator instead of System.Random" locStartPos="25" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="49ffd444-7307-3407-bc3d-ab182b93e8c4" locEndPos="37" urgent="true" locEndLn="46" goals="1," rev="unknown.revision" locStartln="46" sev="2" locRef="19" tool=".test" lineHash="2029772336" unbViolId="24e1d66d-2462-36e5-9f33-bd958ac2a417" locType="sr" hash="-1049811379" />
+    <StdViol msg="Log or rethrow exception in method 'Models.CreditCard.GetCardForUser'." ln="61" locFile="WebGoat.NET/WebGoat.NET/Models/CreditCard.cs" auth="ttomczyk" rule="SEC.LGE" lnHash="266666303" pkg="WebGoatCore.Models" rule.header="Ensure all exceptions are either logged with a standard logger or rethrown" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="2bcb51f0-b82a-35bb-be89-162c0f12e6ba" locEndPos="13" urgent="true" locEndLn="64" goals="1," rev="unknown.revision" locStartln="61" sev="2" locRef="30" tool=".test" lineHash="266666303" unbViolId="9386c319-e0f6-3f87-ab18-7f67b432854f" locType="sr" hash="786024680" />
+    <StdViol msg="Log or rethrow exception in method 'Models.CreditCard.GetCardForUser'." ln="65" locFile="WebGoat.NET/WebGoat.NET/Models/CreditCard.cs" auth="ttomczyk" rule="SEC.LGE" lnHash="2135754748" pkg="WebGoatCore.Models" rule.header="Ensure all exceptions are either logged with a standard logger or rethrown" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="84c7c4d7-30fb-3b11-b185-a234ebad8cdd" locEndPos="13" urgent="true" locEndLn="68" goals="1," rev="unknown.revision" locStartln="65" sev="2" locRef="30" tool=".test" lineHash="2135754748" unbViolId="c31864a2-b8c2-3dff-91f5-3a957700179d" locType="sr" hash="786024680" />
+    <StdViol msg="Use System.Security.Cryptography.RandomNumberGenerator instead of System.Random." ln="143" locFile="WebGoat.NET/WebGoat.NET/Models/CreditCard.cs" auth="ttomczyk" rule="SEC.USSCR" lnHash="-287243423" pkg="WebGoatCore.Models" rule.header="Use System.Security.Cryptography.RandomNumberGenerator instead of System.Random" locStartPos="23" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="88ee8d5a-9e9a-3f71-b50f-b84af0ec0b00" locEndPos="35" urgent="true" locEndLn="143" goals="1," rev="unknown.revision" locStartln="143" sev="2" locRef="30" tool=".test" lineHash="-287243423" unbViolId="58cd8f57-bae2-3639-9e38-5f28e5e0c10a" locType="sr" hash="786024680" />
+    <StdViol msg="Log or rethrow exception in method 'Models.CreditCard.ReadCreditCardFile'." ln="161" locFile="WebGoat.NET/WebGoat.NET/Models/CreditCard.cs" auth="ttomczyk" rule="SEC.LGE" lnHash="1307262227" pkg="WebGoatCore.Models" rule.header="Ensure all exceptions are either logged with a standard logger or rethrown" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="77acc4ea-ba5b-38fa-8779-2a3c39e6f13b" locEndPos="13" urgent="true" locEndLn="164" goals="1," rev="unknown.revision" locStartln="161" sev="2" locRef="30" tool=".test" lineHash="1307262227" unbViolId="550c43be-b468-31da-90e3-ad07445066fb" locType="sr" hash="786024680" />
+    <StdViol msg="Log or rethrow exception in method 'Models.CreditCard.ReadCreditCardFile'." ln="165" locFile="WebGoat.NET/WebGoat.NET/Models/CreditCard.cs" auth="ttomczyk" rule="SEC.LGE" lnHash="2135754748" pkg="WebGoatCore.Models" rule.header="Ensure all exceptions are either logged with a standard logger or rethrown" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="fbad3c88-040f-34bd-81a2-ea197a3a7ad1" locEndPos="13" urgent="true" locEndLn="168" goals="1," rev="unknown.revision" locStartln="165" sev="2" locRef="30" tool=".test" lineHash="2135754748" unbViolId="b7ad31c4-47a3-34b9-94f6-c5f84ea87d26" locType="sr" hash="786024680" />
+    <StdViol msg="Log or rethrow exception in method 'Models.CreditCard.WriteCreditCardFile'." ln="183" locFile="WebGoat.NET/WebGoat.NET/Models/CreditCard.cs" auth="ttomczyk" rule="SEC.LGE" lnHash="1307262227" pkg="WebGoatCore.Models" rule.header="Ensure all exceptions are either logged with a standard logger or rethrown" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="478a71c3-2e73-3312-bb14-2807252730ac" locEndPos="13" urgent="true" locEndLn="186" goals="1," rev="unknown.revision" locStartln="183" sev="2" locRef="30" tool=".test" lineHash="1307262227" unbViolId="4c3ca224-7dbd-3ce2-8267-840fcbc10ea2" locType="sr" hash="786024680" />
+    <StdViol msg="Log or rethrow exception in method 'Models.CreditCard.WriteCreditCardFile'." ln="187" locFile="WebGoat.NET/WebGoat.NET/Models/CreditCard.cs" auth="ttomczyk" rule="SEC.LGE" lnHash="266666117" pkg="WebGoatCore.Models" rule.header="Ensure all exceptions are either logged with a standard logger or rethrown" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="843edf1b-78d5-38c9-915b-7aacbad61cf9" locEndPos="13" urgent="true" locEndLn="190" goals="1," rev="unknown.revision" locStartln="187" sev="2" locRef="30" tool=".test" lineHash="266666117" unbViolId="a041083c-761e-3d6f-8e86-e58d60fb7705" locType="sr" hash="786024680" />
+    <StdViol msg="Log or rethrow exception in method 'Models.CreditCard.WriteCreditCardFile'." ln="191" locFile="WebGoat.NET/WebGoat.NET/Models/CreditCard.cs" auth="ttomczyk" rule="SEC.LGE" lnHash="2135754748" pkg="WebGoatCore.Models" rule.header="Ensure all exceptions are either logged with a standard logger or rethrown" locStartPos="12" analyzer="com.parasoft.dottest" revTime="0" lang="dotnet" violId="fab0bdfd-4b00-3131-8a2e-a71cfcda7da0" locEndPos="13" urgent="true" locEndLn="194" goals="1," rev="unknown.revision" locStartln="191" sev="2" locRef="30" tool=".test" lineHash="2135754748" unbViolId="71c5077c-91fa-38e6-bd29-1eb7b388efb9" locType="sr" hash="786024680" />
+  </StdViols>
+
+      <TestedFilesDetails>
+         <Total name="Total (Suppressed)" supp="0" total="24">
+            <Project id="WebGoat.NET" name="WebGoat.NET" supp="0" total="24">
+               <Res loc="WebGoat.NET/WebGoat.NET/ApiResponse.cs" locRef="1" locType="sr" name="ApiResponse.cs" supp="0" total="1" />
+               <Res loc="WebGoat.NET/WebGoat.NET/Program.cs" locRef="2" locType="sr" name="Program.cs" supp="0" total="0" />
+               <Res loc="WebGoat.NET/WebGoat.NET/Startup.cs" locRef="3" locType="sr" name="Startup.cs" supp="0" total="1" />
+               <Res name="Controllers" supp="0" total="8">
+                  <Res loc="WebGoat.NET/WebGoat.NET/Controllers/AccountController.cs" locRef="4" locType="sr" name="AccountController.cs" supp="0" total="1" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Controllers/BlogController.cs" locRef="5" locType="sr" name="BlogController.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Controllers/CartController.cs" locRef="6" locType="sr" name="CartController.cs" supp="0" total="1" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Controllers/CheckoutController.cs" locRef="7" locType="sr" name="CheckoutController.cs" supp="0" total="3" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Controllers/HomeController.cs" locRef="8" locType="sr" name="HomeController.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Controllers/ProductController.cs" locRef="9" locType="sr" name="ProductController.cs" supp="0" total="3" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Controllers/StatusCodeController.cs" locRef="10" locType="sr" name="StatusCodeController.cs" supp="0" total="0" />
+               </Res>
+               <Res name="Data" supp="0" total="6">
+                  <Res loc="WebGoat.NET/WebGoat.NET/Data/BlogEntryRepository.cs" locRef="11" locType="sr" name="BlogEntryRepository.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Data/BlogResponseRepository.cs" locRef="12" locType="sr" name="BlogResponseRepository.cs" supp="0" total="1" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Data/CategoryRepository.cs" locRef="13" locType="sr" name="CategoryRepository.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Data/Constants.cs" locRef="14" locType="sr" name="Constants.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Data/CustomerRepository.cs" locRef="15" locType="sr" name="CustomerRepository.cs" supp="0" total="2" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Data/NorthwindContext.cs" locRef="16" locType="sr" name="NorthwindContext.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Data/OrderRepository.cs" locRef="17" locType="sr" name="OrderRepository.cs" supp="0" total="1" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Data/ProductRepository.cs" locRef="18" locType="sr" name="ProductRepository.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Data/ShipperRepository.cs" locRef="19" locType="sr" name="ShipperRepository.cs" supp="0" total="2" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Data/SupplierRepository.cs" locRef="20" locType="sr" name="SupplierRepository.cs" supp="0" total="0" />
+               </Res>
+               <Res name="Exceptions" supp="0" total="0">
+                  <Res loc="WebGoat.NET/WebGoat.NET/Exceptions/AbstractWebGoatException.cs" locRef="21" locType="sr" name="AbstractWebGoatException.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Exceptions/WebGoatCreditCardNotFoundException.cs" locRef="22" locType="sr" name="WebGoatCreditCardNotFoundException.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Exceptions/WebGoatFatalException.cs" locRef="23" locType="sr" name="WebGoatFatalException.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Exceptions/WebGoatModelException.cs" locRef="24" locType="sr" name="WebGoatModelException.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Exceptions/WebGoatStartupException.cs" locRef="25" locType="sr" name="WebGoatStartupException.cs" supp="0" total="0" />
+               </Res>
+               <Res name="Models" supp="0" total="8">
+                  <Res loc="WebGoat.NET/WebGoat.NET/Models/BlogEntry.cs" locRef="26" locType="sr" name="BlogEntry.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Models/BlogResponse.cs" locRef="27" locType="sr" name="BlogResponse.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Models/Cart.cs" locRef="28" locType="sr" name="Cart.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Models/Category.cs" locRef="29" locType="sr" name="Category.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Models/CreditCard.cs" locRef="30" locType="sr" name="CreditCard.cs" supp="0" total="8" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Models/Customer.cs" locRef="31" locType="sr" name="Customer.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Models/Order.cs" locRef="32" locType="sr" name="Order.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Models/OrderDetail.cs" locRef="33" locType="sr" name="OrderDetail.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Models/OrderPayment.cs" locRef="34" locType="sr" name="OrderPayment.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Models/Product.cs" locRef="35" locType="sr" name="Product.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Models/Shipment.cs" locRef="36" locType="sr" name="Shipment.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Models/Shipper.cs" locRef="37" locType="sr" name="Shipper.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Models/Supplier.cs" locRef="38" locType="sr" name="Supplier.cs" supp="0" total="0" />
+               </Res>
+               <Res name="Utils" supp="0" total="0">
+                  <Res loc="WebGoat.NET/WebGoat.NET/Utils/EmailSender.cs" locRef="39" locType="sr" name="EmailSender.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Utils/LinqExtensions.cs" locRef="40" locType="sr" name="LinqExtensions.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Utils/SessionExtensions.cs" locRef="41" locType="sr" name="SessionExtensions.cs" supp="0" total="0" />
+               </Res>
+               <Res name="ViewModels" supp="0" total="0">
+                  <Res loc="WebGoat.NET/WebGoat.NET/ViewModels/AddUserTempViewModel.cs" locRef="42" locType="sr" name="AddUserTempViewModel.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/ViewModels/ChangeAccountInfoViewModel.cs" locRef="43" locType="sr" name="ChangeAccountInfoViewModel.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/ViewModels/ChangePasswordViewModel.cs" locRef="44" locType="sr" name="ChangePasswordViewModel.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/ViewModels/CheckoutViewModel.cs" locRef="45" locType="sr" name="CheckoutViewModel.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/ViewModels/ErrorViewModel.cs" locRef="46" locType="sr" name="ErrorViewModel.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/ViewModels/HomeViewModel.cs" locRef="47" locType="sr" name="HomeViewModel.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/ViewModels/LoginViewModel.cs" locRef="48" locType="sr" name="LoginViewModel.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/ViewModels/PackageTrackingViewModel.cs" locRef="49" locType="sr" name="PackageTrackingViewModel.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/ViewModels/ProductAddOrEditViewModel.cs" locRef="50" locType="sr" name="ProductAddOrEditViewModel.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/ViewModels/ProductDetailsViewModel.cs" locRef="51" locType="sr" name="ProductDetailsViewModel.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/ViewModels/ProductListViewModel.cs" locRef="52" locType="sr" name="ProductListViewModel.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/ViewModels/RegisterViewModel.cs" locRef="53" locType="sr" name="RegisterViewModel.cs" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/ViewModels/StatusCodeViewModel.cs" locRef="54" locType="sr" name="StatusCodeViewModel.cs" supp="0" total="0" />
+               </Res>
+               <Res name="Views" supp="0" total="0">
+                  <Res name="Account" supp="0" total="0">
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Account/AddUserTemp.cshtml" locRef="55" locType="sr" name="AddUserTemp.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Account/ChangeAccountInfo.cshtml" locRef="56" locType="sr" name="ChangeAccountInfo.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Account/ChangePassword.cshtml" locRef="57" locType="sr" name="ChangePassword.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Account/ChangePasswordSuccess.cshtml" locRef="58" locType="sr" name="ChangePasswordSuccess.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Account/Login.cshtml" locRef="59" locType="sr" name="Login.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Account/MyAccount.cshtml" locRef="60" locType="sr" name="MyAccount.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Account/Register.cshtml" locRef="61" locType="sr" name="Register.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Account/ViewAccountInfo.cshtml" locRef="62" locType="sr" name="ViewAccountInfo.cshtml" supp="0" total="0" />
+                  </Res>
+                  <Res name="Blog" supp="0" total="0">
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Blog/Create.cshtml" locRef="63" locType="sr" name="Create.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Blog/Index.cshtml" locRef="64" locType="sr" name="Index.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Blog/Reply.cshtml" locRef="65" locType="sr" name="Reply.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Blog/_BlogEntryPartial.cshtml" locRef="66" locType="sr" name="_BlogEntryPartial.cshtml" supp="0" total="0" />
+                  </Res>
+                  <Res name="Cart" supp="0" total="0">
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Cart/Index.cshtml" locRef="67" locType="sr" name="Index.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Cart/RemoveOrderError.cshtml" locRef="68" locType="sr" name="RemoveOrderError.cshtml" supp="0" total="0" />
+                  </Res>
+                  <Res name="Checkout" supp="0" total="0">
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Checkout/Checkout.cshtml" locRef="69" locType="sr" name="Checkout.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Checkout/PackageTracking.cshtml" locRef="70" locType="sr" name="PackageTracking.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Checkout/Receipt.cshtml" locRef="71" locType="sr" name="Receipt.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Checkout/Receipts.cshtml" locRef="72" locType="sr" name="Receipts.cshtml" supp="0" total="0" />
+                  </Res>
+                  <Res name="Home" supp="0" total="0">
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Home/About.cshtml" locRef="73" locType="sr" name="About.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Home/Admin.cshtml" locRef="74" locType="sr" name="Admin.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Home/Index.cshtml" locRef="75" locType="sr" name="Index.cshtml" supp="0" total="0" />
+                  </Res>
+                  <Res name="Product" supp="0" total="0">
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Product/AddOrEdit.cshtml" locRef="76" locType="sr" name="AddOrEdit.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Product/Details.cshtml" locRef="77" locType="sr" name="Details.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Product/Manage.cshtml" locRef="78" locType="sr" name="Manage.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Product/Search.cshtml" locRef="79" locType="sr" name="Search.cshtml" supp="0" total="0" />
+                  </Res>
+                  <Res name="Shared" supp="0" total="0">
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Shared/Error.cshtml" locRef="80" locType="sr" name="Error.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Shared/_CartPartial.cshtml" locRef="81" locType="sr" name="_CartPartial.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Shared/_CookieConsentPartial.cshtml" locRef="82" locType="sr" name="_CookieConsentPartial.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Shared/_Layout.cshtml" locRef="83" locType="sr" name="_Layout.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Shared/_LoginPartial.cshtml" locRef="84" locType="sr" name="_LoginPartial.cshtml" supp="0" total="0" />
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/Shared/_ValidationScriptsPartial.cshtml" locRef="85" locType="sr" name="_ValidationScriptsPartial.cshtml" supp="0" total="0" />
+                  </Res>
+                  <Res name="StatusCode" supp="0" total="0">
+                     <Res loc="WebGoat.NET/WebGoat.NET/Views/StatusCode/StatusCodeView.cshtml" locRef="86" locType="sr" name="StatusCodeView.cshtml" supp="0" total="0" />
+                  </Res>
+                  <Res loc="WebGoat.NET/WebGoat.NET/Views/_ViewImports.cshtml" locRef="87" locType="sr" name="_ViewImports.cshtml" supp="0" total="0" />
+                  <Res loc="WebGoat.NET/WebGoat.NET/Views/_ViewStart.cshtml" locRef="88" locType="sr" name="_ViewStart.cshtml" supp="0" total="0" />
+               </Res>
+            </Project>
+         </Total>
+      </TestedFilesDetails>
+   </CodingStandards>
+   <Statistics>
+      
+   </Statistics>
+</ResultsSession>

@@ -1,0 +1,20 @@
+name: Publish Report
+
+on:
+  push:
+    branches:
+      - test/pubrep
+
+jobs:
+  publish_report:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Publish Report Artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: reports
+        path: report.xml
