@@ -32,8 +32,8 @@ jobs:
         uses: parasoft/run-dottest-analyzer@2.0.0
         with:
           # Path to working directory.
-          installDir: c:\Program Files\Parasoft\dotTEST\2022.2
-          testConfig: Flow Analysis
+          installDir: c:\Program Files\Parasoft\dotTEST\2023.2
+          testConfig: Demo
 
       # ---------------------------------------------------------------
       # Upload the findings into the GitHub code scanning alert section
