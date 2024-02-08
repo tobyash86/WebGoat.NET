@@ -57,6 +57,7 @@ namespace WebGoatCore
 
         public IConfiguration Configuration { get; }
 
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews()
@@ -122,6 +123,7 @@ namespace WebGoatCore
             services.AddScoped<SupplierRepository>();
             services.AddScoped<OrderRepository>();
             services.AddScoped<CategoryRepository>();
+            OpenTelemtryIntegration.OpenTelemetryBuilder.AddOpenTelemetry(services);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
