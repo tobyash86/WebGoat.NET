@@ -16,26 +16,19 @@
         <legend>Product information</legend>
         @if (!Model.AddsNew)
         {
-            #pragma warning disable CS8602 // False positive, cannot happen in template usage
             Html.HiddenFor(m => m.Product.ProductId);
             Html.HiddenFor(m => m.Product.SupplierId);
-            #pragma warning restore CS8602
             <p>
-                @{ #pragma warning disable CS8602 } <!-- False positive, cannot happen in template usage -->
                 @Html.LabelFor(m => m.Product.ProductId)
-                @{ #pragma warning restore CS8602 }
                 <span class="textEntry">@Model.Product?.ProductId</span>
             </p>
         }
         <p>
-            @{ #pragma warning disable CS8602 } <!-- False positive, cannot happen in template usage -->
             @Html.LabelFor(m => m.Product.ProductName)
             @Html.TextBoxFor(m => m.Product.ProductName, new { @value = Model.Product?.ProductName })
             @Html.ValidationMessageFor(m => m.Product.ProductName)
-            @{ #pragma warning restore CS8602 }
         </p>
         <p>
-            @{ #pragma warning disable CS8602 } <!-- False positive, cannot happen in template usage -->
             @Html.LabelFor(m => m.Product.Category)
             <select asp-for="Product.CategoryId">
                 @foreach (var category in Model.ProductCategories)
@@ -47,9 +40,7 @@
                     </option>
                 }
             </select>
-            @{ #pragma warning restore CS8602 }
         </p>
-        @{ #pragma warning disable CS8602 } <!-- False positive, cannot happen in template usage -->
         <p>
             @Html.LabelFor(m => m.Product.QuantityPerUnit)
             @Html.TextBoxFor(m => m.Product.QuantityPerUnit, new { @value = Model.Product?.QuantityPerUnit })
@@ -75,11 +66,9 @@
             @Html.TextBoxFor(m => m.Product.ReorderLevel, new { @value = Model.Product?.ReorderLevel })
             @Html.ValidationMessageFor(m => m.Product.ReorderLevel)
         </p>
-        @{ #pragma warning restore CS8602 }
         @if (Model.AddsNew)
         {
             <p>
-                @{ #pragma warning disable CS8602 } <!-- False positive, cannot happen in template usage -->
                 @Html.LabelFor(m => m.Product.Supplier)
                 @if(Model.Suppliers != null)
                 {
@@ -93,14 +82,11 @@
                     </select>
                 }
                 @Html.ValidationMessageFor(m => m.Product.Supplier)
-                @{ #pragma warning restore CS8602 }
             </p>
         }
         <p>
-            @{ #pragma warning disable CS8602 } <!-- False positive, cannot happen in template usage -->
             @Html.CheckBoxFor(m => m.Product.Discontinued, new { @checked = Model.Product?.Discontinued ?? false })
             @Html.LabelFor(m => m.Product.Discontinued)
-            @{ #pragma warning restore CS8602 }
         </p>
     </fieldset>
     <p class="submitButton">
