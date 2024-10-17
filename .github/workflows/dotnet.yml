@@ -20,6 +20,51 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
+    - name: Dependency Review
+      uses: actions/dependency-review-action@v4.3.4
+      with:
+        # Token for the repository. Can be passed in using `{{ secrets.GITHUB_TOKEN }}`.
+        # repo-token: # optional, default is ${{ github.token }}
+        # Don't block PRs below this severity. Possible values are `low`, `moderate`, `high`, `critical`.
+        fail-on-severity: 'high' # optional
+        # Dependency scopes to block PRs on. Comma-separated list. Possible values are 'unknown', 'runtime', and 'development' (e.g. "runtime, development")
+        # fail-on-scopes: # optional
+        # The base git ref to be used for this check. Has a default value when the workflow event is `pull_request` or `pull_request_target`. Must be provided otherwise.
+        # base-ref: # optional
+        # The head git ref to be used for this check. Has a default value when the workflow event is `pull_request` or `pull_request_target`. Must be provided otherwise.
+        # head-ref: # optional
+        # A path to the configuration file for the action.
+        # config-file: # optional
+        # Comma-separated list of allowed licenses (e.g. "MIT, GPL 3.0, BSD 2 Clause")
+        # allow-licenses: # optional
+        # Comma-separated list of forbidden licenses (e.g. "MIT, GPL 3.0, BSD 2 Clause")
+        # deny-licenses: # optional
+        # Comma-separated list of dependencies in purl format (e.g. "pkg:npm/express, pkg:pypi/pycrypto"). These dependencies will be permitted to use any license, no matter what license policy is enforced otherwise.
+        # allow-dependencies-licenses: # optional
+        # Comma-separated list of allowed GitHub Advisory IDs (e.g. "GHSA-abcd-1234-5679, GHSA-efgh-1234-5679")
+        # allow-ghsas: # optional
+        # A token for fetching external configuration file if it lives in another repository. It is required if the repository is private
+        # external-repo-token: # optional
+        # A boolean to determine if license checks should be performed
+        # license-check: # optional
+        # A boolean to determine if vulnerability checks should be performed
+        vulnerability-check: true # optional
+        # Determines if the summary is posted as a comment in the PR itself. Setting this to `always` or `on-failure` requires you to give the workflow the write permissions for pull-requests
+        comment-summary-in-pr: 'always' # optional
+        # A comma-separated list of package URLs to deny (e.g. "pkg:npm/express, pkg:pypi/pycrypto"). If version specified, only deny matching packages and version; else, deny all regardless of version.
+        # deny-packages: # optional
+        # A comma-separated list of package URLs for group(s)/namespace(s) to deny (e.g. "pkg:npm/express/, pkg:pypi/pycrypto/"). Please note that the group name must be followed by a `/`.
+        # deny-groups: # optional
+        # Whether to retry on snapshot warnings
+        # retry-on-snapshot-warnings: # optional
+        # Number of seconds to wait before stopping snapshot retries.
+        # retry-on-snapshot-warnings-timeout: # optional
+        # When set to `true` this action will always complete with success, overriding the `fail-on-severity` parameter.
+        # warn-only: # optional
+        # Show a summary of the OpenSSF Scorecard scores.
+        # show-openssf-scorecard: # optional
+        # Numeric threshold for the OpenSSF Scorecard score. If the score is below this threshold, the action will warn you.
+        # warn-on-openssf-scorecard-level: # optional
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
