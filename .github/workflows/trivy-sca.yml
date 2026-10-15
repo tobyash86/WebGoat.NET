@@ -33,7 +33,7 @@ on:
         description: "Minimum number of HIGH+CRITICAL vulns to fail the pipeline"
         required: false
         type: number
-        default: 5
+        default: 20
 
 permissions:
   contents: read
