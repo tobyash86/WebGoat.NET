@@ -1,0 +1,25 @@
+patterns:
+  - master
+
+# Tier 1
+allowsDeletions: false
+allowsForcePushes: false
+
+# Tier 2 + Tier 4 + Tier 5
+requiresApprovingReviews: true
+requiredApprovingReviewCount: 2          # Tier 4 (covers Tier 2’s “at least 1”)
+requiresCodeOwnerReviews: true           # Tier 4
+dismissesStaleReviews: true              # Tier 5
+isAdminEnforced: true                    # Tier 5 – administrators cannot bypass
+
+# Tier 2 + Tier 3
+requiresStatusChecks: true
+requiresStrictStatusChecks: true         # “Require branch to be up to date”
+requiredStatusCheckContexts:
+  - ci / build                           # ← change to your actual status check name(s)
+
+# Optional but recommended
+requiresLinearHistory: true
+requiresCommitSignatures: false          # set to true if you want signed commits
+restrictsPushes: false
+restrictsReviewDismissals: false

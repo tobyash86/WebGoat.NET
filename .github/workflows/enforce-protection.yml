@@ -1,0 +1,32 @@
+name: Enforce Branch Protection (OpenSSF 10/10)
+
+on:
+  push:
+    paths:
+      - '.github/protector.yml'
+      - '.github/workflows/enforce-protection.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  protect:
+    name: Apply branch protection rules
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Apply branch protection
+        uses: m19c/protector@v1
+        with:
+          token: ${{ secrets.PROTECTOR_TOKEN || secrets.GITHUB_TOKEN }}
