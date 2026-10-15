@@ -1,6 +1,7 @@
 name: Enforce Branch Protection (OpenSSF 10/10)
 
 on:
+  workflow_call:                    # ← adding reusable workflow support
   push:
     paths:
       - '.github/protector.yml'
@@ -27,4 +28,4 @@ jobs:
       - name: Apply branch protection
         uses: m19c/protector@v1
         with:
-          token: ${{ secrets.PROTECTOR_TOKEN }}   #PAT with repo scope
+          token: ${{ secrets.PROTECTOR_TOKEN }}

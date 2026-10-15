@@ -19,6 +19,18 @@ jobs:
     secrets: inherit
     permissions:
       contents: read
+      
+  # =================================================
+  # Stage 0b: Enforce Branch Protection (OpenSSF)
+  # =================================================
+  branch-protection:
+    name: "0b. Enforce Branch Protection"
+    needs: secrets
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/enforce-protection.yml
+    secrets: inherit
+    permissions:
+      contents: read
 
   # =================================================
   # Stage 1: Build
