@@ -1,0 +1,176 @@
+name: Grype SCA
+
+on:
+  workflow_call:
+    inputs:
+      path:
+        description: "Path to scan"
+        required: false
+        type: string
+        default: "."
+      severity-cutoff:
+        description: "Severity cutoff (kept for compatibility)"
+        required: false
+        type: string
+        default: "high"
+      fail-threshold:
+        description: "Fail if HIGH+CRITICAL count >= this (0 = never fail on count)"
+        required: false
+        type: number
+        default: 5
+      fail-build:
+        description: "Kept for compatibility"
+        required: false
+        type: string
+        default: "false"
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sca:
+    name: Grype SCA
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+
+      - name: Restore dependencies
+        run: |
+          dotnet restore
+          # Help catalogers find dependency graphs
+          echo "project.assets.json files:"
+          find . -name "project.assets.json" | head -20
+
+      - name: Publish for better SCA coverage
+        run: |
+          dotnet publish -c Release -o ./publish || true
+          ls -la ./publish || true
+
+      - name: Install Grype
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+          grype version
+
+      - name: Update Grype DB
+        run: |
+          grype db update
+          grype db status
+
+      - name: Run Grype (SARIF) - source
+        continue-on-error: true
+        run: |
+          grype "dir:${{ inputs.path }}" \
+            -o sarif \
+            --file results.sarif \
+            || true
+
+          if [ ! -s results.sarif ]; then
+            echo '{"version":"2.1.0","runs":[]}' > results.sarif
+          fi
+
+      - name: Run Grype (SARIF) - publish output
+        continue-on-error: true
+        run: |
+          if [ -d ./publish ]; then
+            grype "dir:./publish" \
+              -o sarif \
+              --file results-publish.sarif \
+              || true
+          fi
+
+      - name: Upload Grype SARIF to Code Scanning
+        if: always()
+        continue-on-error: true
+        uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
+        with:
+          sarif_file: results.sarif
+          category: grype-sca
+
+      - name: Grype table report (verbose)
+        if: always()
+        run: |
+          echo "===== Source tree scan ====="
+          grype "dir:${{ inputs.path }}" -o table -v || true
+
+          echo ""
+          echo "===== Publish output scan ====="
+          if [ -d ./publish ]; then
+            grype "dir:./publish" -o table -v || true
+          else
+            echo "No publish directory found"
+          fi
+
+          echo ""
+          echo "----- Detected packages (sample) -----"
+          grype "dir:${{ inputs.path }}" -o json 2>/dev/null \
+            | jq -r '.matches[]?.artifact | "\(.name)@\(.version)"' 2>/dev/null \
+            | sort -u | head -50 || true
+
+          if [ -d ./publish ]; then
+            echo ""
+            echo "----- Packages from publish/ -----"
+            grype "dir:./publish" -o json 2>/dev/null \
+              | jq -r '.matches[]?.artifact | "\(.name)@\(.version)"' 2>/dev/null \
+              | sort -u | head -50 || true
+          fi
+
+      - name: Grype JSON + threshold check
+        if: always()
+        run: |
+          # Prefer publish scan if available (closer to shipped deps)
+          if [ -d ./publish ]; then
+            grype "dir:./publish" -o json --file grype-results.json || true
+          else
+            grype "dir:${{ inputs.path }}" -o json --file grype-results.json || true
+          fi
+
+          if [ ! -s grype-results.json ]; then
+            echo '{"matches":[]}' > grype-results.json
+          fi
+
+          THRESHOLD=${{ inputs.fail-threshold }}
+          COUNT=$(jq '[.matches[]? | select(.vulnerability.severity == "High" or .vulnerability.severity == "Critical")] | length' grype-results.json)
+
+          echo "HIGH + CRITICAL findings: $COUNT"
+          echo "Fail threshold: $THRESHOLD"
+
+          if [ "$THRESHOLD" -gt 0 ] && [ "$COUNT" -ge "$THRESHOLD" ]; then
+            echo "❌ SCA failed: $COUNT HIGH/CRITICAL vulnerabilities (>= $THRESHOLD)"
+            exit 1
+          fi
+
+          echo "✅ SCA below threshold (or threshold disabled)"
+
+      - name: Upload Grype results artifact
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: grype-sca-results
+          path: |
+            grype-results.json
+            results.sarif
+            results-publish.sarif
+          retention-days: 30
+          if-no-files-found: ignore
+
+
+          

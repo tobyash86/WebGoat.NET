@@ -1,0 +1,57 @@
+---
+- name: Install and configure Fail2ban on Ubuntu
+  hosts: all
+  become: true
+  vars:
+    ssh_ban_time: 360000
+    ssh_find_time: 600
+    ssh_max_retry: 3
+
+  tasks:
+    - name: Update package index
+      ansible.builtin.apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+    - name: Install Fail2ban
+      ansible.builtin.apt:
+        name: fail2ban
+        state: present
+
+    - name: Ensure Fail2ban directory exists
+      ansible.builtin.file:
+        path: /etc/fail2ban/jail.d
+        state: directory
+        mode: "0755"
+
+    - name: Configure SSH Jail
+      ansible.builtin.copy:
+        dest: /etc/fail2ban/jail.d/ssh.conf
+        content: |
+          [sshd]
+          enabled = true
+          port = ssh
+          logpath = %(sshd_log)s
+          bantime = {{ ssh_ban_time }}
+          findtime = {{ ssh_find_time }}
+          maxretry = {{ ssh_max_retry }}
+        owner: root
+        group: root
+        mode: "0644"
+
+    - name: Restart and enable Fail2ban service
+      ansible.builtin.service:
+        name: fail2ban
+        state: restarted
+        enabled: yes
+
+    - name: Reload Fail2ban
+      ansible.builtin.command: fail2ban-client reload
+
+    - name: Check Fail2ban status
+      ansible.builtin.command: fail2ban-client status
+      register: fail2ban_status
+
+    - name: Display Fail2ban status
+      ansible.builtin.debug:
+        var: fail2ban_status.stdout

@@ -1,0 +1,68 @@
+name: "CodeQL"
+
+on:
+  # Makes this workflow callable from other workflows (e.g. pipeline.yml)
+  workflow_call:
+
+  # Still allows it to run on its own if needed
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+  schedule:
+    - cron: '0 6 * * 1'          # Every Monday 06:00 UTC
+  workflow_dispatch:              # Manual trigger
+
+permissions:
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze (csharp)
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    permissions:
+      security-events: write      # Required to upload SARIF → Security tab
+      contents: read
+      actions: read
+      packages: read
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: |
+            8.0.x
+            9.0.x
+
+      # 1. Initialize CodeQL
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@5595ccaf912efad79be6eef63a5619ff05969be3 # v4.37.6
+        with:
+          languages: csharp
+          queries: security-and-quality
+
+      # 2. Build (creates the database)
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@5595ccaf912efad79be6eef63a5619ff05969be3 # v4.37.6
+
+      # If Autobuild fails, replace the step above with this:
+      # - name: Manual build
+      #   run: |
+      #     dotnet restore
+      #     dotnet build --configuration Release --no-restore
+
+      # 3. Analyze + Upload SARIF to GitHub Security tab
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@5595ccaf912efad79be6eef63a5619ff05969be3 # v4.37.6
+        with:
+          category: "/language:csharp"

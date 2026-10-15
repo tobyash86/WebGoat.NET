@@ -1,3 +1,5 @@
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/StevenKitavi/VulnerableWebGoat.NET/badge)](https://scorecard.dev/viewer/?uri=github.com/StevenKitavi/VulnerableWebGoat.NET)
+
 # WebGoat.NET version 0.3
 
 ## Build status

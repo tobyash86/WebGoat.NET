@@ -1,0 +1,115 @@
+name: Trivy
+
+on:
+  workflow_call:
+    inputs:
+      image-ref:
+        description: "Image to scan"
+        required: true
+        type: string
+      severity:
+        description: "Severities to check"
+        required: false
+        type: string
+        default: "CRITICAL,HIGH"
+      # Fail only when HIGH + CRITICAL count reaches this number
+      fail-threshold:
+        description: "Minimum number of HIGH+CRITICAL vulns to fail the pipeline"
+        required: false
+        type: number
+        default: 20
+
+  workflow_dispatch:
+    inputs:
+      image-ref:
+        description: "Image to scan"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  scan:
+    name: Trivy Image Scan
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
+      - name: Download image artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: docker-image
+          path: .
+
+      - name: Load Docker image
+        run: |
+          docker load -i image.tar
+          docker images
+
+      # 1. Human-readable report (never fails the job)
+      - name: Run Trivy (table report)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: ${{ inputs.image-ref }}
+          format: 'table'
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: ${{ inputs.severity }}
+
+      # 2. JSON output for counting
+      - name: Run Trivy (JSON)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: ${{ inputs.image-ref }}
+          format: 'json'
+          output: 'trivy-results.json'
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: ${{ inputs.severity }}
+
+      # 3. Count HIGH + CRITICAL and fail if >= threshold
+      - name: Check vulnerability threshold
+        run: |
+          THRESHOLD=${{ inputs.fail-threshold }}
+
+          COUNT=$(jq '[.Results[]?.Vulnerabilities // [] | .[] | select(.Severity == "HIGH" or .Severity == "CRITICAL")] | length' trivy-results.json)
+
+          echo "HIGH + CRITICAL vulnerabilities found: $COUNT"
+          echo "Fail threshold: $THRESHOLD"
+
+          if [ "$COUNT" -ge "$THRESHOLD" ]; then
+            echo "❌ Pipeline failed: $COUNT HIGH/CRITICAL vulnerabilities (>= $THRESHOLD)"
+            exit 1
+          else
+            echo "✅ Below threshold ($COUNT < $THRESHOLD) — pipeline continues"
+          fi
+
+      # 4. SARIF for GitHub Security tab
+      - name: Run Trivy (SARIF)
+        if: always()
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: ${{ inputs.image-ref }}
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          exit-code: '0'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: ${{ inputs.severity }}
+
+      - name: Upload Trivy SARIF to GitHub Security
+        if: always()
+        uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
+        with:
+          sarif_file: 'trivy-results.sarif'
+          category: 'trivy'

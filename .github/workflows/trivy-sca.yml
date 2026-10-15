@@ -1,0 +1,127 @@
+name: Trivy SCA
+
+on:
+  workflow_call:
+    inputs:
+      path:
+        description: "Path to scan (filesystem)"
+        required: false
+        type: string
+        default: "."
+      severity:
+        description: "Severities to check"
+        required: false
+        type: string
+        default: "CRITICAL,HIGH"
+      fail-threshold:
+        description: "Minimum number of HIGH+CRITICAL vulns to fail the pipeline"
+        required: false
+        type: number
+        default: 5
+
+  workflow_dispatch:
+    inputs:
+      path:
+        description: "Path to scan (filesystem)"
+        required: false
+        default: "."
+      severity:
+        description: "Severities to check"
+        required: false
+        default: "CRITICAL,HIGH"
+      fail-threshold:
+        description: "Minimum number of HIGH+CRITICAL vulns to fail the pipeline"
+        required: false
+        type: number
+        default: 20
+
+permissions:
+  contents: read
+
+jobs:
+  trivy-sca:
+    name: Trivy filesystem SCA
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      security-events: write
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      # 1. Human-readable report (never fails the job)
+      - name: Run Trivy SCA (table report)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: "fs"
+          scan-ref: ${{ inputs.path || github.event.inputs.path || '.' }}
+          format: "table"
+          exit-code: "0"
+          ignore-unfixed: true
+          severity: ${{ inputs.severity || github.event.inputs.severity || 'CRITICAL,HIGH' }}
+
+      # 2. JSON output for counting
+      - name: Run Trivy SCA (JSON)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: "fs"
+          scan-ref: ${{ inputs.path || github.event.inputs.path || '.' }}
+          format: "json"
+          output: "trivy-sca-results.json"
+          exit-code: "0"
+          ignore-unfixed: true
+          severity: ${{ inputs.severity || github.event.inputs.severity || 'CRITICAL,HIGH' }}
+
+      # 3. Count HIGH + CRITICAL and fail if >= threshold
+      - name: Check vulnerability threshold
+        run: |
+          THRESHOLD=${{ inputs.fail-threshold || github.event.inputs.fail-threshold || 5 }}
+
+          COUNT=$(jq '[.Results[]?.Vulnerabilities // [] | .[] | select(.Severity == "HIGH" or .Severity == "CRITICAL")] | length' trivy-sca-results.json)
+
+          echo "HIGH + CRITICAL vulnerabilities found: $COUNT"
+          echo "Fail threshold: $THRESHOLD"
+
+          if [ "$COUNT" -ge "$THRESHOLD" ]; then
+            echo "❌ Pipeline failed: $COUNT HIGH/CRITICAL vulnerabilities (>= $THRESHOLD)"
+            exit 1
+          else
+            echo "✅ Below threshold ($COUNT < $THRESHOLD) — pipeline continues"
+          fi
+
+      # 4. SARIF for GitHub Security tab
+      - name: Run Trivy SCA (SARIF)
+        if: always()
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          scan-type: "fs"
+          scan-ref: ${{ inputs.path || github.event.inputs.path || '.' }}
+          format: "sarif"
+          output: "trivy-sca-results.sarif"
+          exit-code: "0"
+          ignore-unfixed: true
+          severity: ${{ inputs.severity || github.event.inputs.severity || 'CRITICAL,HIGH' }}
+
+      - name: Upload Trivy SCA SARIF to GitHub Security
+        if: always()
+        uses: github/codeql-action/upload-sarif@cdf488f595d80d6e07e03d4674febd5ab45fa938 # v4.37.9
+        with:
+          sarif_file: "trivy-sca-results.sarif"
+          category: "trivy-sca"
+
+      - name: Upload Trivy SCA artifacts
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: trivy-sca-results
+          path: |
+            trivy-sca-results.json
+            trivy-sca-results.sarif
+          retention-days: 30
+          if-no-files-found: ignore

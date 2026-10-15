@@ -1,0 +1,8 @@
+---
+- name: Playbook to harden Linux OS - Baseline.
+  hosts: prod
+  remote_user: root
+  become: yes
+
+  roles:
+    - name: devsec.hardening.os_hardening

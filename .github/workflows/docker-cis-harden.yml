@@ -1,0 +1,146 @@
+name: Docker CIS Harden / Patch
+
+on:
+  workflow_dispatch:
+    inputs:
+      ENABLE_USERNS_REMAP:
+        description: "Enable userns-remap (true/false)"
+        required: false
+        default: "false"
+      RUN_INSPEC:
+        description: "Run InSpec CIS scan after hardening (true/false)"
+        required: false
+        default: "true"
+
+  workflow_call:
+    inputs:
+      ENABLE_USERNS_REMAP:
+        description: "Enable userns-remap (true/false)"
+        required: false
+        type: string
+        default: "false"
+      RUN_INSPEC:
+        description: "Run InSpec CIS scan after hardening (true/false)"
+        required: false
+        type: string
+        default: "true"
+    secrets:
+      DEPLOYMENT_SERVER:
+        description: "Server IP or hostname"
+        required: true
+      DEPLOY_USER:
+        description: "SSH user"
+        required: true
+      DEPLOY_SSH_KEY:
+        description: "Private SSH key (no passphrase)"
+        required: true
+      CHEF_LICENSE_KEY:
+        description: "Chef license key for InSpec"
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  harden-docker:
+    name: Docker CIS Harden + InSpec
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    environment: deployment
+    continue-on-error: true
+    env:
+      ENABLE_USERNS_REMAP: ${{ inputs.ENABLE_USERNS_REMAP || github.event.inputs.ENABLE_USERNS_REMAP || 'false' }}
+      RUN_INSPEC: ${{ inputs.RUN_INSPEC || github.event.inputs.RUN_INSPEC || 'true' }}
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Check deploy secrets are present
+        env:
+          KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          HOST: ${{ secrets.DEPLOYMENT_SERVER }}
+          USER: ${{ secrets.DEPLOY_USER }}
+        run: |
+          if [ -z "$HOST" ] || [ -z "$USER" ] || [ -z "$KEY" ]; then
+            echo "❌ DEPLOYMENT_SERVER / DEPLOY_USER / DEPLOY_SSH_KEY is empty"
+            echo "Add them under Settings → Environments → deployment"
+            exit 1
+          fi
+          echo "✅ Deploy secrets present (key length ${#KEY})"
+
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@a6f90b1f127823b31d4d4a8d96047790581349bd # v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+
+      - name: Add host to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H "${{ secrets.DEPLOYMENT_SERVER }}" >> ~/.ssh/known_hosts
+
+      - name: Install Ansible
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ansible
+
+      - name: Create inventory
+        run: |
+          cat > inventory.ini << EOF
+          [prod]
+          ${{ secrets.DEPLOYMENT_SERVER }} ansible_user=${{ secrets.DEPLOY_USER }} ansible_ssh_common_args='-o StrictHostKeyChecking=yes' ansible_python_interpreter=/usr/bin/python3
+          EOF
+          cat inventory.ini
+
+      - name: Harden Docker to CIS controls
+        run: |
+          ansible-playbook -i inventory.ini Infrastructure/Ansible/harden-docker-cis.yml \
+            -e "{\"trusted_docker_users\": [\"${{ secrets.DEPLOY_USER }}\"]}" \
+            -e "enable_userns_remap=${ENABLE_USERNS_REMAP}"
+
+      - name: Install InSpec
+        if: env.RUN_INSPEC == 'true'
+        env:
+          CHEF_LICENSE_KEY: ${{ secrets.CHEF_LICENSE_KEY }}
+        run: |
+          curl -fsSL https://omnitruck.chef.io/install.sh | sudo bash -s -- -P inspec
+          inspec version
+
+      - name: Clone custom compliance profile
+        if: env.RUN_INSPEC == 'true'
+        run: |
+          git clone --depth 1 https://github.com/StevenKitavi/compliance-as-code.git /tmp/compliance-as-code
+
+      - name: Run Docker InSpec profiles in parallel
+        if: env.RUN_INSPEC == 'true'
+        env:
+          CHEF_LICENSE_KEY: ${{ secrets.CHEF_LICENSE_KEY }}
+        run: |
+          cat > inspec-multiprofile.txt << EOF
+          /tmp/compliance-as-code/docker --reporter html:cis-docker-custom-results.html
+          https://github.com/dev-sec/cis-docker-benchmark.git --reporter html:cis-docker-benchmark-results.html json:cis-docker-benchmark-results.json
+          EOF
+          cat inspec-multiprofile.txt
+
+          inspec parallel exec multiprofile \
+            -o inspec-multiprofile.txt \
+            -t "ssh://${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOYMENT_SERVER }}" \
+            --chef-license accept \
+            || true
+
+      - name: Upload InSpec reports
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: inspec-docker-harden-reports
+          path: |
+            cis-docker-custom-results.html
+            cis-docker-benchmark-results.html
+            cis-docker-benchmark-results.json
+          retention-days: 30
+          if-no-files-found: ignore

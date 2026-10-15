@@ -1,0 +1,36 @@
+---
+- name: Install Docker (simple)
+  hosts: all
+  become: true
+  gather_facts: true
+
+  tasks:
+    - name: Install Docker via official repo (Debian/Ubuntu)
+      ansible.builtin.shell: |
+        set -e
+        apt-get update -qq
+        apt-get install -y -qq ca-certificates curl
+        install -m 0755 -d /etc/apt/keyrings
+        curl -fsSL "https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}/gpg" \
+          -o /etc/apt/keyrings/docker.asc
+        chmod a+r /etc/apt/keyrings/docker.asc
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] \
+          https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }} \
+          {{ ansible_facts['distribution_release'] }} stable" \
+          > /etc/apt/sources.list.d/docker.list
+        apt-get update -qq
+        apt-get install -y -qq \
+          docker-ce docker-ce-cli containerd.io \
+          docker-buildx-plugin docker-compose-plugin
+        systemctl enable --now docker
+        docker version
+      args:
+        executable: /bin/bash
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Ensure deploy user is in docker group
+      ansible.builtin.user:
+        name: "{{ deploy_user }}"
+        groups: docker
+        append: true
+      when: deploy_user is defined and deploy_user | length > 0

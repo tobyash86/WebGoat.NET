@@ -1,0 +1,182 @@
+---
+- name: Harden Docker environment toward CIS compliance
+  hosts: all
+  become: true
+  gather_facts: true
+
+  vars:
+    enable_userns_remap: false
+    trusted_docker_users: []
+    docker_daemon_config:
+      icc: false
+      "log-level": "info"
+      "live-restore": true
+      "userland-proxy": false
+      "no-new-privileges": true
+      "storage-driver": "overlay2"
+      iptables: true
+      "default-ulimits":
+        nofile:
+          Name: "nofile"
+          Hard: 64000
+          Soft: 64000
+        nproc:
+          Name: "nproc"
+          Hard: 4096
+          Soft: 4096
+
+  tasks:
+    - name: Ensure Docker is installed
+      ansible.builtin.command: docker --version
+      register: docker_check
+      changed_when: false
+      failed_when: docker_check.rc != 0
+
+    - name: Ensure /etc/docker ownership and permissions
+      ansible.builtin.file:
+        path: /etc/docker
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Ensure docker.service ownership (systemd)
+      ansible.builtin.file:
+        path: "{{ item }}"
+        owner: root
+        group: root
+        mode: '0644'
+      loop:
+        - /lib/systemd/system/docker.service
+        - /usr/lib/systemd/system/docker.service
+        - /etc/systemd/system/docker.service
+      when: item is exists
+      ignore_errors: true
+
+    - name: Ensure docker.socket ownership and permissions
+      ansible.builtin.file:
+        path: "{{ item }}"
+        owner: root
+        group: root
+        mode: '0644'
+      loop:
+        - /lib/systemd/system/docker.socket
+        - /usr/lib/systemd/system/docker.socket
+        - /etc/systemd/system/docker.socket
+      when: item is exists
+      ignore_errors: true
+
+    - name: Ensure Docker socket ownership and permissions (660 root:docker)
+      ansible.builtin.file:
+        path: /var/run/docker.sock
+        owner: root
+        group: docker
+        mode: '0660'
+      ignore_errors: true
+
+    - name: Normalize trusted_docker_users to a list
+      ansible.builtin.set_fact:
+        trusted_docker_users_list: >-
+          {{
+            trusted_docker_users
+            if (trusted_docker_users is sequence and trusted_docker_users is not string)
+            else ([trusted_docker_users] if trusted_docker_users | default('') | length > 0 else [])
+          }}
+
+    - name: Ensure only trusted users are in docker group
+      ansible.builtin.user:
+        name: "{{ item }}"
+        groups: docker
+        append: true
+      loop: "{{ trusted_docker_users_list }}"
+      when: trusted_docker_users_list | length > 0
+
+    - name: Merge userns-remap if enabled
+      ansible.builtin.set_fact:
+        docker_daemon_config: "{{ docker_daemon_config | combine({'userns-remap': 'default'}) }}"
+      when: enable_userns_remap | bool
+
+    - name: Deploy CIS-oriented daemon.json
+      ansible.builtin.copy:
+        dest: /etc/docker/daemon.json
+        content: "{{ docker_daemon_config | to_nice_json }}"
+        owner: root
+        group: root
+        mode: '0644'
+      notify: Restart Docker
+
+    - name: Install auditd (Debian/Ubuntu)
+      ansible.builtin.package:
+        name: auditd
+        state: present
+      when: ansible_facts['os_family'] == 'Debian'
+
+    - name: Install audit (RHEL family)
+      ansible.builtin.package:
+        name: audit
+        state: present
+      when: ansible_facts['os_family'] == 'RedHat'
+
+    - name: Create Docker audit rules
+      ansible.builtin.copy:
+        dest: /etc/audit/rules.d/docker.rules
+        owner: root
+        group: root
+        mode: '0640'
+        content: |
+          -w /usr/bin/dockerd -k docker
+          -w /usr/bin/docker -k docker
+          -w /usr/bin/containerd -k docker
+          -w /usr/bin/containerd-shim -k docker
+          -w /usr/bin/containerd-shim-runc-v1 -k docker
+          -w /usr/bin/containerd-shim-runc-v2 -k docker
+          -w /usr/bin/runc -k docker
+          -w /var/lib/docker -k docker
+          -w /etc/docker -k docker
+          -w /etc/docker/daemon.json -k docker
+          -w /etc/default/docker -k docker
+          -w /etc/sysconfig/docker -k docker
+          -w /etc/containerd/config.toml -k docker
+          -w /usr/lib/systemd/system/docker.service -k docker
+          -w /lib/systemd/system/docker.service -k docker
+          -w /usr/lib/systemd/system/docker.socket -k docker
+          -w /lib/systemd/system/docker.socket -k docker
+          -w /var/run/docker.sock -k docker
+          -w /run/containerd -k docker
+          -w /run/containerd/containerd.sock -k docker
+      notify: Restart auditd
+
+    - name: Ensure auditd is enabled and running
+      ansible.builtin.service:
+        name: auditd
+        state: started
+        enabled: true
+
+    - name: Reload systemd
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+    - name: Ensure Docker is running after hardening
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Verify Docker is running
+      ansible.builtin.command: docker info
+      changed_when: false
+
+    - name: Hardening complete
+      ansible.builtin.debug:
+        msg: "Docker CIS hardening applied."
+
+  handlers:
+    - name: Restart Docker
+      ansible.builtin.service:
+        name: docker
+        state: restarted
+
+    - name: Restart auditd
+      ansible.builtin.service:
+        name: auditd
+        state: restarted

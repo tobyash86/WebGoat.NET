@@ -1,0 +1,110 @@
+name: Syft SBOM
+
+on:
+  workflow_call:
+    inputs:
+      image-ref:
+        description: "Image to scan (e.g. ghcr.io/owner/repo:tag)"
+        required: true
+        type: string
+      image-name:
+        description: "Image name without tag (for SBOM attestation)"
+        required: false
+        type: string
+        default: ""
+      image-digest:
+        description: "Image digest for SBOM attestation"
+        required: false
+        type: string
+        default: ""
+
+  workflow_dispatch:
+    inputs:
+      image-ref:
+        description: "Image to scan"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  sbom:
+    name: Generate SBOM
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
+      - name: Download image artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: docker-image
+          path: .
+
+      - name: Load Docker image
+        run: |
+          docker load -i image.tar
+          docker images
+
+      - name: Install Syft
+        uses: anchore/sbom-action/download-syft@9246b90769f852b3a8921f330c59e0b3f439d6e9 # v0.20.1
+
+      - name: Generate SBOM (SPDX JSON)
+        run: |
+          syft ${{ inputs.image-ref }} \
+            -o spdx-json=sbom.spdx.json \
+            -o cyclonedx-json=sbom.cyclonedx.json \
+            -o table
+
+      - name: Upload SBOM artifacts
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: sbom
+          path: |
+            sbom.spdx.json
+            sbom.cyclonedx.json
+          retention-days: 30
+
+      # Optional: attach SBOM attestation to the image (main/master only)
+      - name: Login to GHCR
+        if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main') && inputs.image-name != '' && inputs.image-digest != ''
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Normalize digest for attestation
+        id: prep
+        if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main') && inputs.image-name != '' && inputs.image-digest != ''
+        run: |
+          RAW="${{ inputs.image-digest }}"
+          NAME="${{ inputs.image-name }}"
+          NAME="${NAME%%:*}"
+
+          if echo "$RAW" | grep -q '@'; then
+            DIGEST="${RAW##*@}"
+          else
+            DIGEST="$RAW"
+          fi
+
+          echo "subject-name=$NAME" >> $GITHUB_OUTPUT
+          echo "subject-digest=$DIGEST" >> $GITHUB_OUTPUT
+
+      - name: Attest SBOM to image
+        if: (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main') && inputs.image-name != '' && inputs.image-digest != ''
+        uses: actions/attest-sbom@c604332985a26aa8cf1bdc465b92731239ec6b9e # v4.1.0
+        with:
+          subject-name: ${{ steps.prep.outputs.subject-name }}
+          subject-digest: ${{ steps.prep.outputs.subject-digest }}
+          sbom-path: sbom.spdx.json
+          push-to-registry: true

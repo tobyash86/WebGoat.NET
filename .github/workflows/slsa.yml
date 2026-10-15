@@ -1,0 +1,82 @@
+name: SLSA Attestation
+
+on:
+  workflow_call:
+    inputs:
+      image-name:
+        description: "Fully-qualified image name WITHOUT tag (e.g. ghcr.io/owner/repo)"
+        required: true
+        type: string
+      image-digest:
+        description: "Digest (sha256:... or registry/repo@sha256:...)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  attest:
+    name: Generate SLSA Provenance
+    runs-on: ubuntu-24.04
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    permissions:
+      id-token: write
+      contents: read
+      attestations: write
+      packages: write
+
+    steps:
+      - name: Harden the runner (Audit all outbound calls)
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit
+
+      - name: Validate and normalize inputs
+        id: prep
+        run: |
+          NAME="${{ inputs.image-name }}"
+          RAW="${{ inputs.image-digest }}"
+
+          echo "Received image-name: '$NAME'"
+          echo "Received image-digest: '$RAW'"
+
+          if [ -z "$NAME" ]; then
+            echo "❌ image-name is empty. Ensure dotnet.yml outputs image-name."
+            exit 1
+          fi
+
+          if [ -z "$RAW" ]; then
+            echo "❌ image-digest is empty. Image must be pushed first."
+            exit 1
+          fi
+
+          # Normalize digest to sha256:hex
+          if echo "$RAW" | grep -q '@'; then
+            DIGEST="${RAW##*@}"
+          else
+            DIGEST="$RAW"
+          fi
+
+          # subject-name must NOT include a tag
+          NAME="${NAME%%:*}"
+
+          echo "subject-name=$NAME" >> $GITHUB_OUTPUT
+          echo "subject-digest=$DIGEST" >> $GITHUB_OUTPUT
+          echo "Using subject-name=$NAME"
+          echo "Using subject-digest=$DIGEST"
+
+      # Required so push-to-registry can write the attestation to GHCR
+      - name: Login to GHCR
+        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Attest build provenance (SLSA)
+        uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-name: ${{ steps.prep.outputs.subject-name }}
+          subject-digest: ${{ steps.prep.outputs.subject-digest }}
+          push-to-registry: true
