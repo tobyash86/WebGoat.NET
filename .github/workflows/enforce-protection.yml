@@ -14,8 +14,6 @@ jobs:
   protect:
     name: Apply branch protection rules
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
 
     steps:
       - name: Harden the runner (Audit all outbound calls)
@@ -29,4 +27,4 @@ jobs:
       - name: Apply branch protection
         uses: m19c/protector@v1
         with:
-          token: ${{ secrets.PROTECTOR_TOKEN || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PROTECTOR_TOKEN }}   #PAT with repo scope
